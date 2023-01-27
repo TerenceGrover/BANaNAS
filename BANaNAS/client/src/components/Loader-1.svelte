@@ -7,8 +7,7 @@
    'damaged',
    'strut',
    'sunnies',
-   'sunnies',
-   'falling'
+   'boy'
   ];
 
    function randomSource() {

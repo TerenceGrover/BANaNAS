@@ -12,7 +12,6 @@
 
   function ParagraphSelector(newP) {
     paragraph = newP;
-    console.log(paragraph);
   }
 
 </script>
@@ -25,6 +24,7 @@
       <h3 id="top-sub-header">Get the relation between any two kinds of data<br>With a twist</h3>
     </div>
     <button style={`box-shadow : ${shadowStr}`} id="get-started" on:click={() => changePage('character')}>Get Started</button>
+    <button on:click={() => changePage('data')}>Data Test Button</button>
   </section>
 
   <div id="divider">
