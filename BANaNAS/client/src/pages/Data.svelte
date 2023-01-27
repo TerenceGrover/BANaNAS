@@ -2,37 +2,27 @@
   import Footer from "../components/Footer.svelte";
   import { transformMouseIntoCSSShadow } from "../utils/shadowTracking";
   export let changePage;
-  let shadowStr = "0px 0px 0px 0px #000";
-
-  function handleMove(e) {
-    shadowStr = transformMouseIntoCSSShadow(e.clientX, e.clientY);
-  }
-
-  let paragraph = "Transparency";
-
-  function ParagraphSelector(newP) {
-    paragraph = newP;
-  }
 
   import Loader_1 from "../components/Loader-1.svelte";
 
 </script>
 
-<main on:mousemove={handleMove}>
+<main>
   
-  <section id="top-section">
+  <header id="top-section">
     <h1 id="top-header">DATA</h1>
+    <h2 id="top-sub-header">Graph Type</h2>
     <div id="top-sub-container">
     </div>
-  </section>
+    <hr id="hr-top-divider">
+  </header>
 
   <div id="divider">
     <span id="divider-text">Analytics</span>
-  <Loader_1 />
 
   </div>
 
-  <hr id="hr-divider">
+  <hr id="hr-sub-divider">
 
   <section id="sub-section">
     
@@ -59,14 +49,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 5vh;
+    padding-top: 2vh;
     height: 85vh;
     width: 100vw;
     background-color: #052c46;
   }
 
   #top-header {
-    font-size: 7vh;
+    font-size: 4vh;
     font-family: 'Farro', sans-serif;
     color: #fed703;
   }
@@ -80,7 +70,14 @@
     background-color: #052c46;
   }
 
-  #hr-divider {
+  #hr-top-divider {
+    height: 2px;
+    width: 100vw;
+    background-color: #fed703;
+    border: none;
+  }
+
+  #hr-sub-divider {
     height: 3px;
     width: 100vw;
     background-color: #052c46;
