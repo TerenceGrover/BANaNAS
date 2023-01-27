@@ -1,5 +1,5 @@
 <script>
-
+  import Loader_1 from "../components/Loader-1.svelte";
   export let changePage;
 
 </script>
@@ -9,6 +9,8 @@
   <h1>Character</h1>
   <button on:click={() => changePage('home')}>Back</button>
   <button on:click={() => changePage('data')}>FIGHT</button>
+
+  <Loader_1 />
 
 </main>
 

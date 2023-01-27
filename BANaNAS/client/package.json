@@ -18,6 +18,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@lottiefiles/svelte-lottie-player": "^0.3.0",
     "@types/d3": "^7.4.0",
     "d3": "^7.8.2",
     "sirv-cli": "^2.0.0"
