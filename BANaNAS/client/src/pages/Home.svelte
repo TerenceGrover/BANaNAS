@@ -169,7 +169,7 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
     flex-direction: row;
     align-items: center;
     padding-top: 5vh;
-    height: 80vh;
+    min-height: 80vh;
     background-color: #fed703;
     width: 100vw;
   }

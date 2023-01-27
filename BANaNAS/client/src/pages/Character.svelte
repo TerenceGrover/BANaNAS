@@ -1,6 +1,15 @@
 <script>
   import Loader_1 from "../components/Loader-1.svelte";
   export let changePage;
+  import { onMount } from "svelte";
+
+  let loading = true;
+
+  onMount(() => {
+    setTimeout(() => {
+      loading = false;
+    }, 1000);
+  });
 
 </script>
 
@@ -10,7 +19,11 @@
   <button on:click={() => changePage('home')}>Back</button>
   <button on:click={() => changePage('data')}>FIGHT</button>
 
-  <Loader_1 />
+  {#if loading}
+    <Loader_1 />
+  {:else}
+    <p>Character</p>
+  {/if}
 
 </main>
 
