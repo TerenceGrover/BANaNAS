@@ -1,17 +1,23 @@
 <script>
   import Footer from "../components/Footer.svelte";
+  import { transformMouseIntoCSSShadow } from "../utils/shadowTracking";
   export let changePage;
+  let shadowStr = "0px 0px 0px 0px #000";
+
+  function handleMove(e) {
+    shadowStr = transformMouseIntoCSSShadow(e.clientX, e.clientY);
+  }
 
 </script>
 
-<main>
+<main on:mousemove={handleMove}>
   
   <section id="top-section">
     <h1 id="top-header">BANaNAS</h1>
     <div id="top-sub-container">
       <h3 id="top-sub-header">Get the relation between any two kinds of data<br>With a twist</h3>
     </div>
-    <button id="get-started" on:click={() => changePage('character')}>Get Started</button>
+    <button style={`box-shadow : ${shadowStr}`} id="get-started" on:click={() => changePage('character')}>Get Started</button>
   </section>
 
   <div id="divider">
@@ -71,13 +77,6 @@
     color: #fff;
   }
 
-  #hr-divider {
-    height: 3px;
-    width: 100vw;
-    background-color: #052c46;
-    border: none;
-  }
-
   #get-started{
     font-size: 36px;
     font-family: 'Farro', sans-serif;
@@ -89,6 +88,18 @@
     padding: 20px 40px;
     margin-top: 20px;
   }
+
+  #get-started:hover {
+    cursor: pointer;
+  }
+
+  #hr-divider {
+    height: 3px;
+    width: 100vw;
+    background-color: #052c46;
+    border: none;
+  }
+
 
   #divider {
     display: flex;
