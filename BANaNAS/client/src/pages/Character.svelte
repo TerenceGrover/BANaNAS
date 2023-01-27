@@ -2,7 +2,8 @@
   import Category_Collection from "../components/Category-Collection.svelte";
   export let changePage;
   import Loader from "../components/Loader-Falling.svelte";
-  import CharBackground from "../components/Char-Background.svelte";
+  import CharAnimatedBackground from "../components/Char-Animated-Background.svelte";
+  import CharStaticBackground from "../components/Char-Static-Background.svelte";
   import { onMount } from "svelte";
 
   let loading = true;
@@ -20,15 +21,16 @@
 <main>
 
 {#if loading}
-<CharBackground />
+<CharAnimatedBackground />
 <Loader />
+{:else}
+  <button on:click={() => changePage('home')}>Home</button>
+  <h2>{selectedCategory.name}</h2>
+  <Category_Collection bind:currentlySelected={selectedCategory}/>
+  <CharStaticBackground />
+
 {/if}
 
-
-<button on:click={() => changePage('home')}>Home</button>
-  <h2>{selectedCategory.name}</h2>
-
-  <Category_Collection bind:currentlySelected={selectedCategory}/>
 
 </main>
 

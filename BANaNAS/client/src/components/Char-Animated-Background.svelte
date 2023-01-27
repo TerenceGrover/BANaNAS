@@ -14,8 +14,8 @@
 
 <main>
 
-  <div id='left' class="backgound-element parallelogram"></div>
-  <div id='right' class="backgound-element parallelogram"></div>
+  <div id='left' class="backgound-element"></div>
+  <div id='right' class="backgound-element"></div>
 
 
 </main>
