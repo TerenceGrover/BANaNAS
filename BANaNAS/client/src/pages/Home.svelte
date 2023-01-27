@@ -28,7 +28,6 @@
       id="get-started"
       on:click={() => changePage('character')}>Get Started</button
     >
-    <button on:click={() => changePage('data')}>Data Test Button</button>
   </section>
 
   <div id="divider">
