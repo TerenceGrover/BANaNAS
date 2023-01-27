@@ -1,26 +1,30 @@
 // functions to interact with db
 import model from '../models/model.js';
 
-/*
-exports.getMessages = async (req, res) => {
-  try {
-    const data = await model.find();
-    res.status(200);
-    res.send(data);
-  } catch (e) {
-    console.log('e', e);
-    res.sendStatus(500);
-  ctx.status = 201;
+exports.globalController = async (req, res) => {
+  const category = req.params.category;
+
+  if (category === 'Weather') {
+    const city = req.params.param1;
+    const {latitude, longitude} = await cityToLatAndLong(city)
   }
-}; 
-exports.postMessage = async (req, res) => {
-  try {
-    await model.create(req.body);
-    res.status(201); 
-    res.send();
-  } catch (e) {
-    console.log('e', e); 
-    res.sendStatus(500);
+
+
+  // do things like calling api etc 
+
+
+  switch (category) {
+    case 'World Bank':
+      // parse using worldBankParser
+      break;
+    case 'WeatherParser':
+      // parse using WeatherParser
+      break;
+    case 'EuroStatParser':
+      // parse using EuroStatParser
+      break;
+    default:
+      // do nothing 
+      break;
   }
-};
-*/
+}
