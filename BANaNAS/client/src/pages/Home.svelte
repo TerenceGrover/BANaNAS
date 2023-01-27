@@ -8,6 +8,13 @@
     shadowStr = transformMouseIntoCSSShadow(e.clientX, e.clientY);
   }
 
+  let paragraph = "Transparency";
+
+  function ParagraphSelector(newP) {
+    paragraph = newP;
+    console.log(paragraph);
+  }
+
 </script>
 
 <main on:mousemove={handleMove}>
@@ -27,8 +34,48 @@
   <hr id="hr-divider">
 
   <section id="sub-section">
-    <h2>Sub Section</h2>
-    <p>Some text</p>
+    <div id="button-container">
+      <button class="home-buttons" on:click={() => ParagraphSelector('Transparency')}><i>🔎</i> Transparency</button>
+      <button class="home-buttons" on:click={() => ParagraphSelector('Concept')}><i>💡</i> Concept</button>
+      <button class="home-buttons" on:click={() => ParagraphSelector('Creators')}><i>☭</i> Creators</button>
+    </div>
+    <div id="paragraph-container">
+      {#if paragraph === "Transparency"}
+      <p class="description">
+        Welcome to BANaNAS, <br><br> The web app that takes two random pieces of data from around the web and tries to find any correlation, no matter how wild or far-fetched. Created by a team of enthusiasts with a love for data analysis and a knack for finding connections where others see none. We use top secret algorithms such as [formula placeholder] to aggregate the data, but don't let that fool you, we're not professional statisticians. We're more like professional data detectives, with a little bit of Sherlock Holmes and a little bit of Inspector Gadget.
+        Please keep in mind that the correlation found by BANaNAS should be taken with a grain of salt, and a dash of humor. We encourage users to check out the sources and do their own analysis, cause let's face it, correlation does not equal causation, but it's still fun to look for the links.
+        <br>
+        Sources:
+        <br>
+        [Source 1]
+        <br>
+        [Source 2]
+        <br>
+        [Source 3]
+        </p>
+      {:else if paragraph === "Concept"}
+      <p id="sub-info">
+        BANaNAS, <br><br> The web app that takes the art of data correlation to new heights. Conceived and created by a team of four software engineering students with a passion for data analysis and a curious streak. The idea behind BANaNAS is to take two random pieces of data from around the web and see if they're related in any way. It's like a game of "Six Degrees of Kevin Bacon" but with data, and you never know what kind of interesting pattern you might uncover.
+We believe that data analysis should be accessible to everyone, not just the experts in the field. That's why we've created BANaNAS, a tool that allows users to explore data in a fun and interactive way. With BANaNAS, you never know what kind of connection you might make.
+
+It all started with a spark of inspiration and a lot of hard work, and we're excited to share BANaNAS with the world. So go ahead, give it a try and see what kind of interesting connections you can make.
+      </p>
+      {:else if paragraph === "Creators"}
+      <p id="sub-info">
+        BANaNAS 
+        <br><br>
+        Created by :
+        <br>
+        <span><a href="https://github.com/alexryanjones">Alex</a> : A design magician with a focus on frontend. His organization and forward thinking made it all come together as smooth as a good slice of Banana Bread. </span>
+        <br>
+        <span><a href="https://github.com/Al366io">Alessio (Alex but in Italian)</a> : A backend genius that can give endpoints faster than you can ask for them. </span>
+        <br>
+        <a href="https://github.com/sethjplatt">Seth</a> : Organized and efficient, he's the glue that holds the team together. With him working on the backend, you know the app is in good hands.
+        <br>
+        <a href="https://github.com/TerenceGrover">Terence</a> :
+      </p>
+      {/if}
+    </div>  
   </section>
 
   <Footer />
@@ -119,12 +166,75 @@
 
   #sub-section {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     padding-top: 5vh;
     height: 80vh;
     background-color: #fed703;
     width: 100vw;
+  }
+
+  .home-buttons{
+    font-size: 20px;
+    font-family: 'Farro', sans-serif;
+    font-weight: 600;
+    color: #052c46;
+    background-color: #fed703;
+    border: none;
+    padding: 2vh 4vw;
+    margin-top: 20px;
+    border: 2px solid #052c46;
+    border-radius: 12px;
+    box-shadow: 6px 6px 0px 2px #000000AA;
+  }
+
+  .home-buttons:hover {
+    cursor: pointer;
+    background-color: #ffe23c;
+  }
+
+  #button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 25vw;
+    gap: 100px;
+    background-color: #fed703;
+  }
+
+  #paragraph-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    height: 100%;
+    width: 75vw;
+    padding: 0px 10vw;
+    background-color: #fed703;
+    padding-bottom: 40px;
+  }
+
+  #paragraph-container > p{
+    font-size: 18px;
+    font-family: 'Farro', sans-serif;
+    font-weight: 600;
+    color: #052c46;
+    background-color: #fed703;
+    border: none;
+    padding: 2vh 4vw;
+    line-height: 4vh;
+    margin-top: 20px;
+    border: 2px solid #052c46;
+    border-radius: 12px;
+    box-shadow: 8px 8px 0px 2px #000000AA;
+  }
+
+  i {
+    font-style: normal;
+    font-size: 24px;
   }
 
 </style>
