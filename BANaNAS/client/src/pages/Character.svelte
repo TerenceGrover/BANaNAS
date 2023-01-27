@@ -1,29 +1,28 @@
 <script>
-  import Loader_1 from "../components/Loader-1.svelte";
   export let changePage;
+  import Loader from "../components/Loader-Falling.svelte";
+  import CharBackground from "../components/Char-Background.svelte";
   import { onMount } from "svelte";
 
   let loading = true;
 
   onMount(() => {
     setTimeout(() => {
-      loading = false;
-    }, 1000);
-  });
+      loading = false;},
+      3500)
+  })
 
 </script>
 
 <main>
 
-  <h1>Character</h1>
-  <button on:click={() => changePage('home')}>Back</button>
-  <button on:click={() => changePage('data')}>FIGHT</button>
-
   {#if loading}
-    <Loader_1 />
-  {:else}
-    <p>Character</p>
+  <CharBackground />
+  <Loader />
   {/if}
+
+
+  <button on:click={() => changePage('home')}>Home</button>
 
 </main>
 
