@@ -118,6 +118,28 @@
           <br />
           <a href="https://github.com/TerenceGrover">Terence</a> : A brilliant polymath fullstack developer, with some weird love for frontend, data visualization and bananas.
         </p>
+
+      {:else if paragraph === "Concept"}
+      <p id="sub-info">
+        BANaNAS, <br><br> The web app that takes the art of data correlation to new heights. Conceived and created by a team of four software engineering students with a passion for data analysis and a curious streak. The idea behind BANaNAS is to take two random pieces of data from around the web and see if they're related in any way. It's like a game of "Six Degrees of Kevin Bacon" but with data, and you never know what kind of interesting pattern you might uncover.
+We believe that data analysis should be accessible to everyone, not just the experts in the field. That's why we've created BANaNAS, a tool that allows users to explore data in a fun and interactive way. With BANaNAS, you never know what kind of connection you might make.
+
+It all started with a spark of inspiration and a lot of hard work, and we're excited to share BANaNAS with the world. So go ahead, give it a try and see what kind of interesting connections you can make.
+      </p>
+      {:else if paragraph === "Creators"}
+      <p id="sub-info">
+        BANaNAS 
+        <br><br>
+        Created by :
+        <br>
+        <span><a href="https://github.com/alexryanjones">Alex</a> : A design magician with a focus on frontend. His organization and forward thinking made it all come together as smooth as a good slice of Banana Bread. </span>
+        <br>
+        <span><a href="https://github.com/Al366io">Alessio (Alex but in Italian)</a> : A backend genius that can give endpoints faster than you can ask for them. </span>
+        <br>
+        <a href="https://github.com/sethjplatt">Seth</a> : Organized and efficient, he's the glue that holds the team together. With him working on the backend, you know the app is in good hands.
+        <br>
+        <a href="https://github.com/TerenceGrover">Terence</a> : Github copilot in human form.
+      </p>
       {/if}
     </div>
   </section>
