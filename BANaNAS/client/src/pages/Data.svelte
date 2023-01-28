@@ -5,45 +5,80 @@
   import Footer from '../components/Footer.svelte';
   import Scrollbar from '../components/Scrollbar.svelte';
   import Loader_1 from '../components/Loader-1.svelte';
+  import BarGraph from '../components/Data/Bar-Graph.svelte';
+
+  // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
+  let position = 2;
+  let maxPosition = 4;
 
   let data = [];
-  let data2 = [];
-  
+
   let loading = true;
-  
+
   onMount(() => {
     // TEMPORARY
     setTimeout(() => {
       loading = false;
     }, 2000);
-  })
-
+  });
 </script>
-
-
 
 <main>
   <header id="header-section">
-    <h1 id="top-header">DATA</h1>
-    <h2 id="top-sub-header">Graph Type</h2>
-    <hr id="hr-top-divider" />
+    <div id="button-container">
+      <button
+        on:click={() => {
+          changePage('home');
+        }}
+        id="home-button">&#8636; Home</button
+      >
+      <button
+        on:click={() => {
+          changePage('character');
+        }}
+        id="character-button">&#8636; Back</button
+      >
+    <div id="header-container">
+      <h1 id="top-header">DATA</h1>
+      <h2 id="top-sub-header">Graph Type</h2>
+    </div>
   </header>
+  <hr id="hr-top-divider" />
 
-  <section id='top-section'>
-    <button id="left" class='scroll-buttons'>{'<'}</button>
-    <div id='D3-container'>
+  <section id="top-section">
+    <button
+      on:click={() => {
+        if (position > 0) {
+          position--;
+        } else {
+          position = maxPosition;
+        }
+      }}
+      id="left"
+      class="scroll-buttons">{'<'}</button
+    >
+    <div id="D3-container">
       {#if loading}
         <Loader_1 />
       {:else}
-        <div id='D3-graph' />
+        <BarGraph />
       {/if}
-
-    </div> 
-    <button id="right" class='scroll-buttons'>{'>'}</button>
-    <div id="scroll-container">
-      <Scrollbar />
     </div>
-    </section>
+    <button
+      on:click={() => {
+        if (position < maxPosition) {
+          position++;
+        } else {
+          position = 0;
+        }
+      }}
+      id="right"
+      class="scroll-buttons">{'>'}</button
+    >
+    <div id="scroll-container">
+      <Scrollbar bind:position />
+    </div>
+  </section>
 
   <div id="divider">
     <span id="divider-text">Analytics</span>
@@ -67,14 +102,40 @@
   }
 
   #header-section {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
+    padding-left: 2vw;
+    height: 8.5vh;
     width: 100vw;
     background-color: #052c46;
+  }
+
+  #button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  #button-container > button {
+    font-size: 2.5vh;
+    font-family: 'Farro', sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  #header-container {
+    position: absolute;
+    top: 1vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   #top-header {
@@ -109,7 +170,7 @@
     background-color: #052c46;
   }
 
-  .scroll-buttons{
+  .scroll-buttons {
     position: absolute;
     height: 10%;
     width: 5%;
@@ -122,6 +183,10 @@
     border-radius: 8px;
   }
 
+  .scroll-buttons:hover {
+    cursor: pointer;
+  }
+
   #left {
     left: 10px;
   }
@@ -132,10 +197,10 @@
 
   #scroll-container {
     position: absolute;
-    bottom: 5%;
+    bottom: 1vh;
     left: 50%;
     transform: translateX(-50%);
-    height: 10%;
+    height: 5%;
     width: 20%;
   }
 
