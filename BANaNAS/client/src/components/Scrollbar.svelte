@@ -62,7 +62,7 @@
   }
 
   .scrollbar-thumb {
-    height: 65%;
+    aspect-ratio: 1 / 1;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 50px;
   }

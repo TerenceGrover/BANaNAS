@@ -5,6 +5,8 @@
   let mockData = [30, 86, 168, 281, 303, 365];
 	let el;
 
+  const mean = d3.mean(mockData);
+
 	onMount(() => {
 		d3.select(el)
 			.selectAll("div")
@@ -22,8 +24,13 @@
 </script>
 
 <div bind:this={el} class="chart"></div>
+<span id="test-span">{mean}</span>
 
 <style>
+
+  #test-span {
+    color: white;
+  }
 
   .chart :global(div) {
       font: 10px sans-serif;
