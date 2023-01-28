@@ -8,7 +8,7 @@
   <div id="loader">
     <div id="left">
       <LottiePlayer
-      src={`assets/banana-falling.json`}
+      src={`assets/Loaders/banana-falling.json`}
       autoplay="{true}"
       loop="{true}"
       controls="{false}"
@@ -21,7 +21,7 @@
     </div>
     <div id="center">
       <LottiePlayer
-      src={`assets/banana-falling.json`}
+      src={`assets/Loaders/banana-falling.json`}
       autoplay="{true}"
       loop="{true}"
       controls="{false}"
@@ -34,7 +34,7 @@
     </div>
     <div id="right">
       <LottiePlayer
-      src={`assets/banana-falling.json`}
+      src={`assets/Loaders/banana-falling.json`}
       autoplay="{true}"
       loop="{true}"
       controls="{false}"
