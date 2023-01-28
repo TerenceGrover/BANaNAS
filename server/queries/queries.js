@@ -380,7 +380,7 @@ export const queries = {
       provider: 'Open-Meteo',
     },
     RainFall: {
-      description: 'Daily Rain (mm)',
+      description: 'Yearly Rain (mm)',
       queryString: `https://archive-api.open-meteo.com/v1/archive?latitude=ourLat&longitude=lng&start_date=startYear-01-01&end_date=endYear-12-31&daily=rain_sum&timezone=America%2FAnchorage`,
       indicatorCode: 'rain_sum',
       parameters_needed: ['ourLat', 'lng', 'startYear', 'endYear'],
@@ -388,11 +388,11 @@ export const queries = {
       provider: 'Open-Meteo',
     },
     SnowFall: {
-      description: 'Daily Snow (mm)',
+      description: 'Yearly Snowfall (cm)',
       queryString: `https://archive-api.open-meteo.com/v1/archive?latitude=ourLat&longitude=lng&start_date=startYear-01-01&end_date=endYear-12-31&daily=snowfall_sum&timezone=America%2FAnchorage`,
       indicatorCode: 'snowfall_sum',
       parameters_needed: ['ourLat', 'lng', 'startYear', 'endYear'],
-      unit: 'mm',
+      unit: 'cm',
       provider: 'Open-Meteo',
     },
     WindSpeed: {
