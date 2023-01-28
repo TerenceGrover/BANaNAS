@@ -1,6 +1,8 @@
 // functions to interact with db
-import {queries} from '../queries/queries.js';
-import countryCodes from '../countryCodes.json' assert { type: "json" };
+import { queries } from '../queries/queries.js';
+import countryCodes from '../countryCodes.json' assert { type: 'json' };
+import { cityToLatAndLong } from '../middleware/meteo-middleware.js';
+import { meteoParser } from '../response-parsers/meteo-parser.js';
 
 function findCountryCode(country) {
   return countryCodes[country];
@@ -18,7 +20,7 @@ function findCountryCode(country) {
 // or http://localhost:3000/api/Enviroment/AveragePrecipitation/Germany/2017/2019
 
 const globalController = async (req, res) => {
-  // every call will have category and metricName. We need to check if they are valid.  
+  // every call will have category and metricName. We need to check if they are valid.
 
   const { category, metricName } = req.params;
 
@@ -34,15 +36,21 @@ const globalController = async (req, res) => {
   // if the category is the Weather, we need to convert the city to lat and long
   if (category === 'Weather') {
     const city = req.params.param1;
-    const { latitude, longitude } = await cityToLatAndLong(city);
-    req.params.param1 = latitude;
-    req.params.param2 = longitude;
+    const { lat, lng } = await cityToLatAndLong(city);
+
+    req.params.param1 = +lat;
+
+    req.params.param4 = req.params.param3;
+    req.params.param3 = req.params.param2;
+    req.params.param2 = +lng;
   }
   // here check what parameters we need for the called category&metricName
   // and assign params values to them
   // for example if we need 2 params, we assign param1 to first param and param2 to second param
-  let paramsNeeded = eval(queries[`${category}`][`${metricName}`].parameters_needed);
-  // count the number of params passed that are not undefined 
+  let paramsNeeded = eval(
+    queries[`${category}`][`${metricName}`].parameters_needed
+  );
+  // count the number of params passed that are not undefined
   let paramsPassed = 0;
   for (let i = 1; i <= 5; i++) {
     if (req.params[`param${i}`] !== undefined) {
@@ -50,7 +58,7 @@ const globalController = async (req, res) => {
     }
   }
   // if params passed are less than params needed, return error
-  if(paramsNeeded.length !== paramsPassed) {
+  if (paramsNeeded.length !== paramsPassed) {
     return res.status(400).send('Missing some parameters!');
   }
 
@@ -77,26 +85,27 @@ const globalController = async (req, res) => {
   await fetch(queryString)
     .then((res) => res.json())
     .then((res) => (response = res));
-  res.status(200).send(response);
+  // res.status(200).send(response);
 
   // based on the provider we need to call a different parser
 
-  // switch (category) {
-  //   case 'World Bank':
-  //     // parse using worldBankParser
-  //     break;
-  //   case 'WeatherParser':
-  //     // parse using WeatherParser
-  //     break;
-  //   case 'EuroStatParser':
-  //     // parse using EuroStatParser
-  //     break;
-  //   default:
-  //     // do nothing
-  //     break;
-  // }
+  switch (category) {
+    case 'World Bank':
+      // parse using worldBankParser
+      break;
+    case 'Weather':
+      let indicatorCode = queries[`${category}`][`${metricName}`].indicatorCode;
+      response = meteoParser(response, indicatorCode);
+      break;
+    case 'EuroStatParser':
+      // parse using EuroStatParser
+      break;
+    default:
+      // do nothing
+      break;
+  }
+  res.status(200).send(response);
 };
-
 
 async function callApi(category, params, country, startYear, endYear) {
   let countryCode = findCountryCode(country);

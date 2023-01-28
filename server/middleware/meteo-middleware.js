@@ -6,5 +6,6 @@ export const cityToLatAndLong = async (city) => {
       name: city,
     },
   });
-  return [cityData.lat, cityData.lng];
+  
+  return {lat: cityData.lat, lng: cityData.lng};
 };

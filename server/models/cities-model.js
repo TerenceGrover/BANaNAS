@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { Sequelize } from './index.js';
+import sequelize from './index.js';
 
 const City = sequelize.define('cities', {
   name: DataTypes.STRING,
@@ -12,4 +12,4 @@ async function synchronize() {
 }
 synchronize();
 
-module.exports = { City };
+export default City;

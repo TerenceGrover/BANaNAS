@@ -1,9 +1,12 @@
 export const meteoParser = (json, indicatorCode) => {
   let responseObj = {};
+  console.log(json.daily[indicatorCode]);
   for (let i = 0; i < json.daily.time.length; i += 364) {
-    let temps = json.daily.indicatorCode.slice(i, i + 364);
+    let temps = json.daily[indicatorCode].slice(i, i + 364);
     let year = json.daily.time[i].slice(0, 4);
     let avg = temps.reduce((a, b) => a + b, 0) / temps.length;
+    let sum = temps.reduce((a, b) => a + b, 0);
+    responseObj[year] = (indicatorCode === 'snowfall_sum' || indicatorCode === 'rain_sum') ? sum : avg;
     responseObj[year] = avg;
     console.log('responseObj', responseObj);
   }
