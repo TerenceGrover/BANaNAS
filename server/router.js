@@ -1,5 +1,6 @@
 import express from 'express';
 const router = express.Router();
+import globalController from './controllers/controller.js';
 
 // const { func1, func2 } = require('./controllers/controller');
 
