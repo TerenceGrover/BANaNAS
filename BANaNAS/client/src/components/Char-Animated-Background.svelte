@@ -34,16 +34,14 @@
     background-color: #052c46;
     position: absolute;
     left: -100vw;
-    -webkit-clip-path: polygon(38% 50%, 62% 50%, 100% 0, 0 0, 0 100%);
-    clip-path: polygon(38% 50%, 62% 50%, 100% 0, 0 0, 0 100%);
+    clip-path: polygon(80% 0, 60% 50%, 41% 50%, 20% 100%, 0 100%, 0 0);
   }
 
   #right {
     background-color: #fed703;
     position: absolute;
     right: -100vw;
-    -webkit-clip-path: polygon(38% 50%, 62% 50%, 100% 0, 100% 100%, 0 100%);
-    clip-path: polygon(38% 50%, 62% 50%, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(80% 0, 60% 50%, 40% 50%, 20% 100%, 100% 100%, 100% 0);
   }
 
   .backgound-element{
