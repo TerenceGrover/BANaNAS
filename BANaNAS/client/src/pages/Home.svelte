@@ -118,7 +118,7 @@
           <br />
           <a href="https://github.com/TerenceGrover">Terence</a> :
         </p>
-<<<<<<< HEAD
+
       {:else if paragraph === "Concept"}
       <p id="sub-info">
         BANaNAS, <br><br> The web app that takes the art of data correlation to new heights. Conceived and created by a team of four software engineering students with a passion for data analysis and a curious streak. The idea behind BANaNAS is to take two random pieces of data from around the web and see if they're related in any way. It's like a game of "Six Degrees of Kevin Bacon" but with data, and you never know what kind of interesting pattern you might uncover.
@@ -140,8 +140,6 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
         <br>
         <a href="https://github.com/TerenceGrover">Terence</a> : Github copilot in human form.
       </p>
-=======
->>>>>>> f0873048bcc70438b68cfdc60589e1418e69688b
       {/if}
     </div>
   </section>
