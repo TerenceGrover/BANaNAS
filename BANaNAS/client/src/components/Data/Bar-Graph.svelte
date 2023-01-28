@@ -7,6 +7,10 @@
 
   onMount(() => {
 
+    const x = d3.scaleLinear()
+    .domain([0, d3.max(data)])
+    .range([0, 420])
+
     const div = d3.select(".chart")
       .style("font", "10px sans-serif")
       .style("text-align", "right")
@@ -15,10 +19,10 @@
       div.selectAll("div")
       .data(data)
       .join("div")
-        .style("background", "steelblue")
+        .style("background", "#fed703")
         .style("padding", "3px")
         .style("margin", "1px")
-        .style("width", d => `${d * 10}px`)
+        .style("width", d => `${x(d)}px`)
         .text(d => d);
   });
 

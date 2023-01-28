@@ -149,6 +149,7 @@
     font-size: 11vh;
     font-family: 'Farro', sans-serif;
     color: #fed703;
+    -webkit-text-stroke: black 2px;
   }
 
   #top-sub-container {
