@@ -10,7 +10,7 @@
   {name: 'Demographics', emoji: '📈'},
   {name: 'Economy', emoji: '💰'},
   {name: 'Education', emoji: '🎓'},
-  {name: 'Energy/Sustainability', emoji: '💡'},
+  {name: 'Energy', emoji: '💡'},
   {name: 'Entertainment', emoji: '🎭'},
   {name: 'Environment', emoji: '🌱'},
   {name: 'Finance', emoji: '💸'},

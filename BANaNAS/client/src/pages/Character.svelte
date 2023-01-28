@@ -1,6 +1,6 @@
 <script>
   import Category_Collection from "../components/Category-Collection.svelte";
-  // export let changePage;
+  export let changePage;
   import Loader from "../components/Loader-Falling.svelte";
   import Player_Zone from "../components/Player-Zone.svelte";
   import CharAnimatedBackground from "../components/Char-Animated-Background.svelte";
@@ -9,6 +9,7 @@
 
   export let leftCategory = '';
   export let rightCategory = '';
+  $: leftCategory, console.log(leftCategory);
 
   let loading = true;
   let currentSide = 'left';
@@ -43,20 +44,24 @@
     <h2 id="right-selected-category-name">{rightCategory}</h2>
     <div id="player-zone-container">
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <div id="player-container-left" class="halo" on:click={() => {
+      <div id="player-container-left" on:click={() => {
+        document.getElementById('halo-left').classList.add("halo");
+        document.getElementById('halo-right').classList.remove("halo");
         selectedCategory = {name: ''};
         currentSide = 'left';
       }}>
         <Player_Zone selectedPlayer={leftCategory} player="P1"/>
+        <div id="halo-left" class="halo"></div>
       </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div id="player-container-right" class="" on:click={() => {
-        document.getElementById('player-container-right').classList.add("halo");
-        document.getElementById('player-container-left').classList.remove("halo");
+        document.getElementById('halo-right').classList.add("halo");
+        document.getElementById('halo-left').classList.remove("halo");
         selectedCategory = {name: ''};
         currentSide = 'right';
       }}>
         <Player_Zone selectedPlayer={rightCategory} player="P2"/>
+        <div id="halo-right" class=""></div>
       </div>
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -124,6 +129,7 @@
     margin-top: 5vh;
     font-size: 7vh;
   }
+
   #player-zone-container {
     display: flex;
     justify-content: space-around;
@@ -136,16 +142,24 @@
   }
 
   #player-container-left {
+    margin-top: 0vh;
     width: 30vw;
     height: 70vh;
     z-index: 100000;
     animation: pulse 2s infinite;
+    padding-top: 20vh;
     cursor: pointer;
     color: #fed703;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
+  }
+
+  #halo-left {
     border-radius: 50%;
+    height: 10vw;
+    width: 30vw;
   }
 
   #player-container-right {
@@ -153,20 +167,27 @@
     height: 70vh;
     z-index: 100000;
     animation: pulse 2s infinite;
+    padding-top: 20vh;
     cursor: pointer;
     color: #052C46;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
-    border-radius: 50%;
 
   }
 
-  .halo {
-    -webkit-box-shadow:0px 0px 189px 47px rgba(199,214,209,0.26);
-    -moz-box-shadow: 0px 0px 189px 47px rgba(199,214,209,0.26);
-    box-shadow: 0px 47px 189px 47px rgba(199,214,209,0.26);
+    #halo-right {
+    border-radius: 50%;
+    height: 10vw;
+    width: 30vw;
+  }
 
+  .halo {
+    -webkit-box-shadow:0px 0px 189px 47px rgba(0, 0, 0, 0.5) inset;
+    -moz-box-shadow: 0px 0px 189px 47px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: 0px 47px 189px 47px rgba(0, 0, 0, 0.5) inset;
+    filter: blur(10px)
   }
 
   #hovered-category-name {
