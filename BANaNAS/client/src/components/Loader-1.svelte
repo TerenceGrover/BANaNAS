@@ -22,7 +22,7 @@
    <div id="loader">
 
       <LottiePlayer
-      src={`assets/banana-${randomSource()}.json`}
+      src={`assets/Loaders/banana-${randomSource()}.json`}
       autoplay="{true}"
       loop="{true}"
       controls="{false}"
