@@ -8,7 +8,8 @@
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
   let position = 2;
   let maxPosition = 4;
-  let loading = true;
+  // TEMPORARY
+  let loading = false;
 
   onMount(() => {
     // TEMPORARY
@@ -37,7 +38,7 @@
       {#if loading}
         <Loader_1 />
       {:else}
-      <div id="current-Graph">
+      <div id="current-graph">
         <BarGraph />
       </div>
       {/if}
@@ -69,9 +70,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 75vh;
+    height: 77vh;
     width: 100vw;
-    background-color: #052c46;
   }
 
   .scroll-buttons {
@@ -85,6 +85,17 @@
     background-color: transparent;
     border: none;
     border-radius: 8px;
+  }
+
+  #current-graph{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding : 20vh 15vw;
+    border: 3px solid white;
+    box-shadow: 25px 25px #000000aa;
+    border-radius: 12px;
   }
 
   .scroll-buttons:hover {

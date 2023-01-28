@@ -17,7 +17,7 @@
 
 <main on:mousemove={handleMove}>
   <section id="top-section">
-    <h1 id="top-header">BANaNAS</h1>
+    <h1 id="top-header" class="text-shadow-pop-br">BANaNAS</h1>
     <div id="top-sub-container">
       <h3 id="top-sub-header">
         Get the relation between any two kinds of data<br />With a twist
@@ -203,6 +203,7 @@
     font-family: 'Farro', sans-serif;
     font-weight: 600;
     color: #052c46;
+    text-shadow: 2px 2px #ffffff;
   }
 
   #sub-section {
@@ -282,4 +283,23 @@
     font-style: normal;
     font-size: 24px;
   }
+
+  .text-shadow-pop-br {
+	-webkit-animation: text-shadow-pop-br 0.8s both;
+	        animation: text-shadow-pop-br 0.8s both;
+  }
+
+  @keyframes text-shadow-pop-br {
+  0% {
+    text-shadow: 0 0 #ffffff, 0 0 #ffffff, 0 0 #ffffff, 0 0 #ffffff, 0 0 #ffffff, 0 0 #ffffff, 0 0 #ffffff, 0 0 #ffffff;
+    -webkit-transform: translateX(0) translateY(0);
+            transform: translateX(0) translateY(0);
+  }
+  100% {
+    text-shadow: 1px 1px #ffffff, 1.5px 1.5px #ffffff, 2px 2px #ffffff, 2.5px 2.5px #ffffff, 3px 3px #ffffff, 3.5px 3.5px #ffffff, 4px 4px #ffffff, 4.5px 4.5px #ffffff;
+    -webkit-transform: translateX(-4px) translateY(-4px);
+            transform: translateX(-4px) translateY(-4px);
+  }
+}
+
 </style>
