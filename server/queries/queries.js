@@ -1,4 +1,4 @@
-const allQueries = {
+export const queries = {
   // CATEGORY
   Demographics: {
     BirthRate: {
@@ -229,24 +229,24 @@ const allQueries = {
     },
     InternetUsers: {
       description: 'Internet users (per 100 people)',
-      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.NET.USER.P2?date=startYear:endYear&format=json`,
-      indicatorCode: 'IT.NET.USER.P2',
+      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.NET.USER.ZS?date=startYear:endYear&format=json`,
+      indicatorCode: 'IT.NET.USER.ZS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
       unit: 'per 100 people',
       provider: 'World Bank',
     },
     MobileCellularSubscriptions: {
       description: 'Mobile cellular subscriptions (per 100 people)',
-      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.CEL.SETS.P2?date=startYear:endYear&format=json`,
-      indicatorCode: 'IT.CEL.SETS.P2',
+      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.CEL.SETS.ZS?date=startYear:endYear&format=json`,
+      indicatorCode: 'IT.CEL.SETS.ZS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
       unit: 'per 100 people',
       provider: 'World Bank',
     },
     Television: {
       description: 'Television, fixed lines (per 100 people)',
-      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.MLT.MAIN.P2?date=startYear:endYear&format=json`,
-      indicatorCode: 'IT.MLT.MAIN.P2',
+      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.MLT.MAIN.ZS?date=startYear:endYear&format=json`,
+      indicatorCode: 'IT.MLT.MAIN.ZS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
       unit: 'per 100 people',
       provider: 'World Bank',
@@ -296,7 +296,8 @@ const allQueries = {
   },
   Health: {
     AdultMortalityRate: {
-      description: 'Adult mortality rate (probability of dying between 15 and 60 years per 1000 population)',
+      description:
+        'Adult mortality rate (probability of dying between 15 and 60 years per 1000 population)',
       queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SP.DYN.AMRT.MA?date=startYear:endYear&format=json`,
       indicatorCode: 'SP.DYN.AMRT.MA',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
@@ -304,7 +305,8 @@ const allQueries = {
       provider: 'World Bank',
     },
     MortalityByRoadTraffic: {
-      description: 'Mortality rate attributed to road traffic injury (per 100,000 population)',
+      description:
+        'Mortality rate attributed to road traffic injury (per 100,000 population)',
       queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SH.STA.TRAF.P5?date=startYear:endYear&format=json`,
       indicatorCode: 'SH.STA.TRAF.P5',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
@@ -312,7 +314,8 @@ const allQueries = {
       provider: 'World Bank',
     },
     MortalityByTuberculosis: {
-      description: 'Mortality rate attributed to tuberculosis (per 100,000 population)',
+      description:
+        'Mortality rate attributed to tuberculosis (per 100,000 population)',
       queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SH.TBS.INCD?date=startYear:endYear&format=json`,
       indicatorCode: 'SH.TBS.INCD',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
@@ -320,7 +323,8 @@ const allQueries = {
       provider: 'World Bank',
     },
     MortalityByHIV: {
-      description: 'Mortality rate attributed to HIV/AIDS (per 100,000 population)',
+      description:
+        'Mortality rate attributed to HIV/AIDS (per 100,000 population)',
       queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SH.DYN.AIDS.ZS?date=startYear:endYear&format=json`,
       indicatorCode: 'SH.DYN.AIDS.ZS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
@@ -328,7 +332,8 @@ const allQueries = {
       provider: 'World Bank',
     },
     MortalityByDiarrhea: {
-      description: 'Mortality rate attributed to diarrheal diseases (per 100,000 population)',
+      description:
+        'Mortality rate attributed to diarrheal diseases (per 100,000 population)',
       queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SH.DTH.COMM.ZS?date=startYear:endYear&format=json`,
       indicatorCode: 'SH.DTH.COMM.ZS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
@@ -336,13 +341,14 @@ const allQueries = {
       provider: 'World Bank',
     },
     MortalityByCancer: {
-      description: 'Mortality rate attributed to cancer (per 100,000 population)',
+      description:
+        'Mortality rate attributed to cancer (per 100,000 population)',
       queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SH.DTH.CANC.ZS?date=startYear:endYear&format=json`,
       indicatorCode: 'SH.DTH.CANC.ZS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
       unit: 'per 100,000 population',
       provider: 'World Bank',
-    }
+    },
   },
   History: {},
   Science: {},
@@ -398,20 +404,20 @@ const allQueries = {
       provider: 'Open-Meteo',
     },
     AverageHumidity: {
-    description: 'Average Daily Humidity (%)',
-    queryString: `https://archive-api.open-meteo.com/v1/archive?latitude=lat&longitude=lng&start_date=startYear-01-01&end_date=endYear-12-31&daily=indicatorCode&timezone=America%2FAnchorage`,
-    indicatorCode: 'relative_humidity_2m_mean',
-    parameters_needed: ['city', 'startYear', 'endYear'],
-    unit: '%',
-    provider: 'Open-Meteo',
-  },
-  AverageWindSpeed: {
-    description: 'Average Daily Wind Speed (m/s)',
-    queryString: `https://archive-api.open-meteo.com/v1/archive?latitude=lat&longitude=lng&start_date=startYear-01-01&end_date=endYear-12-31&daily=indicatorCode&timezone=America%2FAnchorage`,
-    indicatorCode: 'wind_speed_10m_mean',
-    parameters_needed: ['city', 'startYear', 'endYear'],
-    unit: 'm/s',
-    provider: 'Open-Meteo',
+      description: 'Average Daily Humidity (%)',
+      queryString: `https://archive-api.open-meteo.com/v1/archive?latitude=lat&longitude=lng&start_date=startYear-01-01&end_date=endYear-12-31&daily=indicatorCode&timezone=America%2FAnchorage`,
+      indicatorCode: 'relative_humidity_2m_mean',
+      parameters_needed: ['city', 'startYear', 'endYear'],
+      unit: '%',
+      provider: 'Open-Meteo',
+    },
+    AverageWindSpeed: {
+      description: 'Average Daily Wind Speed (m/s)',
+      queryString: `https://archive-api.open-meteo.com/v1/archive?latitude=lat&longitude=lng&start_date=startYear-01-01&end_date=endYear-12-31&daily=indicatorCode&timezone=America%2FAnchorage`,
+      indicatorCode: 'wind_speed_10m_mean',
+      parameters_needed: ['city', 'startYear', 'endYear'],
+      unit: 'm/s',
+      provider: 'Open-Meteo',
+    },
   },
 };
-

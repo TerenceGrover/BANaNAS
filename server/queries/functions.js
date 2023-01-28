@@ -1,3 +1,8 @@
+import countryCodes from '../countryCodes.json';
+
+function findCountryCode(country) {
+  return countryCodes[country];
+}
 
 async function callApi(category, params, country, startYear, endYear) {
   let countryCode = findCountryCode(country);
