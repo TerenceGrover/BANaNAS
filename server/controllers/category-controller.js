@@ -1,4 +1,4 @@
-import { allQueries } from '../queries/queries.js';
+import { queries } from '../queries/queries.js';
 
 //PASTE THIS INTO ROUTER -> router.get('/api/:selectedCategory', categoryController);
 
