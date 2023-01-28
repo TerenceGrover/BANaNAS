@@ -28,7 +28,7 @@
 <main>
   <div id="category-container">
     <div class='row'>
-    {#each categoryList.slice(0, 4) as category}
+    {#each categoryList.slice(0, 5) as category}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div class="category"
         on:mouseenter={() => currentlyHovered.name = category.name}
@@ -40,7 +40,7 @@
     {/each}
     </div>
     <div class='row'>
-    {#each categoryList.slice(4, 10) as category}
+    {#each categoryList.slice(5, 11) as category}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div class="category"
         on:mouseenter={() => {currentlyHovered.name = category.name}}
@@ -52,7 +52,7 @@
     {/each}
     </div>
     <div class='row'>
-    {#each categoryList.slice(10, 15) as category}
+    {#each categoryList.slice(11, 16) as category}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div class="category"
         on:mouseenter={() => currentlyHovered.name = category.name}
@@ -77,14 +77,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 2vw
 }
 
 .category {
   border: 5px solid #052C46;
-  font-size: 50px;
+  font-size: 35px;
   border-radius: 50%;
-  height: 70px;
-  width: 70px;
+  height: 50px;
+  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;

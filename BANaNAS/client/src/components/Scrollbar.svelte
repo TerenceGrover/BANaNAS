@@ -1,26 +1,41 @@
 <script>
+  import { onMount } from "svelte";
 
   export let graphNumber = 5;
+  export let position = 2;
+
+  onMount(() => {
+    let active = document.getElementById(position);
+    if (active) {
+      active.classList.add('active');
+    }
+  });
 
 </script>
 
 <main>
-
-  <div id="scrollbar">
-      <div id="scrollbar-track">
-      </div>
-      <div id="thumb-container">
-        {#each Array(graphNumber) as _, i}
-        <div class="scrollbar-thumb" style="height: 65%; width: 10%; background-color: rgba(255,255,255,0.3); border-radius: 50px;">
-        </div>
-        {/each}
-      </div>
+  <div id="scrollbar" style="width: {graphNumber * 2}vw;">
+    <div id="thumb-container">
+      {#each Array(graphNumber) as _, i}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div
+        on:click={() => {
+          position = i;
+        }}
+          key={i}
+          id={i}
+          class={"scrollbar-thumb" + (i === position ? " active" : "")}
+          style="width: {100 / (graphNumber * 2)}%;"
+        />
+      {/each}
+    </div>
   </div>
 
+  <!-- DIV HERE TO TEST SVELTE TREE SHAKING -->
+  <div class="active" />
 </main>
 
 <style>
-
   main {
     display: flex;
     flex-direction: column;
@@ -31,24 +46,8 @@
   #scrollbar {
     position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     height: 2.5vh;
-    width: 10vw;
-    background-color: rgba(255,255,255,0.3);
-    border-radius: 50px;
-  }
-
-  #scrollbar-track {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 70%;
-    width: 15%;
-    background-color: rgb(212, 212, 212);
+    background-color: rgba(255, 255, 255, 0.3);
     border-radius: 50px;
   }
 
@@ -57,9 +56,18 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 7%;
     height: 100%;
     width: 100%;
   }
 
+  .scrollbar-thumb {
+    aspect-ratio: 1 / 1;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+  }
+
+  .active {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
 </style>

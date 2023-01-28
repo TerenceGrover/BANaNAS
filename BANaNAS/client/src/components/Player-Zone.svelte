@@ -33,7 +33,7 @@
 
   #player{
     height: 50vh;
-    border: 1px solid red;
+    margin-bottom: 15vh;
   }
 
 

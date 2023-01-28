@@ -70,18 +70,17 @@
       leftCategory = '';
       rightCategory = '';
       currentSide = 'left';
-      document.getElementById('player-container-left').classList.add("halo");
-      document.getElementById('player-container-right').classList.remove("halo");
+      document.getElementById('halo-left').classList.add("halo");
+      document.getElementById('halo-right').classList.remove("halo");
       }}>Reset</h4>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <img id="vs" src="../../assets/vs.png" alt="vs"/>
+    <img id="vs" src="../../assets/vs.png" alt="vs" on:click={() => changePage('data')}/>
     <div id="category-list">
       <Category_Collection
         bind:currentlyHovered={hoveredCategory}
         bind:currentlySelected={selectedCategory}
       />
     </div>
-    <button on:click={() => changePage('home')}>Home</button>
     
     <CharStaticBackground />
   {/if}
@@ -113,15 +112,14 @@
   }
 
   #vs:hover {
-    transform: translate(-50%, -50%) scale(1.3);
-    rotate: (15deg);
+    transform: translate(-50%, -50%) scale(1.3) rotate(15deg);
   }
 
   #category-list {
     z-index: 10000;
     position: absolute;
     align-self: center;
-    top: 70vh
+    bottom: 5vh;
   }
 
   #title {
@@ -158,7 +156,7 @@
 
   #halo-left {
     border-radius: 50%;
-    height: 10vw;
+    height: 100vh;
     width: 30vw;
   }
 
