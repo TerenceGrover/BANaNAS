@@ -72,7 +72,7 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
         <br>
         <a href="https://github.com/sethjplatt">Seth</a> : Organized and efficient, he's the glue that holds the team together. With him working on the backend, you know the app is in good hands.
         <br>
-        <a href="https://github.com/TerenceGrover">Terence</a> :
+        <a href="https://github.com/TerenceGrover">Terence</a> : Github copilot in human form.
       </p>
       {/if}
     </div>  

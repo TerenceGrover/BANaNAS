@@ -10,7 +10,7 @@
     height: 100vh;
     width: 100vw;
     overflow: none;
-    z-index: 10;
+    z-index: 1;
   }
 
   #left {
