@@ -116,7 +116,7 @@
           efficient, he's the glue that holds the team together. With him
           working on the backend, you know the app is in good hands.
           <br />
-          <a href="https://github.com/TerenceGrover">Terence</a> :
+          <a href="https://github.com/TerenceGrover">Terence</a> : A brilliant polymath fullstack developer, with some weird love for frontend, data visualization and bananas.
         </p>
       {/if}
     </div>
@@ -303,3 +303,5 @@
 }
 
 </style>
+
+

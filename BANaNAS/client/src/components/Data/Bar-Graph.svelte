@@ -1,44 +1,28 @@
 <script>
 
-  import { onMount } from 'svelte';
-  import * as d3 from 'd3';
-  let mockData = [30, 86, 168, 281, 303, 365];
-	let el;
+  import * as d3 from "d3";
+  import { onMount } from "svelte";
 
-  const mean = d3.mean(mockData);
+  const data = [4, 8, 15, 16, 23, 42];
 
-	onMount(() => {
-		d3.select(el)
-			.selectAll("div")
-			.data(mockData)
-			.enter()
-			.append("div")
-			.style("width", function(d) {
-				return d + "px";
-			}
-      )
-			.text(function(d) {
-				return d;
-			});
-	});
+  onMount(() => {
+
+    const div = d3.select(".chart")
+      .style("font", "10px sans-serif")
+      .style("text-align", "right")
+      .style("color", "white");
+
+      div.selectAll("div")
+      .data(data)
+      .join("div")
+        .style("background", "steelblue")
+        .style("padding", "3px")
+        .style("margin", "1px")
+        .style("width", d => `${d * 10}px`)
+        .text(d => d);
+  });
+
 </script>
 
-<div bind:this={el} class="chart"></div>
-<span id="test-span">{mean}</span>
 
-<style>
-
-  #test-span {
-    color: white;
-  }
-
-  .chart :global(div) {
-      font: 10px sans-serif;
-      background-color: #fed703;
-      text-align: right;
-      padding: 3px;
-      margin: 1px;
-      color: white;
-    }
-
-</style>
+<div class="chart"></div>
