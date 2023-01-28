@@ -21,6 +21,8 @@ export const meteoParser = (json, indicatorCode) => {
   return responseObj;
 };
 
+//SHEEEEEEEESH
+
 // meteoParser(snowJson, code);
 
 // const data = await fetch(
