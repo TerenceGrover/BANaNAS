@@ -8,6 +8,7 @@ export const categoryController = async (req, res) => {
       responseObj[query] = {
         description: queries[category][query]['description'],
         parameters_needed: queries[category][query]['parameters_needed'],
+        available_countries: queries[category][query]['availableCountries'],
       };
     }
     res.status(200).json(responseObj);
@@ -16,5 +17,3 @@ export const categoryController = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
-// SHEEEEEEEEEEEESH

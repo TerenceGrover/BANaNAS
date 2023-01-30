@@ -1,9 +1,3 @@
-// const snow = await fetch(
-//   'https://archive-api.open-meteo.com/v1/archive?latitude=39.74&longitude=-104.98&start_date=2010-01-01&end_date=2011-12-31&daily=temperature_2m_mean&timezone=America%2FAnchorage'
-// );
-// const snowJson = await snow.json();
-// const code = 'temperature_2m_mean';
-
 export const meteoParser = (json, indicatorCode) => {
   let responseObj = {};
   console.log('values', json.daily[indicatorCode]);
@@ -20,13 +14,3 @@ export const meteoParser = (json, indicatorCode) => {
   }
   return responseObj;
 };
-
-//SHEEEEEEEESH
-
-// meteoParser(snowJson, code);
-
-// const data = await fetch(
-//   'https://archive-api.open-meteo.com/v1/archive?latitude=18.20&longitude=110.5&start_date=2010-01-01&end_date=2020-12-31&daily=temperature_2m_mean&timezone=America%2FAnchorage'
-// );
-// const read = await data.json();
-// meteoParser(read);

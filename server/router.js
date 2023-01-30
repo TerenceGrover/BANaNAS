@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import globalController from './controllers/controller.js';
+import globalController, {addBanana, deleteBanana, getBananas} from './controllers/controller.js';
 import { categoryController } from './controllers/category-controller.js';
 
 router.get(
@@ -9,6 +9,13 @@ router.get(
 );
 router.get('/api/:selectedCategory', categoryController);
 
+router.post('/banana/:name', addBanana);
+
+// reset banana table 
+router.delete('/bananas', deleteBanana);
+
+// get all bananas eaten and by who 
+router.get('/bananas', getBananas);
 export default router;
 
 fetch('http://localhost:3000/category/1/2/3');
