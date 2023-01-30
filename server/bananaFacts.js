@@ -1,4 +1,6 @@
-const bananaFacts = {
+import { BananaCountNumber } from './models/model.js';
+
+let bananaFacts = {
   1: 'The banana plant is not actually a tree, but is classified as an herb.',
   2: 'The "trunk" of the banana plant is actually made up of tightly packed leaves, which can grow up to 25 feet in height.',
   3: 'The banana plant is the largest herbaceous flowering plant',
@@ -18,6 +20,6 @@ const bananaFacts = {
   17: 'As of 2017, the world\'s largest banana plantation is in Ecuador, with 25,000 hectares (62,000 acres) of bananas.',
   18: 'During the making of the 2005 film King Kong, the banana prop used by Naomi Watts was a real banana.',
   19: 'The last time a banana was eaten in space was in 2013, by astronaut Chris Hadfield.',
-  20: 'During the development of these app, the developers have eaten 7 bananas',
+  20: `During the development of this app, the developers have eaten ${BananaCountNumber} bananas`,
   21: 'In 2019, a banana duct-taped to a wall sold for $120,000 at an art auction.',
 };

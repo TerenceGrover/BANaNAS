@@ -4,6 +4,7 @@ import countryCodes from '../countryCodes.json' assert { type: 'json' };
 import { cityToLatAndLong } from '../middleware/meteo-middleware.js';
 import { meteoParser } from '../response-parsers/meteo-parser.js';
 import { worldBankParser } from '../response-parsers/worldBank-parser.js';
+import { BananaCounter } from '../models/model.js';
 function findCountryCode(country) {
   return countryCodes[country];
 }
@@ -99,6 +100,57 @@ const globalController = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).send('Internal server error!');
+  }
+};
+
+export const addBanana = async (req, res) => {
+  try {
+    const name = req.params.name;
+    // find one or create if not found
+    const bananaCount = await BananaCounter.findOrCreate({
+      where: { name: name },
+      defaults: { count: 0 },
+    });
+    // increment count
+    bananaCount[0].count++;
+    // save
+    await bananaCount[0].save();
+    res.status(200).json({ message: 'Banana added' });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const deleteBanana = async (req, res) => {
+  // go in db and reset count to 0 for every user
+  try {
+    await BananaCounter.update({ count: 0 }, { where: {} });
+    res.status(200).json({ message: 'Banana deleted' });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const getBananas = async (req, res) => {
+  // go in db and get count for every user
+  try {
+    const bananaCount = await BananaCounter.findAll();
+    // vreate an object with key value pairs name and count
+    const bananaCountObj = {};
+    bananaCount.forEach((user) => {
+      bananaCountObj[user.name] = user.count;
+    });
+    // add total count to the object
+    bananaCountObj.total = bananaCount.reduce(
+      (acc, user) => acc + user.count,
+      0
+    );
+    res.status(200).json(bananaCountObj);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
