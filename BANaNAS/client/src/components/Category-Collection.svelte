@@ -91,7 +91,7 @@
   align-items: center;
   transform: scale(1);
   transition: transform 0.2s ease-in-out;
-  filter: drop-shadow(5px 5px 4px #000000);
+  filter: drop-shadow(2px 2px 0px #000000);
   cursor: pointer;
   animation: pulse 2s infinite;
 
