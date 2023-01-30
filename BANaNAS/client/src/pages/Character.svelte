@@ -10,7 +10,7 @@
   export let leftCategory = '';
   export let rightCategory = '';
 
-  let loading = true;
+  let loading = false;
   let currentSide = 'left';
   let hoveredCategory = {name: ''};
   let selectedCategory = {name: ''};
@@ -37,18 +37,32 @@
   <CharAnimatedBackground />
   <Loader />
   {:else}
+  <header id="header-section">
     <h1 id="title">Choose Your Fighter</h1>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <h4 id="home-button" on:click={() => changePage('home')}>
+      <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon"/>
+      Home
+    </h4>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <h4 id="reset-button" on:click={() => {
+      selectedCategory = {name: ''};
+      leftCategory = '';
+      rightCategory = '';
+      currentSide = 'left';
+      document.getElementById('selector-right').classList.add("hidden");
+      document.getElementById('selector-left').classList.remove("hidden");
+      }}>Reset
+      <img id="reset-icon" src="../../assets/icons/reset.svg" alt="reset-icon"/>
+    </h4>
+  </header>
+
     <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
-    
     <div id="player-zone-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div id="player-container-left" on:click={() => {
         if (document.getElementById('selector-right')) document.getElementById('selector-right').classList.toggle("hidden");
         if (document.getElementById('selector-left')) document.getElementById('selector-left').classList.toggle("hidden");
-
-        console.log(document.getElementById('selector-right'))
-        console.log(document.getElementById('selector-left'))
-
         selectedCategory = {name: ''};
         currentSide = 'left';
       }}>
@@ -63,11 +77,6 @@
       <div id="player-container-right"on:click={() => {
         if (document.getElementById('selector-right')) document.getElementById('selector-right').classList.toggle("hidden");
         if (document.getElementById('selector-left')) document.getElementById('selector-left').classList.toggle("hidden");
-
-
-        console.log(document.getElementById('selector-right'))
-        console.log(document.getElementById('selector-left'))
-        
         selectedCategory = {name: ''};
         currentSide = 'right';
       }}>
@@ -79,17 +88,7 @@
         <Player_Zone selectedPlayer={rightCategory} player="P2"/>
       </div>
     </div>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <h4 id="reset-categories" on:click={() => {
-      selectedCategory = {name: ''};
-      leftCategory = '';
-      rightCategory = '';
-      currentSide = 'left';
-      document.getElementById('selector-right').classList.add("hidden");
-      document.getElementById('selector-left').classList.remove("hidden");
-
-      }}>Reset
-      <img id="reset-icon" src="../../assets/icons/reset.svg" alt="reset-icon"/></h4>
+    
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <img id="vs" src="../../assets/vs.png" alt="vs" on:click={() => changePage('data')}/>
     <div id="category-list">
@@ -98,11 +97,7 @@
         bind:currentlySelected={selectedCategory}
       />
     </div>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <h4 id="home-button" on:click={() => changePage('home')}>
-      <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon"/>
-      Home
-    </h4>
+    
     
     <CharStaticBackground />
   {/if}
@@ -121,6 +116,16 @@
     overflow: none;
     font-family: 'Farro', sans-serif;
     color: #fed703;
+  }
+
+  #header-section {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3vw;
+    height: 10vh;
+    width: 100vw;
+    border: 1px solid red;
   }
 
   #vs {
@@ -145,13 +150,54 @@
   }
 
   #title {
-    z-index: 100;
-    margin-top: 5vh;
+    position: absolute;
+    height: 10vh;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     font-size: 7vh;
+    z-index: 100;
     -webkit-text-stroke: 2px black;
     filter: drop-shadow(3px 3px 0px #000000AA); 
+    transform: translate(-50%, 0);
+  }
 
+  #reset-button {
+    z-index: 10000;
+    font-size: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #052C46;
+    cursor: pointer;
+    gap: 5px;
+    -webkit-text-stroke: 1px black;
+  }
 
+  #reset-icon {
+    height: 3vh;
+    padding-bottom: 3px;
+  }
+
+  #home-icon {
+    height: 3vh;
+    margin-bottom: 1vh;
+    -webkit-text-stroke: 1px black;
+  }
+
+  #home-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 6vw;
+    font-size: 3vh;
+    gap: 5px;
+    z-index: 10000;
+    color: #fed703;
+    cursor: pointer;
+    -webkit-text-stroke: 1px black;
   }
 
   #player-zone-container {
@@ -243,46 +289,6 @@
     color: #052C46;
     z-index: 500;
     padding-bottom: 5vh;
-
-  }
-
-  #reset-categories {
-    position: absolute;
-    z-index: 10000;
-    top: 5vh;
-    right: 5vw;
-    font-size: 3vh;
-    align-items: center;
-    color: #052C46;
-    cursor: pointer;
-    -webkit-text-stroke: 1px black;
-  }
-
-  #reset-icon {
-    height: 3vh;
-  }
-
-  #home-icon {
-    height: 3vh;
-    margin-bottom: 1vh;
-    -webkit-text-stroke: 1px black;
-
-  }
-
-  #home-button {
-    position: absolute;
-    z-index: 10000;
-    top: 5vh;
-    left: 5vw;
-    font-size: 3vh;
-    color: #fed703;
-    cursor: pointer;
-    width: 6vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
-    -webkit-text-stroke: 1px black;
   }
   .hidden {
     display: none;

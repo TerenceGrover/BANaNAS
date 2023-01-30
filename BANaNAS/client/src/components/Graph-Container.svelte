@@ -63,14 +63,13 @@
 </main>
 
 <style>
-
   #top-section {
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 77vh;
+    height: 70vh;
     width: 100vw;
   }
 
