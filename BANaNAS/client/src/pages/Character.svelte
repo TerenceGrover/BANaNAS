@@ -1,20 +1,33 @@
 <script>
   import Category_Collection from "../components/Category-Collection.svelte";
-  export let changePage;
   import Loader from "../components/Loader-Falling.svelte";
+  import Versus from "../components/Versus.svelte";
   import Player_Zone from "../components/Player-Zone.svelte";
   import CharAnimatedBackground from "../components/Char-Animated-Background.svelte";
   import CharStaticBackground from "../components/Char-Static-Background.svelte";
+  import SubSelector from "../components/Sub-Selector.svelte";
   import { onMount } from "svelte";
+  export let changePage;
 
   export let leftCategory = '';
   export let rightCategory = '';
+  $: both = (leftCategory !== '') && (rightCategory !== '');
   $: leftCategory, console.log(leftCategory);
 
   let loading = true;
   let currentSide = 'left';
   let hoveredCategory = {name: ''};
   let selectedCategory = {name: ''};
+
+  let left = {
+    what: '',
+    where: ''
+  }
+
+  let right = {
+    what: '',
+    where: ''
+  }
   
   $: if (selectedCategory.name !== '') {
     if (currentSide === 'left') {
@@ -74,7 +87,16 @@
       document.getElementById('halo-right').classList.remove("halo");
       }}>Reset</h4>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <img id="vs" src="../../assets/vs.png" alt="vs" on:click={() => changePage('data')}/>
+    {#if both && right.what !== '' && left.what !== '' && right.where !== '' && left.where !== ''}
+      <Versus {changePage} />
+    {:else}
+      {#if rightCategory !== ''}
+      <SubSelector bind:what={left.what} bind:where={left.where} currentSide='right'  />
+      {/if}
+      {#if leftCategory !== ''}
+      <SubSelector bind:what={right.what} bind:where={right.where} currentSide='left' />
+      {/if}
+    {/if}
     <div id="category-list">
       <Category_Collection
         bind:currentlyHovered={hoveredCategory}
@@ -101,19 +123,6 @@
     color: #fed703;
   }
 
-  #vs {
-    z-index: 10000;
-    height: 60vh;
-    position: absolute;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-  }
-
-  #vs:hover {
-    transform: translate(-50%, -50%) scale(1.3) rotate(15deg);
-  }
 
   #category-list {
     z-index: 10000;
