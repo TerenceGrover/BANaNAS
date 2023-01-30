@@ -1,6 +1,10 @@
 import express from 'express';
 const router = express.Router();
-import globalController, {addBanana, deleteBanana, getBananas} from './controllers/controller.js';
+import globalController, {
+  addBanana,
+  deleteBanana,
+  getBananas,
+} from './controllers/controller.js';
 import { categoryController } from './controllers/category-controller.js';
 
 router.get(
@@ -11,10 +15,10 @@ router.get('/api/:selectedCategory', categoryController);
 
 router.post('/banana/:name', addBanana);
 
-// reset banana table 
+// reset banana table
 router.delete('/bananas', deleteBanana);
 
-// get all bananas eaten and by who 
+// get all bananas eaten and by who
 router.get('/bananas', getBananas);
 export default router;
 
