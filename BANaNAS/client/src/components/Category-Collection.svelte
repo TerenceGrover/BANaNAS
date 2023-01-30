@@ -91,13 +91,30 @@
   align-items: center;
   transform: scale(1);
   transition: transform 0.2s ease-in-out;
-  filter: drop-shadow(5px 5px 4px #000000);
+  filter: drop-shadow(2px 2px 0px #000000);
   cursor: pointer;
+  animation: pulse 2s infinite;
+
 }
 
 .category:hover{
-  transform: scale(1.2);
+  transform: scale(1.25) rotate(10deg);
   animation: shake 0.6s linear;
+  transition: none !important;
+}
+
+  @keyframes pulse {
+	0% {
+		transform: scale(0.95);
+	}
+
+	50% {
+		transform: scale(1.05);
+	}
+
+	100% {
+		transform: scale(0.95);
+	}
 }
 
 </style>

@@ -9,7 +9,7 @@
   let position = 2;
   let maxPosition = 4;
   // TEMPORARY
-  let loading = false;
+  let loading = true;
 
   onMount(() => {
     // TEMPORARY
