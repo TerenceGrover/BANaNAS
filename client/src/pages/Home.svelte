@@ -132,13 +132,13 @@
         BANaNAS 
         <br><br>
         Created by :
-        <br>
+        <br><br>
         <span><a href="https://github.com/alexryanjones">Alex</a> : A design magician with a focus on frontend. His organization and forward thinking made it all come together as smooth as a good slice of Banana Bread. </span>
-        <br>
+        <br><br>
         <span><a href="https://github.com/Al366io">Alessio (Alex but in Italian)</a> : A backend genius that can give endpoints faster than you can ask for them. </span>
-        <br>
+        <br><br>
         <span><a href="https://github.com/sethjplatt">Seth</a> : Organized and efficient, he's the glue that holds the team together. With him working on the backend, you know the app is in good hands. </span>
-        <br>
+        <br><br>
         <span><a href="https://github.com/TerenceGrover">Terence</a> : A brilliant polymath fullstack developer, with some weird love for frontend, data visualization and bananas.</span>
       </p>
       {/if}

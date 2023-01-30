@@ -25,7 +25,20 @@ export let changePage;
   }
 
   #vs:hover {
-    transform: translate(-50%, -50%) scale(1.3) rotate(15deg);
+    animation: bouce 1s ease-in-out infinite;
+    /* transform: translate(-50%, -50%) scale(1.3) rotate(15deg); */
+  }
+
+  @keyframes bouce {
+    0% {
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.3) rotate(-10deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
   }
 
 </style>
