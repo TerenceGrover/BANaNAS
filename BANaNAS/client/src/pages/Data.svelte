@@ -26,19 +26,23 @@
       <h2 id="top-sub-header">Graph Type</h2>
     </div>
   </header>
-  <hr id="hr-top-divider" />
+  <hr id="hr-divider" />
 
   <GraphContainer />
 
   <div id="divider">
-    <span id="divider-text">Analytics</span>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <span id="divider-text" on:click={() => {
+      document.getElementById('footer').scrollIntoView({behavior: "smooth"});
+    }}>Analytics</span>
   </div>
 
   <hr id="hr-sub-divider" />
 
   <section id="sub-section" />
-
-  <Footer />
+  <div id="footer">
+    <Footer />
+  </div>
 </main>
 
 <style>
@@ -102,8 +106,8 @@
     margin: 7px 0px;
   }
 
-  #hr-top-divider {
-    height: 2px;
+  #hr-divider {
+    height: 0.5vh;
     width: 100vw;
     background-color: #fed703;
     border: none;
@@ -131,6 +135,14 @@
     font-family: 'Farro', sans-serif;
     font-weight: 600;
     color: #052c46;
+    text-shadow: 2px 2px #ffffff;
+    animation: pulse 2s infinite;
+    cursor: pointer;
+  }
+
+  #divider-text:hover {
+    animation-play-state: paused;
+    animation: tilt-shaking 0.5s infinite;
   }
 
   #sub-section {
@@ -138,9 +150,36 @@
     flex-direction: row;
     align-items: center;
     padding-top: 5vh;
-    min-height: 80vh;
+    min-height: 75vh;
+    max-height: 75vh;
     background-color: #fed703;
     width: 100vw;
     z-index: 2;
   }
+
+  #footer {
+    height: 9.5vh;
+  }
+
+  @keyframes pulse {
+	0% {
+		transform: scale(0.95);
+	}
+
+	50% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.95);
+	}
+}
+
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
 </style>
