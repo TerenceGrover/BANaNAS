@@ -32,8 +32,8 @@
   }
 
   #player{
-    height: 50vh;
-    margin-bottom: 15vh;
+    height: 55vh;
+    width: 30vw;
   }
 
 
