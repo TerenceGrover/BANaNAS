@@ -74,7 +74,8 @@
   #player-1 {
     z-index: 10000;
     font-size: 12.5vw;
-    filter: drop-shadow(5px 5px 4px #000000AA); 
+    filter: drop-shadow(5px 5px 0px #000000AA); 
+    -webkit-text-stroke: 3px black;
   }
 
 </style>

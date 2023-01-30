@@ -158,6 +158,10 @@
     z-index: 100;
     margin-top: 5vh;
     font-size: 7vh;
+    -webkit-text-stroke: 2px black;
+    filter: drop-shadow(3px 3px 0px #000000AA); 
+
+
   }
 
   #player-zone-container {
@@ -259,6 +263,7 @@
     align-items: center;
     color: #052C46;
     cursor: pointer;
+    -webkit-text-stroke: 1px black;
   }
 
   #reset-icon {
@@ -267,7 +272,9 @@
 
   #home-icon {
     height: 3vh;
-    margin-bottom: 1vh
+    margin-bottom: 1vh;
+    -webkit-text-stroke: 1px black;
+
   }
 
   #home-button {
@@ -283,6 +290,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 5px;
+    -webkit-text-stroke: 1px black;
   }
   .hidden {
     display: none;
