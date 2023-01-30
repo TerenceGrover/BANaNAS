@@ -3315,7 +3315,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'US$',
       provider: 'Bananas API',
-      availableCountries: = [
+      availableCountries: [
         "Albania",
         "Algeria",
         "Andorra",
