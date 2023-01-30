@@ -1,9 +1,36 @@
 <script>
   export let changePage;
+  export let leftData;
+  export let rightData;
 
   import GraphContainer from '../components/Graph-Container.svelte';
   import Footer from '../components/Footer.svelte';
+  import { onMount } from 'svelte';
+  import { getMetrics } from '../utils/api-services';
+  import Loader_1 from '../components/Loader-1.svelte';
+  import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
 
+  let leftGraphData = [];
+  let rightGraphData = [];
+
+  let loading = true;
+
+  async function getAllData() {
+    getMetrics(leftData.cat, leftData.what, leftData.where).then((data) => {
+      leftGraphData = data;
+    });
+    getMetrics(rightData.cat, rightData.what, rightData.where).then((data) => {
+      rightGraphData = data;
+    });
+  }
+
+  setTimeout(() => {
+    loading = false;
+  }, 2500);
+
+  onMount(() => {
+    getAllData();
+  });
 </script>
 
 <main>
@@ -21,14 +48,22 @@
         }}
         id="character-button">&#8636; Back</button
       >
-    <div id="header-container">
-      <h1 id="top-header">DATA</h1>
-      <h2 id="top-sub-header">Graph Type</h2>
+      <div id="header-container">
+        <h1 id="top-header">DATA</h1>
+        <h2 id="top-sub-header">Graph Type</h2>
+      </div>
     </div>
   </header>
   <hr id="hr-top-divider" />
 
-  <GraphContainer />
+  {#if loading}
+    <div class="animated">
+      <DataAnimatedBg />
+      <Loader_1 />
+    </div>
+  {:else}
+    <GraphContainer {leftGraphData} {rightGraphData} />
+  {/if}
 
   <div id="divider">
     <span id="divider-text">Analytics</span>
@@ -51,6 +86,17 @@
     width: 100vw;
   }
 
+  .animated {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100vh;
+    width: 100vw;
+    background-color: #052c46;
+    z-index: 3;
+  }
+
   #header-section {
     position: relative;
     display: flex;
@@ -60,7 +106,7 @@
     background-color: #052c46;
   }
 
-  #button-container{
+  #button-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

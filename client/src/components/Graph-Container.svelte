@@ -1,22 +1,15 @@
 <script>
 
-  import { onMount } from 'svelte';
+  export let leftGraphData;
+  export let rightGraphData;
+
   import Scrollbar from '../components/Scrollbar.svelte';
-  import Loader_1 from '../components/Loader-1.svelte';
-  import BarGraph from '../components/Data/Bar-Graph.svelte';
+  // import BarGraph from '../components/Data/Bar-Graph.svelte';
+  import LineGraph from '../components/Data/Line-Graph.svelte';
 
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
   let position = 2;
   let maxPosition = 4;
-  // TEMPORARY
-  let loading = true;
-
-  onMount(() => {
-    // TEMPORARY
-    setTimeout(() => {
-      loading = false;
-    }, 2000);
-  });
 
 </script>
 
@@ -35,13 +28,10 @@
       class="scroll-buttons">{'<'}</button
     >
     <div id="D3-container">
-      {#if loading}
-        <Loader_1 />
-      {:else}
       <div id="current-graph">
-        <BarGraph />
+        <!-- <BarGraph /> -->
+        <LineGraph data1={leftGraphData} data2={rightGraphData} />
       </div>
-      {/if}
     </div>
     <button
       on:click={() => {

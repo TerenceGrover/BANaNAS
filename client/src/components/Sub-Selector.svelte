@@ -1,17 +1,47 @@
 <script>
+  import { onMount } from 'svelte';
   export let currentSide;
   import Select from 'svelte-select';
+  export let category;
+  import { getSubCategories } from "../utils/api-services";
 
-  let whatItems = [
-'banana export', 
-'banana import', 
-'chocolate export' ]
+  
+  let whatItems
+  let whereItems;
+  let APIdata;
+  
+  export let what;
+  export let where;
 
-  let whereItems = ['Zimbabwe', 'South Korea', 'Panama'];
+  let inputFields 
 
-  export let what = '';
-  export let where = '';
+  onMount(() => {
+    inputFields = document.getElementsByClassName('sub-input');
+    what = ''
+    where = ''
+  })
 
+  function reset() {
+    what = ''
+    where = ''
+    if (inputFields){
+      inputFields[0].value = ''
+      inputFields[1].value = ''
+    }
+    getSubCategories(category).then((data) => {
+      APIdata = data;
+      whatItems = Object.keys(data)
+    })
+  }
+
+  $: if (category) {
+    reset()
+  }
+
+  $: if (what.value && !where.value) {
+    whereItems = APIdata[what.value].available_countries
+  }
+    
 </script>
 
 <main>

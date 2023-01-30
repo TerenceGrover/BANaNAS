@@ -28,8 +28,8 @@
       controls="{false}"
       renderer="svg"
       background="transparent"
-      height="{300}"
-      width="{300}"
+      height="{400}"
+      width="{400}"
       controlsLayout={null}
       />
 
@@ -54,6 +54,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      z-index: 3;
    }
 
 
