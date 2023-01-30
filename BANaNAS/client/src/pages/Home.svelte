@@ -31,7 +31,10 @@
   </section>
 
   <div id="divider">
-    <span id="divider-text">Educate yourself</span>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <span id="divider-text" on:click={() => {
+      document.getElementById('hr-divider').scrollIntoView({behavior: "smooth"});
+    }}>Educate yourself</span>
   </div>
 
   <hr id="hr-divider" />
@@ -55,7 +58,7 @@
     <div id="paragraph-container">
       {#if paragraph === 'Transparency'}
         <p class="description">
-          Welcome to BANaNAS, <br /><br /> The web app that takes two random
+          The web app that takes two random
           pieces of data from around the web and tries to find any correlation,
           no matter how wild or far-fetched. Created by a team of enthusiasts
           with a love for data analysis and a knack for finding connections
@@ -79,7 +82,7 @@
         </p>
       {:else if paragraph === 'Concept'}
         <p id="sub-info">
-          BANaNAS, <br /><br /> The web app that takes the art of data correlation
+          The web app that takes the art of data correlation
           to new heights. Conceived and created by a team of four software engineering
           students with a passion for data analysis and a curious streak. The idea
           behind BANaNAS is to take two random pieces of data from around the web
@@ -95,8 +98,6 @@
         </p>
       {:else if paragraph === 'Creators'}
         <p id="sub-info">
-          BANaNAS
-          <br /><br />
           Created by :
           <br />
           <span
@@ -121,10 +122,10 @@
 
       {:else if paragraph === "Concept"}
       <p id="sub-info">
-        BANaNAS, <br><br> The web app that takes the art of data correlation to new heights. Conceived and created by a team of four software engineering students with a passion for data analysis and a curious streak. The idea behind BANaNAS is to take two random pieces of data from around the web and see if they're related in any way. It's like a game of "Six Degrees of Kevin Bacon" but with data, and you never know what kind of interesting pattern you might uncover.
-We believe that data analysis should be accessible to everyone, not just the experts in the field. That's why we've created BANaNAS, a tool that allows users to explore data in a fun and interactive way. With BANaNAS, you never know what kind of connection you might make.
+        The web app that takes the art of data correlation to new heights. Conceived and created by a team of four software engineering students with a passion for data analysis and a curious streak. The idea behind BANaNAS is to take two random pieces of data from around the web and see if they're related in any way. It's like a game of "Six Degrees of Kevin Bacon" but with data, and you never know what kind of interesting pattern you might uncover.
+        We believe that data analysis should be accessible to everyone, not just the experts in the field. That's why we've created BANaNAS, a tool that allows users to explore data in a fun and interactive way. With BANaNAS, you never know what kind of connection you might make.
 
-It all started with a spark of inspiration and a lot of hard work, and we're excited to share BANaNAS with the world. So go ahead, give it a try and see what kind of interesting connections you can make.
+        It all started with a spark of inspiration and a lot of hard work, and we're excited to share BANaNAS with the world. So go ahead, give it a try and see what kind of interesting connections you can make.
       </p>
       {:else if paragraph === "Creators"}
       <p id="sub-info">
@@ -136,15 +137,16 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
         <br>
         <span><a href="https://github.com/Al366io">Alessio (Alex but in Italian)</a> : A backend genius that can give endpoints faster than you can ask for them. </span>
         <br>
-        <a href="https://github.com/sethjplatt">Seth</a> : Organized and efficient, he's the glue that holds the team together. With him working on the backend, you know the app is in good hands.
+        <span><a href="https://github.com/sethjplatt">Seth</a> : Organized and efficient, he's the glue that holds the team together. With him working on the backend, you know the app is in good hands. </span>
         <br>
-        <a href="https://github.com/TerenceGrover">Terence</a> : Github copilot in human form.
+        <span><a href="https://github.com/TerenceGrover">Terence</a> : A brilliant polymath fullstack developer, with some weird love for frontend, data visualization and bananas.</span>
       </p>
       {/if}
     </div>
   </section>
-
-  <Footer />
+  <div id="footer">
+    <Footer />
+  </div>
 </main>
 
 <style>
@@ -205,7 +207,7 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
   }
 
   #hr-divider {
-    height: 3px;
+    height: 0.5vh;
     width: 100vw;
     background-color: #052c46;
     border: none;
@@ -226,6 +228,8 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
     font-weight: 600;
     color: #052c46;
     text-shadow: 2px 2px #ffffff;
+    animation: pulse 2s infinite;
+    cursor: pointer;
   }
 
   #sub-section {
@@ -238,6 +242,7 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
     padding-top: 5vh;
     padding-bottom: 5vh;
     min-height: 75vh;
+    max-height: 75vh;
     background-color: #fed703;
     width: 100vw;
   }
@@ -301,6 +306,10 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
     box-shadow: 8px 8px 0px 2px #000000aa;
   }
 
+  #footer {
+    height: 9.5vh;
+  }
+
   i {
     font-style: normal;
     font-size: 24px;
@@ -308,7 +317,7 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
 
   .text-shadow-pop-br {
 	-webkit-animation: text-shadow-pop-br 0.8s both;
-	        animation: text-shadow-pop-br 0.8s both;
+	animation: text-shadow-pop-br 0.8s both;
   }
 
   @keyframes text-shadow-pop-br {
@@ -322,6 +331,20 @@ It all started with a spark of inspiration and a lot of hard work, and we're exc
     -webkit-transform: translateX(-4px) translateY(-4px);
             transform: translateX(-4px) translateY(-4px);
   }
+}
+
+  @keyframes pulse {
+	0% {
+		transform: scale(0.95);
+	}
+
+	50% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.95);
+	}
 }
 
 </style>
