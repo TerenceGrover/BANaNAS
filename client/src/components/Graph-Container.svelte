@@ -23,6 +23,7 @@
 <main>
 
   <section id="top-section">
+  <h2 id="top-sub-header">Graph Type</h2>
     <button
       on:click={() => {
         if (position > 0) {
@@ -64,14 +65,24 @@
 
 <style>
 
+
   #top-section {
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 77vh;
+    height: 75vh;
     width: 100vw;
+  }
+
+    #top-sub-header {
+    position: absolute;
+    font-size: 2vh;
+    font-family: 'Farro', sans-serif;
+    color: #fff;
+    margin: 7px 0px;
+    align-self: flex-start;
   }
 
   .scroll-buttons {
