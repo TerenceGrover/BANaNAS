@@ -77,9 +77,9 @@ export const queries = {
       provider: 'World Bank',
     },
   },
-  Bananas: {
-    BananaWorldExports: {},
-  },
+  // Bananas: {
+  //   BananaWorldExports: {},
+  // },
   Economy: {
     GDP: {
       description: 'GDP (current US$)',
@@ -142,8 +142,8 @@ export const queries = {
     },
     SecondarySchoolCompletion: {
       description: 'Secondary completion rate, total (% of relevant age group)',
-      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SE.SEC.CMPT.ZS?date=startYear:endYear&format=json`,
-      indicatorCode: 'SE.SEC.CMPT.ZS',
+      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SE.SEC.CMPT.LO.ZS?date=startYear:endYear&format=json`,
+      indicatorCode: 'SE.SEC.CMPT.LO.ZS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
       unit: '%',
       provider: 'World Bank',
@@ -237,16 +237,16 @@ export const queries = {
     },
     MobileCellularSubscriptions: {
       description: 'Mobile cellular subscriptions (per 100 people)',
-      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.CEL.SETS.ZS?date=startYear:endYear&format=json`,
-      indicatorCode: 'IT.CEL.SETS.ZS',
+      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.CEL.SETS?date=startYear:endYear&format=json`,
+      indicatorCode: 'IT.CEL.SETS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
       unit: 'per 100 people',
       provider: 'World Bank',
     },
-    Television: {
-      description: 'Television, fixed lines (per 100 people)',
-      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.MLT.MAIN.ZS?date=startYear:endYear&format=json`,
-      indicatorCode: 'IT.MLT.MAIN.ZS',
+    FixedTelephoneSubscriptions: {
+      description: 'Fixed telephone subscriptions (per 100 people)',
+      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/IT.MLT.MAIN.P2?date=startYear:endYear&format=json`,
+      indicatorCode: 'IT.MLT.MAIN.P2',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
       unit: 'per 100 people',
       provider: 'World Bank',
@@ -261,10 +261,10 @@ export const queries = {
       unit: 'current US$',
       provider: 'World Bank',
     },
-    BankDeposits: {
-      description: 'Bank deposits (current US$)',
-      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/FI.AST.TOTL.CD?date=startYear:endYear&format=json`,
-      indicatorCode: 'FI.AST.TOTL.CD',
+    BankCapital: {
+      description: 'Bank capital to assets ratio (%)',
+      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/FB.BNK.CAPA.ZS?date=startYear:endYear&format=json`,
+      indicatorCode: 'FB.BNK.CAPA.ZS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
       unit: 'current US$',
       provider: 'World Bank',
@@ -275,14 +275,6 @@ export const queries = {
       indicatorCode: 'FR.INR.LEND',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
       unit: '%',
-      provider: 'World Bank',
-    },
-    BankLoans: {
-      description: 'Bank loans and advances (current US$)',
-      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/FI.LBL.TOTL.CD?date=startYear:endYear&format=json`,
-      indicatorCode: 'FI.LBL.TOTL.CD',
-      parameters_needed: ['countryCode', 'startYear', 'endYear'],
-      unit: 'current US$',
       provider: 'World Bank',
     },
     BankProfitMargin: {
@@ -340,13 +332,13 @@ export const queries = {
       unit: 'per 100,000 population',
       provider: 'World Bank',
     },
-    MortalityByCancer: {
+    MortalityByCancerOrCDV: {
       description:
-        'Mortality rate attributed to cancer (per 100,000 population)',
-      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SH.DTH.CANC.ZS?date=startYear:endYear&format=json`,
-      indicatorCode: 'SH.DTH.CANC.ZS',
+        'Mortality from CVD, cancer, diabetes or CRD between exact ages 30 and 70 (%)',
+      queryString: `http://api.worldbank.org/v2/country/countryCode/indicator/SH.DYN.NCOM.ZS?date=startYear:endYear&format=json`,
+      indicatorCode: 'SH.DYN.NCOM.ZS',
       parameters_needed: ['countryCode', 'startYear', 'endYear'],
-      unit: 'per 100,000 population',
+      unit: '%',
       provider: 'World Bank',
     },
   },
