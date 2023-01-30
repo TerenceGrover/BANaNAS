@@ -17,7 +17,14 @@ export const tradeController = async (req, res) => {
         },
       },
     });
-    console.log(data);
+    if (!data.length) {
+      res
+        .status(404)
+        .json({
+          message: 'no data found, check your commodity name and year values',
+        });
+      return;
+    }
     data.forEach((element) => {
       let year = element.get('year');
       let value = element.get('value');
@@ -25,6 +32,7 @@ export const tradeController = async (req, res) => {
     });
     res.status(200).json(responseObj);
   } catch (err) {
+    res.sendStatus(500);
     console.log(err);
   }
 };
