@@ -11,7 +11,7 @@
   export let rightCategory = '';
   $: leftCategory, console.log(leftCategory);
 
-  let loading = false;
+  let loading = true;
   let currentSide = 'left';
   let hoveredCategory = {name: ''};
   let selectedCategory = {name: ''};

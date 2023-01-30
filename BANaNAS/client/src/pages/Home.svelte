@@ -232,6 +232,11 @@
     cursor: pointer;
   }
 
+  #divider-text:hover {
+    animation-play-state: paused;
+    animation: tilt-shaking 0.5s infinite;
+  }
+
   #sub-section {
     display: flex;
     flex-direction: row;
@@ -345,6 +350,14 @@
 	100% {
 		transform: scale(0.95);
 	}
+}
+
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
 }
 
 </style>
