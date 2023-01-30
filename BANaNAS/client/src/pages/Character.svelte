@@ -67,7 +67,7 @@
         currentSide = 'left';
       }}>
         {#if leftCategory === ''}
-          <img id="selector-left" class="" src="../../assets/icons/selector-down.svg" alt="selector"/>
+          <img id="selector-left" class="selector-arrow" src="../../assets/icons/selector-down.svg" alt="selector"/>
         {:else}
           <h2 id="left-selected-category-name">{leftCategory}</h2>
         {/if}
@@ -86,7 +86,7 @@
         currentSide = 'right';
       }}>
         {#if rightCategory === ''}
-          <img id="selector-right" class="hidden" src="../../assets/icons/selector-up.svg" alt="selector"/>
+          <img id="selector-right" class="hidden selector-arrow" src="../../assets/icons/selector-up.svg" alt="selector"/>
         {:else}
           <h2 id="right-selected-category-name">{rightCategory}</h2>
         {/if}
@@ -183,22 +183,20 @@
     align-items: center;
   }
 
-  #selector-left{
+  .selector-arrow {
     position: absolute;
     width: 10vw;
     z-index: 1000000;
+    filter: drop-shadow(7px 7px 0px black);
+    animation: upndown 2s infinite;
+  }
+
+  #selector-left{
     align-self: flex-start;
-    filter: drop-shadow(5px 5px 4px black);
-    animation: pulse 2s infinite;
   }
 
   #selector-right{
-    position: absolute;
-    width: 10vw;
-    z-index: 1000000;
     align-self: flex-end;
-    filter: drop-shadow(5px 5px 4px black);
-    animation: pulse 2s infinite;
   }
 
   #player-container-right {
@@ -302,6 +300,20 @@
 	100% {
 		transform: scale(0.95);
 	}
+}
+
+@keyframes upndown {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(15px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 </style>
