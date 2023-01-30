@@ -89,8 +89,7 @@ const globalController = async (req, res) => {
           queries[`${category}`][`${metricName}`].indicatorCode;
         response = meteoParser(response, indicatorCode);
         break;
-      case 'EuroStatParser':
-        // parse using EuroStatParser
+      case 'Bananas API':
         break;
       default:
         // do nothing
