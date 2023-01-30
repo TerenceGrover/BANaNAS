@@ -9,7 +9,6 @@
 
   export let leftCategory = '';
   export let rightCategory = '';
-  $: leftCategory, console.log(leftCategory);
 
   let loading = true;
   let currentSide = 'left';
