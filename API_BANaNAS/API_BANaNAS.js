@@ -18,8 +18,12 @@ async function startDB() {
 }
 startDB();
 
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://data-banana.com'],
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(router);
 
 app.listen(port, () => {
