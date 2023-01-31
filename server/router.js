@@ -6,12 +6,15 @@ import globalController, {
   getBananas,
 } from './controllers/controller.js';
 import { categoryController } from './controllers/category-controller.js';
+import { descriptionController } from './controllers/description-controller.js';
 
 router.get(
-  '/api/:category/:metricName/:param1?/:param2?/:param3?/:param4?/:param5?',
+  '/api/:category/:metricName/:param1/:param2?/:param3?/:param4?/:param5?',
   globalController
 );
 router.get('/api/:selectedCategory', categoryController);
+
+router.get('/api/:selectedCategory/:selectedMetric', descriptionController);
 
 router.post('/banana/:name', addBanana);
 
