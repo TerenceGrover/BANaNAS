@@ -1,10 +1,9 @@
 <script>
   import { onMount } from 'svelte';
-  export let currentSide;
   import Select from 'svelte-select';
-  export let category;
   import { getSubCategories } from "../utils/api-services";
-
+  import {splitWordsOnCapitalLetters} from '../utils/helpers';
+  
   
   let whatItems
   let whereItems;
@@ -12,6 +11,9 @@
   
   export let what;
   export let where;
+  export let category;
+  export let currentSide;
+
 
   let inputFields 
 
@@ -30,7 +32,9 @@
     }
     getSubCategories(category).then((data) => {
       APIdata = data;
-      whatItems = Object.keys(data)
+      whatItems = Object.keys(data).map((item) => {
+        return { value: item, label: splitWordsOnCapitalLetters(item) }
+      })
     })
   }
 
@@ -41,6 +45,10 @@
   $: if (what.value && !where.value) {
     whereItems = APIdata[what.value].available_countries
   }
+
+  let topConfig = {
+        placement: currentSide === 'right' ? 'top-start' : 'bottom-start'
+    };
     
 </script>
 
@@ -53,8 +61,11 @@
       items={whatItems}
       placeholder="Select a data point"
       class="sub-input"
+      listAutoWidth={false}
       id="What"
       bind:value = {what}
+      floatingConfig={topConfig}
+      clearable={false}
       />
       <!-- <input class="sub-input" type="text" id="What" /> -->
     </div>
@@ -65,9 +76,11 @@
       items={whereItems}
       placeholder="Select a country"
       class="sub-input"
+      listAutoWidth={false}
       id="Where"
       bind:value = {where}
       disabled={!what}
+      floatingConfig={topConfig}
       />
     </div>
   </div>
@@ -114,7 +127,7 @@
 
   #sub-container {
     position: absolute;
-    height: 20vh;
+    height: 22vh;
     width: 25vw;
     transform: translate(-50%, -50%);
     display: flex;
@@ -126,7 +139,7 @@
     padding: 2vh 2vw;
     border: 3px solid white;
     border-radius: 16px;
-    background-color: #052c46aa;
+    background-color: #3c5a6d42;
   }
 
   :global(input){
@@ -147,7 +160,7 @@
   }
 
   :global(.sub-input:disabled) {
-    color: rgb(158, 158, 158)f !important;
+    color: rgb(158, 158, 158) !important;
   }
 
 </style>

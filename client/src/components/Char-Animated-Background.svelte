@@ -5,6 +5,7 @@
   onMount(() => {
     setTimeout(() => {
       document.getElementById('left').style.left = '0';
+      document.getElementById('left-under').style.left = '10px';
       document.getElementById('right').style.right = '0';
       console.log('added')
     }, 1500)
@@ -15,6 +16,7 @@
 <main>
 
   <div id='left' class="backgound-element"></div>
+  <div id='left-under' class="backgound-element"></div>
   <div id='right' class="backgound-element"></div>
 
 
@@ -35,6 +37,16 @@
     position: absolute;
     left: -100vw;
     clip-path: polygon(80% 0, 60% 50%, 41% 50%, 20% 100%, 0 100%, 0 0);
+    z-index: 11;
+  }
+
+  #left-under {
+  background: #fff;
+  position: absolute;
+  left: -99.5vw;
+  top: 10px;
+  clip-path: polygon(80% 0, 60% 50%, 41% 50%, 20% 100%, 0 100%, 0 0);
+  z-index: 8;
   }
 
   #right {
@@ -42,6 +54,7 @@
     position: absolute;
     right: -100vw;
     clip-path: polygon(80% 0, 60% 50%, 40% 50%, 20% 100%, 100% 100%, 100% 0);
+    z-index: 9;
   }
 
   .backgound-element{

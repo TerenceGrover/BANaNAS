@@ -1,6 +1,6 @@
 <script>
   import Footer from '../components/Footer.svelte';
-  import { transformMouseIntoCSSShadow } from '../utils/shadowTracking';
+  import { transformMouseIntoCSSShadow } from '../Utils/helpers';
   export let changePage;
   let shadowStr = '0px 0px 0px 0px #000';
 

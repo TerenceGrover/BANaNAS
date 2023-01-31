@@ -56,7 +56,7 @@
       <Loader_1 />
     </div>
   {:else}
-    <GraphContainer {leftGraphData} {rightGraphData} />
+    <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
   {/if}
 
   <div id="divider">

@@ -4,3 +4,8 @@ export function transformMouseIntoCSSShadow (x,y) {
   const shadow = `${x}px ${y}px 0px 2px rgba(0,0,0,0.6)`
   return shadow
 }
+
+export function splitWordsOnCapitalLetters(word) {
+  if (word === 'GDP') return word
+  return word.replace(/([A-Z])/g, " $1");
+}

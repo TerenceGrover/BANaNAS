@@ -2,10 +2,13 @@
 
   export let leftGraphData;
   export let rightGraphData;
+  export let leftData;
+  export let rightData;
 
   import Scrollbar from '../components/Scrollbar.svelte';
   // import BarGraph from '../components/Data/Bar-Graph.svelte';
-  import LineGraph from '../components/Data/Line-Graph.svelte';
+  // import LineGraph from '../componexnts/Data/Line-Graph.svelte';
+  import LineGraph2 from '../components/Data/Line-Graph2.svelte';
 
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
   let position = 2;
@@ -31,7 +34,7 @@
     <div id="D3-container">
       <div id="current-graph">
         <!-- <BarGraph /> -->
-        <LineGraph data1={leftGraphData} data2={rightGraphData} />
+        <LineGraph2 data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} />
       </div>
     </div>
     <button
@@ -66,7 +69,7 @@
     width: 100vw;
   }
 
-    #top-sub-header {
+  #top-sub-header {
     position: absolute;
     font-size: 2vh;
     font-family: 'Farro', sans-serif;
@@ -93,10 +96,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding : 20vh 15vw;
+    padding : 2vh 2vw;
     border: 3px solid white;
     box-shadow: 25px 25px #000000aa;
     border-radius: 12px;
+    background-color: #00000044;
   }
 
   .scroll-buttons:hover {
