@@ -7,15 +7,11 @@ export async function getSubCategories(selected) {
 
 export async function getDescription(selectedCategory, selectedSubCategory) {
   const response = await fetch(`${API}/api/${selectedCategory}/${selectedSubCategory}`)
-  console.log(response);
-  
   return response.json()
 }
 
 export async function getMetrics(selectedCategory, selectedSubCategory, country) {
   const response = await fetch(`${API}/api/${selectedCategory}/${selectedSubCategory}/${country}/1000/2022`)
-  console.log(response);
-  
   return response.json()
 }
 

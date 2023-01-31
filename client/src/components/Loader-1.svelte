@@ -7,7 +7,7 @@
 
   onMount(() => {
     getBananaFact().then((data) => {
-      console.log(data)
+      console.log(data);
       bananaFact = data;
     });
   });
@@ -34,7 +34,9 @@
       controlsLayout={null}
     />
   </div>
-  <p>{bananaFact}</p>
+  {#if bananaFact}
+    <p id="fact"><b>"</b>{bananaFact.fact}<b>"</b></p>
+  {/if}
 </main>
 
 <style>
@@ -48,9 +50,27 @@
     overflow: none;
   }
 
+  b{
+   font-size: 3rem;
+   font-weight: bolder;
+  }
+
   #loader {
     position: absolute;
     top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+  }
+
+  #fact {
+    font-family: 'Farro', sans-serif;
+    font-size: 1.5rem;
+    color: #fed703;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;

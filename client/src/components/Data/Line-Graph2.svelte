@@ -14,6 +14,9 @@
   });
 
   function compactBigNumber(num) {
+    if (typeof num !== 'number') {
+      throw new Error('num is not a number');
+    }
     if (num > 1000) {
       return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(num);
     } else {
