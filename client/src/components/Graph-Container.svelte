@@ -11,9 +11,14 @@
   import LineGraph2 from '../components/Data/Line-Graph2.svelte';
   import Scatterplot from './Data/Scatterplot.svelte';
 
+  const graphs = [
+    { name: 'Line Graph', component: LineGraph2 },
+    { name: 'Scatterplot', component: Scatterplot },
+  ];
+
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
-  let position = 2;
-  let maxPosition = 4;
+  let position = Math.floor((graphs.length - 1) / 2);
+  let maxPosition = graphs.length - 1;
 
 </script>
 
@@ -34,9 +39,11 @@
     >
     <div id="D3-container">
       <div id="current-graph">
-        <!-- <BarGraph /> -->
-        <LineGraph2 data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} />
-        <!-- <Scatterplot data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} /> -->
+        {#if position === 0}
+          <LineGraph2 data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} />
+        {:else if position === 1}
+          <Scatterplot data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} />
+        {/if}
       </div>
     </div>
     <button
