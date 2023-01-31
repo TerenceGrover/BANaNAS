@@ -23,6 +23,10 @@ router.delete('/bananas', deleteBanana);
 
 // get all bananas eaten and by who
 router.get('/bananas', getBananas);
+
+// get a random banana fact
+router.get('/bananaFact', getBananaFact)
+
 export default router;
 
-fetch('http://localhost:3000/category/1/2/3');
+
