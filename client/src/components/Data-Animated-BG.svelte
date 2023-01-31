@@ -48,6 +48,18 @@
     z-index: 8;
   }
 
+  #left-under:before{
+    content : '';
+    background: #000000aa;
+    height: 100vh;
+    width: 100vw;
+    display: block;
+    position: absolute;
+    left: -.25vw;
+    top: -5px;
+    clip-path: polygon(80% 0, 60% 50%, 41% 50%, 20% 100%, 0 100%, 0 0);
+  }
+
   #right {
     background-color: #fed703;
     position: absolute;
