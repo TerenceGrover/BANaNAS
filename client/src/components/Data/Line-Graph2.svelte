@@ -21,14 +21,18 @@
     }
   }
 
-  const dataArray1 = Object.entries(data1).map(([year, value]) => ({
+  const dataArray1 = Object.entries(data1)
+  .filter(([year, value]) => value !== null)
+  .map(([year, value]) => ({
     year: +year,
-    value: value || 0
+    value: value
   }));
 
-  const dataArray2 = Object.entries(data2).map(([year, value]) => ({
+  const dataArray2 = Object.entries(data2)
+  .filter(([year, value]) => value !== null)
+  .map(([year, value]) => ({
     year: +year,
-    value: value || 0
+    value: value
   }));
 
 
@@ -165,6 +169,9 @@
       .style("text-anchor", "end")
       .text("Year");
 
+    const div1 = d3.select("#tooltip1");
+    const div2 = d3.select("#tooltip2");
+
     // Add the first line
 
     svg
@@ -173,7 +180,24 @@
       .attr("d", line1(dataArray1))
       .style("stroke", "#fe9400")
       .style('stroke-width', '3px')
-      .style("fill", "#fe940055");
+      .style("fill", "#fe940055")
+      .on('mouseover', function (event, datum) {
+        d3.select(this).transition()
+          .duration('100')
+        div1.transition()
+          .duration(100)
+          .style("opacity", 1)
+        div1.html((datum.value).toFixed(2))
+          .style("left", (event.offsetX + 25) + "px")
+          .style("top", (event.offsetY - 10) + "px")
+      })
+      .on('mouseout', function (event, datum) {
+        d3.select(this).transition()
+          .duration('200')
+        div1.transition()
+          .duration('200')
+          .style("opacity", 0);
+      });
 
     // Add the second line
 
@@ -183,7 +207,25 @@
       .attr("d", line2(dataArray2))
       .style("stroke", "#f8ff2a")
       .style('stroke-width', '3px')
-      .style("fill", "#f8ff2a55");
+      .style("fill", "#f8ff2a55").on('mouseover', function (event, datum) {
+        d3.select(this).transition()
+          .duration('100')
+          .attr("r", 7);
+        div2.transition()
+          .duration(100)
+          .style("opacity", 1)
+        div2.html((datum.value).toFixed(2))
+          .style("left", (event.offsetX + 25) + "px")
+          .style("top", (event.offsetY - 10) + "px")
+      })
+      .on('mouseout', function (event, datum) {
+        d3.select(this).transition()
+          .duration('200')
+          .attr("r", 3);
+        div2.transition()
+          .duration('200')
+          .style("opacity", 0);
+      });
 
     // Add the first line label
 
@@ -258,12 +300,14 @@
 
 </script>
 
-<div id="container">
+<main>
+  <div id="tooltip1" style="opacity: 0;"></div>
+  <div id="tooltip2" style="opacity: 0;"></div>
+
   <svg class="line-graph"></svg>
-</div>
+</main>
 
 <style>
-
   *{
     color: white;
   }
@@ -272,6 +316,34 @@
   .line-graph {
     width: 67vw;
     height: 55vh;
+  }
+
+  #tooltip1 {
+    position: fixed;
+    text-align: center;
+    padding: .2rem;
+    background: #052c46;
+    color: #fe9400;
+    border: 2px solid #fe9400;
+    border-radius: 5px;
+    pointer-events: none;
+    font-size: 2vh;
+    font-family: 'Farro', sans-serif;
+    filter: drop-shadow(2px 2px 0px black);
+  }
+
+  #tooltip2 {
+    position: fixed;
+    text-align: center;
+    padding: .2rem;
+    background: #052c46;
+    color: #fed703;
+    border: 2px solid #fed703;
+    border-radius: 5px;
+    pointer-events: none;
+    font-size: 2vh;
+    font-family: 'Farro', sans-serif;
+    filter: drop-shadow(2px 2px 0px black);
   }
 
 </style>

@@ -35,8 +35,8 @@
     <div id="D3-container">
       <div id="current-graph">
         <!-- <BarGraph /> -->
-        <!-- <LineGraph2 data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} /> -->
-        <Scatterplot data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} />
+        <LineGraph2 data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} />
+        <!-- <Scatterplot data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} /> -->
       </div>
     </div>
     <button

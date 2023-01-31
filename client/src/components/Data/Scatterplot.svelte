@@ -16,14 +16,18 @@
     }
   }
 
-  const dataArray1 = Object.entries(data1).map(([year, value]) => ({
+  const dataArray1 = Object.entries(data1)
+  .filter(([year, value]) => value !== null)
+  .map(([year, value]) => ({
     year: +year,
-    value: value || 0
+    value: value
   }));
 
-  const dataArray2 = Object.entries(data2).map(([year, value]) => ({
+  const dataArray2 = Object.entries(data2)
+  .filter(([year, value]) => value !== null)
+  .map(([year, value]) => ({
     year: +year,
-    value: value || 0
+    value: value
   }));
 
 
