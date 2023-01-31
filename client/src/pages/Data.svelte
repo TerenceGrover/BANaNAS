@@ -9,6 +9,7 @@
   import { getMetrics } from '../Utils/api-services';
   import Loader_1 from '../components/Loader-1.svelte';
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
+  import Analytics from '../components/Analytics.svelte';
 
   let leftGraphData = [];
   let rightGraphData = [];
@@ -68,7 +69,12 @@
 
   <hr id="hr-sub-divider" />
 
-  <section id="sub-section" />
+  <section id="sub-section">
+  {#if !loading}
+    <Analytics {leftData} {rightData} {leftGraphData} {rightGraphData} />
+  {/if}
+
+  </section>
   <section id="footer">
     <Footer />
   </section>

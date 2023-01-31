@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import * as d3 from "d3";
   import {splitWordsOnCapitalLetters} from '../../Utils/helpers';
+  import {getDescription} from '../../Utils/api-services';
 
   export let data1;
   export let data2;
@@ -14,9 +15,6 @@
   });
 
   function compactBigNumber(num) {
-    if (typeof num !== 'number') {
-      throw new Error('num is not a number');
-    }
     if (num > 1000) {
       return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(num);
     } else {
@@ -37,6 +35,16 @@
     year: +year,
     value: value
   }));
+
+  let desc1 
+  let desc2
+  
+  getDescription(leftData.cat,leftData.what).then((data) => {
+    desc1 = data.description
+  })
+  getDescription(rightData.cat, rightData.what).then((data) => {
+    desc2 = data.description
+  })
 
 
   onMount(async () => {
@@ -287,7 +295,7 @@
       .attr("y", -40)
       .style("text-anchor", "middle")
       .style('fill', '#fff')
-      .text("Value ($)1");
+      .text(desc1);
 
       // Add the second y-axis label
 
@@ -299,7 +307,7 @@
       .attr("y", width + 40)
       .style("text-anchor", "middle")
       .style('fill', '#fff')
-      .text("Value ($)2");
+      .text(desc2);
 
   };
 

@@ -70,7 +70,7 @@
     text-align: center;
     font-weight: bold;
     position: absolute;
-    top: 75%;
+    top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
