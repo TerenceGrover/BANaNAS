@@ -39,6 +39,11 @@
 <main>
   <section id="top-section">
     <h2 id="top-sub-header">Graph Type</h2>
+    <button id="filter-button">
+      <img id="filter-icon" class="icon" src="../../assets/icons/filter.svg" alt="filter-icon" />
+      <p id="filter-text">Filter by event</p>
+      <img id="right-arrow" class="icon" src="../../assets/icons/right-arrow.svg" alt="right-arrow" />
+    </button>
     <button
       on:click={() => {
         handlePosition('left');
@@ -112,6 +117,43 @@
     color: #fff;
     margin: 7px 0px;
     align-self: flex-start;
+  }
+
+  #filter-button {
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    top: 2.5vh;
+    left: 2vw;;
+    font-size: 3vh;
+    font-family: 'Farro', sans-serif;
+    font-weight: 600;
+    color: #fed703;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    align-self: flex-end;
+    filter: drop-shadow(3px 3px 0px black);
+    -webkit-text-stroke: 1px black;
+    gap: 2px;
+    cursor: pointer;
+  }
+
+  #filter-text {
+    padding-top: 2px;
+  }
+
+  .icon {
+    height: 3vh;
+    width: 3vh;
+    margin: 0px 2px;
+    padding-top: 2px;
+    -webkit-text-stroke: 1px black;
+  }
+
+  #right-arrow {
+    margin-left: 5px;
+    animation: pulse 2s infinite
   }
 
   .scroll-buttons {
@@ -251,6 +293,20 @@
       -webkit-transform: translateX(1000px);
       transform: translateX(1000px);
       opacity: 0;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
     }
   }
 </style>
