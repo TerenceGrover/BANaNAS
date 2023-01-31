@@ -1,34 +1,32 @@
 <script>
-  import Category_Collection from "../components/Category-Collection.svelte";
-  import Loader from "../components/Loader-Falling.svelte";
-  import Versus from "../components/Versus.svelte";
-  import Player_Zone from "../components/Player-Zone.svelte";
-  import CharAnimatedBackground from "../components/Char-Animated-Background.svelte";
-  import CharStaticBackground from "../components/Char-Static-Background.svelte";
-  import SubSelector from "../components/Sub-Selector.svelte";
-  import { onMount } from "svelte";
+  import Category_Collection from '../components/Category-Collection.svelte';
+  import Loader from '../components/Loader-Falling.svelte';
+  import Versus from '../components/Versus.svelte';
+  import Player_Zone from '../components/Player-Zone.svelte';
+  import CharAnimatedBackground from '../components/Char-Animated-Background.svelte';
+  import CharStaticBackground from '../components/Char-Static-Background.svelte';
+  import SubSelector from '../components/Sub-Selector.svelte';
+  import { onMount } from 'svelte';
   export let changePage;
 
   export let leftCategory = '';
   export let rightCategory = '';
-  $: both = (leftCategory !== '') && (rightCategory !== '');
-  $: leftCategory, console.log(leftCategory);
 
   let loading = true;
   let currentSide = 'left';
-  let hoveredCategory = {name: ''};
-  let selectedCategory = {name: ''};
+  let hoveredCategory = { name: '' };
+  let selectedCategory = { name: '' };
 
   let left = {
     what: '',
-    where: ''
-  }
+    where: '',
+  };
 
   let right = {
     what: '',
-    where: ''
-  }
-  
+    where: '',
+  };
+
   $: if (selectedCategory.name !== '') {
     if (currentSide === 'left') {
       leftCategory = selectedCategory.name;
@@ -39,80 +37,119 @@
 
   onMount(() => {
     setTimeout(() => {
-      loading = false;},
-      3500)
-  })
+      loading = false;
+    }, 3500);
+  });
 
+  function cleanUp() {
+    left.what = '';
+    left.where = '';
+    right.what = '';
+    right.where = '';
+    selectedCategory = { name: '' };
+    leftCategory = '';
+    rightCategory = '';
+    currentSide = 'left';
+    document.getElementById('selector-right').classList.add('hidden');
+    document.getElementById('selector-left').classList.remove('hidden');
+  }
 </script>
 
 <main>
-
   {#if loading}
-  <CharAnimatedBackground />
-  <Loader />
+    <CharAnimatedBackground />
+    <Loader />
   {:else}
     <h1 id="title">Choose Your Fighter</h1>
     <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
-    
+
     <div id="player-zone-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <div id="player-container-left" on:click={() => {
-        if (document.getElementById('selector-right')) document.getElementById('selector-right').classList.toggle("hidden");
-        if (document.getElementById('selector-left')) document.getElementById('selector-left').classList.toggle("hidden");
+      <div
+        id="player-container-left"
+        on:click={() => {
+          if (document.getElementById('selector-right'))
+            document
+              .getElementById('selector-right')
+              .classList.toggle('hidden');
+          if (document.getElementById('selector-left'))
+            document.getElementById('selector-left').classList.toggle('hidden');
 
-        console.log(document.getElementById('selector-right'))
-        console.log(document.getElementById('selector-left'))
+          console.log(document.getElementById('selector-right'));
+          console.log(document.getElementById('selector-left'));
 
-        selectedCategory = {name: ''};
-        currentSide = 'left';
-      }}>
+          selectedCategory = { name: '' };
+          currentSide = 'left';
+        }}
+      >
         {#if leftCategory === ''}
-          <img id="selector-left" class="selector-arrow" src="../../assets/icons/selector-down.svg" alt="selector"/>
+          <img
+            id="selector-left"
+            class="selector-arrow"
+            src="../../assets/icons/selector-down.svg"
+            alt="selector"
+          />
         {:else}
           <h2 id="left-selected-category-name">{leftCategory}</h2>
         {/if}
-        <Player_Zone selectedPlayer={leftCategory} player="P1"/>
+        <Player_Zone selectedPlayer={leftCategory} player="P1" />
       </div>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <div id="player-container-right"on:click={() => {
-        if (document.getElementById('selector-right')) document.getElementById('selector-right').classList.toggle("hidden");
-        if (document.getElementById('selector-left')) document.getElementById('selector-left').classList.toggle("hidden");
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <div
+        id="player-container-right"
+        on:click={() => {
+          if (document.getElementById('selector-right'))
+            document
+              .getElementById('selector-right')
+              .classList.toggle('hidden');
+          if (document.getElementById('selector-left'))
+            document.getElementById('selector-left').classList.toggle('hidden');
 
-
-        console.log(document.getElementById('selector-right'))
-        console.log(document.getElementById('selector-left'))
-        
-        selectedCategory = {name: ''};
-        currentSide = 'right';
-      }}>
+          selectedCategory = { name: '' };
+          currentSide = 'right';
+        }}
+      >
         {#if rightCategory === ''}
-          <img id="selector-right" class="hidden selector-arrow" src="../../assets/icons/selector-up.svg" alt="selector"/>
+          <img
+            id="selector-right"
+            class="hidden selector-arrow"
+            src="../../assets/icons/selector-up.svg"
+            alt="selector"
+          />
         {:else}
           <h2 id="right-selected-category-name">{rightCategory}</h2>
         {/if}
-        <Player_Zone selectedPlayer={rightCategory} player="P2"/>
+        <Player_Zone selectedPlayer={rightCategory} player="P2" />
       </div>
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <h4 id="reset-categories" on:click={() => {
-      selectedCategory = {name: ''};
-      leftCategory = '';
-      rightCategory = '';
-      currentSide = 'left';
-      document.getElementById('selector-right').classList.add("hidden");
-      document.getElementById('selector-left').classList.remove("hidden");
-
-      }}>Reset
-      <img id="reset-icon" src="../../assets/icons/reset.svg" alt="reset-icon"/></h4>
+    <h4 id="reset-categories" on:click={() => cleanUp()}>
+      Reset
+      <img
+        id="reset-icon"
+        src="../../assets/icons/reset.svg"
+        alt="reset-icon"
+      />
+    </h4>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    {#if both && right.what !== '' && left.what !== '' && right.where !== '' && left.where !== ''}
-      <Versus {changePage} />
+    {#if right.what !== '' && left.what !== '' && right.where !== '' && left.where !== ''}
+      <Versus {changePage} {left} {right} {leftCategory} {rightCategory} />
     {:else}
       {#if rightCategory !== ''}
-      <SubSelector bind:what={left.what} bind:where={left.where} currentSide='right'  />
+        <SubSelector
+          category={rightCategory}
+          bind:what={right.what}
+          bind:where={right.where}
+          currentSide="right"
+        />
       {/if}
       {#if leftCategory !== ''}
-      <SubSelector bind:what={right.what} bind:where={right.where} currentSide='left' />
+        <SubSelector
+          category={leftCategory}
+          bind:what={left.what}
+          bind:where={left.where}
+          currentSide="left"
+        />
       {/if}
     {/if}
     <div id="category-list">
@@ -123,17 +160,15 @@
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <h4 id="home-button" on:click={() => changePage('home')}>
-      <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon"/>
+      <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon" />
       Home
     </h4>
-    
+
     <CharStaticBackground />
   {/if}
-
 </main>
 
 <style>
-
   main {
     display: flex;
     flex-direction: column;
@@ -145,7 +180,6 @@
     font-family: 'Farro', sans-serif;
     color: #fed703;
   }
-
 
   #category-list {
     z-index: 10000;
@@ -159,9 +193,7 @@
     margin-top: 5vh;
     font-size: 7vh;
     -webkit-text-stroke: 2px black;
-    filter: drop-shadow(3px 3px 0px #000000AA); 
-
-
+    filter: drop-shadow(3px 3px 0px #000000aa);
   }
 
   #player-zone-container {
@@ -195,11 +227,11 @@
     animation: upndown 2s infinite;
   }
 
-  #selector-left{
+  #selector-left {
     align-self: flex-start;
   }
 
-  #selector-right{
+  #selector-right {
     align-self: flex-end;
   }
 
@@ -209,11 +241,10 @@
     height: 70vh;
     z-index: 100000;
     cursor: pointer;
-    color: #052C46;
+    color: #052c46;
     display: flex;
     justify-content: center;
     align-items: center;
-
 
     position: relative;
     width: 30vw;
@@ -243,15 +274,13 @@
     padding-top: 5vh;
   }
 
-
   #right-selected-category-name {
     position: absolute;
     align-self: flex-end;
     font-size: 4vh;
-    color: #052C46;
+    color: #052c46;
     z-index: 500;
     padding-bottom: 5vh;
-
   }
 
   #reset-categories {
@@ -261,7 +290,7 @@
     right: 5vw;
     font-size: 3vh;
     align-items: center;
-    color: #052C46;
+    color: #052c46;
     cursor: pointer;
     -webkit-text-stroke: 1px black;
   }
@@ -274,7 +303,6 @@
     height: 3vh;
     margin-bottom: 1vh;
     -webkit-text-stroke: 1px black;
-
   }
 
   #home-button {
@@ -297,31 +325,30 @@
   }
 
   @keyframes pulse {
-	0% {
-		transform: scale(0.95);
-	}
+    0% {
+      transform: scale(0.95);
+    }
 
-	50% {
-		transform: scale(1);
-	}
+    50% {
+      transform: scale(1);
+    }
 
-	100% {
-		transform: scale(0.95);
-	}
-}
-
-@keyframes upndown {
-  0% {
-    transform: translateY(0);
+    100% {
+      transform: scale(0.95);
+    }
   }
 
-  50% {
-    transform: translateY(15px);
-  }
+  @keyframes upndown {
+    0% {
+      transform: translateY(0);
+    }
 
-  100% {
-    transform: translateY(0);
-  }
-}
+    50% {
+      transform: translateY(15px);
+    }
 
+    100% {
+      transform: translateY(0);
+    }
+  }
 </style>

@@ -5,7 +5,6 @@
   
   let src = ''
   $: selectedPlayer, src = `../../assets/jobs/${selectedPlayer.toLowerCase()}.svg`;
-  $: selectedPlayer, console.log(`../../assets/jobs/${selectedPlayer.toLowerCase()}.svg`);
 
 </script>
 

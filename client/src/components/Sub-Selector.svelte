@@ -1,17 +1,55 @@
 <script>
-  export let currentSide;
+  import { onMount } from 'svelte';
   import Select from 'svelte-select';
+  import { getSubCategories } from "../utils/api-services";
+  import {splitWordsOnCapitalLetters} from '../utils/helpers';
+  
+  
+  let whatItems
+  let whereItems;
+  let APIdata;
+  
+  export let what;
+  export let where;
+  export let category;
+  export let currentSide;
 
-  let whatItems = [
-'banana export', 
-'banana import', 
-'chocolate export' ]
 
-  let whereItems = ['Zimbabwe', 'South Korea', 'Panama'];
+  let inputFields 
 
-  export let what = '';
-  export let where = '';
+  onMount(() => {
+    inputFields = document.getElementsByClassName('sub-input');
+    what = ''
+    where = ''
+  })
 
+  function reset() {
+    what = ''
+    where = ''
+    if (inputFields){
+      inputFields[0].value = ''
+      inputFields[1].value = ''
+    }
+    getSubCategories(category).then((data) => {
+      APIdata = data;
+      whatItems = Object.keys(data).map((item) => {
+        return { value: item, label: splitWordsOnCapitalLetters(item) }
+      })
+    })
+  }
+
+  $: if (category) {
+    reset()
+  }
+
+  $: if (what.value && !where.value) {
+    whereItems = APIdata[what.value].available_countries
+  }
+
+  let topConfig = {
+        placement: currentSide === 'right' ? 'top-start' : 'bottom-start'
+    };
+    
 </script>
 
 <main>
@@ -23,8 +61,11 @@
       items={whatItems}
       placeholder="Select a data point"
       class="sub-input"
+      listAutoWidth={false}
       id="What"
       bind:value = {what}
+      floatingConfig={topConfig}
+      clearable={false}
       />
       <!-- <input class="sub-input" type="text" id="What" /> -->
     </div>
@@ -35,9 +76,11 @@
       items={whereItems}
       placeholder="Select a country"
       class="sub-input"
+      listAutoWidth={false}
       id="Where"
       bind:value = {where}
       disabled={!what}
+      floatingConfig={topConfig}
       />
     </div>
   </div>
@@ -84,7 +127,7 @@
 
   #sub-container {
     position: absolute;
-    height: 20vh;
+    height: 22vh;
     width: 25vw;
     transform: translate(-50%, -50%);
     display: flex;
@@ -96,7 +139,7 @@
     padding: 2vh 2vw;
     border: 3px solid white;
     border-radius: 16px;
-    background-color: #052c46aa;
+    background-color: #3c5a6d42;
   }
 
   :global(input){
@@ -117,7 +160,7 @@
   }
 
   :global(.sub-input:disabled) {
-    color: rgb(158, 158, 158)f !important;
+    color: rgb(158, 158, 158) !important;
   }
 
 </style>

@@ -5,8 +5,18 @@
   import Home from "./pages/Home.svelte";
   let currentPage = "home";
 
-  function changePage(newPage) {
+  let leftData = {};
+
+  let rightData = {};
+
+  function changePage(newPage, left = null, right = null) {
     currentPage = newPage;
+    if (left) {
+      leftData = left
+    }
+    if (right) {
+      rightData = right;
+    }
   }
 
 </script>
@@ -14,11 +24,11 @@
 <main>
 
   {#if currentPage === "home"}
-    <Home changePage={changePage} />
+    <Home {changePage} />
   {:else if currentPage === "character"}
-    <Character changePage={changePage} />
+    <Character {changePage} />
   {:else if currentPage === "data"}
-    <Data changePage={changePage} />
+    <Data {changePage} {leftData} {rightData} />
   {:else}
     <p>Invalid page</p>
   {/if}

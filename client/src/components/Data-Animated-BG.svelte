@@ -4,10 +4,11 @@
 
   onMount(() => {
     setTimeout(() => {
-      document.getElementById('left').style.left = '0';
-      document.getElementById('right').style.right = '0';
+      document.getElementById('left').style.left = '-100vw';
+      document.getElementById('left-under').style.left = '-99.5vw';
+      document.getElementById('right').style.right = '-100vw';
       console.log('added')
-    }, 1500)
+    }, 250)
   })
 
 </script>
@@ -15,8 +16,8 @@
 <main>
 
   <div id='left' class="backgound-element"></div>
+  <div id='left-under' class="backgound-element"></div>
   <div id='right' class="backgound-element"></div>
-
 
 </main>
 
@@ -33,15 +34,38 @@
   #left {
     background-color: #052c46;
     position: absolute;
-    left: -100vw;
+    left: 0vw;
+    clip-path: polygon(80% 0, 60% 50%, 41% 50%, 20% 100%, 0 100%, 0 0);
+    z-index: 10;
+  }
+
+  #left-under {
+    background: #fff;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    clip-path: polygon(80% 0, 60% 50%, 41% 50%, 20% 100%, 0 100%, 0 0);
+    z-index: 8;
+  }
+
+  #left-under:before{
+    content : '';
+    background: #000000aa;
+    height: 100vh;
+    width: 100vw;
+    display: block;
+    position: absolute;
+    left: -.25vw;
+    top: -5px;
     clip-path: polygon(80% 0, 60% 50%, 41% 50%, 20% 100%, 0 100%, 0 0);
   }
 
   #right {
     background-color: #fed703;
     position: absolute;
-    right: -100vw;
+    right: 0vw;
     clip-path: polygon(80% 0, 60% 50%, 40% 50%, 20% 100%, 100% 100%, 100% 0);
+    z-index: 9;
   }
 
   .backgound-element{

@@ -1,28 +1,25 @@
 <script>
 
-  import { onMount } from 'svelte';
+  export let leftGraphData;
+  export let rightGraphData;
+  export let leftData;
+  export let rightData;
+
   import Scrollbar from '../components/Scrollbar.svelte';
-  import Loader_1 from '../components/Loader-1.svelte';
-  import BarGraph from '../components/Data/Bar-Graph.svelte';
+  // import BarGraph from '../components/Data/Bar-Graph.svelte';
+  // import LineGraph from '../componexnts/Data/Line-Graph.svelte';
+  import LineGraph2 from '../components/Data/Line-Graph2.svelte';
 
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
   let position = 2;
   let maxPosition = 4;
-  // TEMPORARY
-  let loading = true;
-
-  onMount(() => {
-    // TEMPORARY
-    setTimeout(() => {
-      loading = false;
-    }, 2000);
-  });
 
 </script>
 
 <main>
 
   <section id="top-section">
+  <h2 id="top-sub-header">Graph Type</h2>
     <button
       on:click={() => {
         if (position > 0) {
@@ -35,13 +32,10 @@
       class="scroll-buttons">{'<'}</button
     >
     <div id="D3-container">
-      {#if loading}
-        <Loader_1 />
-      {:else}
       <div id="current-graph">
-        <BarGraph />
+        <!-- <BarGraph /> -->
+        <LineGraph2 data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} />
       </div>
-      {/if}
     </div>
     <button
       on:click={() => {
@@ -64,14 +58,24 @@
 
 <style>
 
+
   #top-section {
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 77vh;
+    height: 75vh;
     width: 100vw;
+  }
+
+  #top-sub-header {
+    position: absolute;
+    font-size: 2vh;
+    font-family: 'Farro', sans-serif;
+    color: #fff;
+    margin: 7px 0px;
+    align-self: flex-start;
   }
 
   .scroll-buttons {
@@ -92,10 +96,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding : 20vh 15vw;
+    padding : 2vh 2vw;
     border: 3px solid white;
     box-shadow: 25px 25px #000000aa;
     border-radius: 12px;
+    background-color: #00000044;
   }
 
   .scroll-buttons:hover {
