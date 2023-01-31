@@ -1,5 +1,4 @@
 <script>
-
   import Character from "./pages/Character.svelte";
   import Data from "./pages/Data.svelte";
   import Home from "./pages/Home.svelte";

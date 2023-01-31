@@ -33,7 +33,7 @@
     getSubCategories(category).then((data) => {
       APIdata = data;
       whatItems = Object.keys(data).map((item) => {
-        return { value: item, label: splitWordsOnCapitalLetters(item) }
+        return { value: item, label: splitWordsOnCapitalLetters(item)}
       })
     })
   }
