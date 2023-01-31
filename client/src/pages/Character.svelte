@@ -179,6 +179,7 @@
     overflow: none;
     font-family: 'Farro', sans-serif;
     color: #fed703;
+    overflow: hidden;
   }
 
   #category-list {
