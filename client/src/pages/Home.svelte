@@ -157,6 +157,7 @@
     justify-content: center;
     height: 100%;
     width: 100vw;
+    overflow-x: hidden;
   }
 
   #top-section {
@@ -242,9 +243,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 100px;
-    padding-left: 7vw;
-    padding-right: 7vw;
+    gap: 5vw;
+    padding-left: 4vw;
+    padding-right: 4vw;
     padding-top: 5vh;
     padding-bottom: 5vh;
     min-height: 75vh;
@@ -290,11 +291,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 50px;
-    height: 100%;
     width: 75vw;
     background-color: #fed703;
-    padding-bottom: 40px;
   }
 
   #paragraph-container > p {
@@ -359,6 +357,64 @@
   50% { transform: rotate(0eg); }
   75% { transform: rotate(-5deg); }
   100% { transform: rotate(0deg); }
+}
+
+@media screen and (max-width : 1080px) {
+  #paragraph-container > p {
+    font-size: 1.5vw;
+  }
+}
+
+@media screen and (max-width : 800px) {
+
+  #top-header {
+    font-size: 9vh;
+  }
+
+  #sub-section{
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 2vh;
+    padding-bottom: 5vh;
+    height: auto;
+    min-height: 80vh;
+    max-height: none;
+  }
+  
+  #paragraph-container{
+    width: 80vw;
+    height: 50vh;
+    height: fit-content;
+  }
+
+  #paragraph-container > p {
+    font-size: 13px;
+    line-height: 3vh;
+  }
+
+  #button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
+    gap: 25px;
+    background-color: #fed703;
+  }
+
+  .home-buttons {
+    font-size: 13.5px;
+    padding: 1vh 2vw;
+    margin-top: 10px;
+    min-width: 27vw;
+    max-width: 27vw;
+  }
+
+  #footer {
+    height: 7.5vh;
+    padding-left: 7.5vw;
+  }
+  
 }
 
 </style>
