@@ -19,3 +19,8 @@ export async function getBananaFact() {
   const response = await fetch(`${API}/bananaFact`)
   return response.json()
 }
+
+export async function getBananas() {
+  const response = await fetch(`${API}/bananas`)
+  return response.json()
+}

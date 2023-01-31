@@ -110,7 +110,8 @@
       })
       .y(function(d) {
         return yLeft(d.value);
-      });
+      })
+      .curve(d3.curveCardinal);
 
     var line2 = d3
       .line()
@@ -119,7 +120,8 @@
       })
       .y(function(d) {
         return yRight(d.value);
-      });
+      })
+      .curve(d3.curveCardinal);
 
     // Adds the svg canvas
 
