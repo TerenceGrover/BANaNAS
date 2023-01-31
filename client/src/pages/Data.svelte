@@ -6,7 +6,7 @@
   import GraphContainer from '../components/Graph-Container.svelte';
   import Footer from '../components/Footer.svelte';
   import { onMount } from 'svelte';
-  import { getMetrics } from '../utils/api-services';
+  import { getMetrics } from '../Utils/api-services';
   import Loader_1 from '../components/Loader-1.svelte';
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
 

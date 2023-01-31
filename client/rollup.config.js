@@ -58,9 +58,9 @@ export default {
 			browser: true,
 			dedupe: ['svelte']
 		}),
-
 		nodeResolve({
-      browser: true
+      browser: true,
+			exportConditions: ['development'],
     }),
 		commonjs(),
 

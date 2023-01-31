@@ -88,7 +88,7 @@
 
 <style> 
   label {
-    font-size: 2.5vh;
+    font-size: 20px;
     width: 85px;
     font-family: 'Farro', sans-serif;
     color: white;
@@ -147,7 +147,7 @@
   }
 
   :global(.sub-input) {
-    font-size: 2.5vh !important;
+    font-size: 1.5vw !important;
     font-family: 'Farro', sans-serif !important;
     color: #ffae00 !important;
     border: none !important;
@@ -161,6 +161,14 @@
 
   :global(.sub-input:disabled) {
     color: rgb(158, 158, 158) !important;
+  }
+
+
+  @media screen and (max-width: 400px) {
+    label {
+      font-size: 12px;
+      width: 85px;
+  }
   }
 
 </style>
