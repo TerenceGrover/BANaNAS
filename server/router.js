@@ -25,8 +25,6 @@ router.delete('/bananas', deleteBanana);
 router.get('/bananas', getBananas);
 
 // get a random banana fact
-router.get('/bananaFact', getBananaFact)
+router.get('/bananaFact', getBananaFact);
 
 export default router;
-
-
