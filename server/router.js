@@ -4,6 +4,7 @@ import globalController, {
   addBanana,
   deleteBanana,
   getBananas,
+  getBananaFact,
 } from './controllers/controller.js';
 import { categoryController } from './controllers/category-controller.js';
 import { descriptionController } from './controllers/description-controller.js';
