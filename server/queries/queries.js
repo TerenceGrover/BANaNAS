@@ -9388,4 +9388,38 @@ export let queries = {
       provider: 'Open-Meteo',
     },
   },
+  Filters: {
+    Assassinations: {
+      description: [
+        'Assassinations of prominent figures',
+        [
+          'government',
+          'entertainer',
+          'musician',
+          'athlete',
+          'president',
+          'legal',
+          'activist',
+          'revolutionary',
+          'journalist',
+          'religious',
+          'criminal',
+        ],
+      ],
+      queryString: `http://localhost:4000/filter/api/Assassination/value`,
+      parameters_needed: ['value'],
+      provider: 'Bananas API',
+      availableCountries: [
+        'argentina',
+        'Brazil',
+        'Colombia',
+        'El Salvador',
+        'Guatemala',
+        'Haiti',
+        'Mexico',
+        'United States',
+        'Venezuela',
+      ],
+    },
+  },
 };
