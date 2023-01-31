@@ -1,4 +1,4 @@
-const API = 'https://api.data-banana.com/'
+const API = 'https://api.data-banana.com'
 
 export async function getSubCategories(selected) {
   const response = await fetch(`${API}/api/${selected}`)
