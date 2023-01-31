@@ -8,6 +8,11 @@
   export let leftData;
   export let rightData;
 
+  window.addEventListener("resize", function() {
+    d3.select(".line-graph").html("");
+    drawGraph();
+  });
+
   function compactBigNumber(num) {
     if (num > 1000) {
       return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(num);
@@ -28,6 +33,10 @@
 
 
   onMount(async () => {
+    drawGraph();
+  });
+
+  function drawGraph() {
 
     // Set the dimensions of the canvas / graph
     var margin = { top: 60, right: 120, bottom: 100, left: 120 },
@@ -108,7 +117,7 @@
     // Adds the svg canvas
 
     var svg = d3
-      .select("#chart")
+      .select(".line-graph")
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -245,12 +254,13 @@
       .style('fill', '#fff')
       .text("Value ($)2");
 
-  });
+  };
 
 </script>
 
-
-<svg id="chart"></svg>
+<div id="container">
+  <svg class="line-graph"></svg>
+</div>
 
 <style>
 
@@ -259,7 +269,7 @@
   }
   
 
-  #chart {
+  .line-graph {
     width: 67vw;
     height: 55vh;
   }
