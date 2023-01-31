@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte';
   import Select from 'svelte-select';
-  import { getSubCategories } from "../utils/api-services";
-  import {splitWordsOnCapitalLetters} from '../utils/helpers';
+  import { getSubCategories } from "../Utils/api-services";
+  import {splitWordsOnCapitalLetters} from '../Utils/helpers';
   
   
   let whatItems
