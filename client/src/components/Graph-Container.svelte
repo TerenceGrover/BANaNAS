@@ -9,6 +9,7 @@
   // import BarGraph from '../components/Data/Bar-Graph.svelte';
   // import LineGraph from '../componexnts/Data/Line-Graph.svelte';
   import LineGraph2 from '../components/Data/Line-Graph2.svelte';
+  import Scatterplot from './Data/Scatterplot.svelte';
 
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
   let position = 2;
@@ -34,7 +35,8 @@
     <div id="D3-container">
       <div id="current-graph">
         <!-- <BarGraph /> -->
-        <LineGraph2 data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} />
+        <!-- <LineGraph2 data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} /> -->
+        <Scatterplot data1={leftGraphData} data2={rightGraphData} {leftData} {rightData} />
       </div>
     </div>
     <button
