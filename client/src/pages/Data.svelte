@@ -14,7 +14,7 @@
   let leftGraphData = [];
   let rightGraphData = [];
 
-  let loading = true;
+  let loading = false;
 
   async function getAllData() {
     getMetrics(leftData.cat, leftData.what, leftData.where).then((data) => {
