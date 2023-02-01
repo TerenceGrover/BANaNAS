@@ -9,7 +9,10 @@
   export let rightData;
   export let filterYears;
 
-  let dataArray1 = Object.entries(data1)
+  $: filterYears, console.log(filterYears);
+
+  let dataArray1;
+  $: filterYears, dataArray1 = Object.entries(data1)
     .filter(([year, value]) => {
       if (filterYears.length>0) {
         return (filterYears.includes(+year) && value !== null)
@@ -22,8 +25,8 @@
       value: value,
     }));
 
-
-  const dataArray2 = Object.entries(data2)
+  let dataArray2;
+  $: filterYears, dataArray2 = Object.entries(data2)
     .filter(([year, value]) => {
       if (filterYears.length>0) {
         return (filterYears.includes(+year) && value !== null)
@@ -36,6 +39,7 @@
       value: value,
     }));
 
+  console.log(dataArray1[0], dataArray2[0]);
   const lowestYear = Math.min(dataArray1[0].year, dataArray2[0].year);
   const highestYear = Math.max(
     dataArray1[dataArray1.length - 1].year,

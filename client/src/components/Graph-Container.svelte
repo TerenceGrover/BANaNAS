@@ -4,6 +4,8 @@
   export let leftData;
   export let rightData;
   export let filterYears = [];
+  export let filterYearsOff = [];
+  export let filterToggle = true;
 
   import Scrollbar from '../components/Scrollbar.svelte';
   import LineGraph2 from '../components/Data/Line-Graph2.svelte';
@@ -73,6 +75,14 @@
         alt="right-arrow"
       />
     </button>
+    {#if filterYears.length > 0}
+      <input id="switch" type="checkbox" />
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <label for="switch"
+        on:click={() => {
+          filterToggle = !filterToggle;
+        }}>Toggle</label>
+    {/if}
     <button
       on:click={() => {
         handlePosition('left');
@@ -85,6 +95,7 @@
         {filterCategories}
         bind:filterYears={filterYears}
         bind:filter={filter}
+        bind:filterYearsOff={filterYearsOff}
         />
     {:else}
       {#if position === 0}
@@ -95,7 +106,7 @@
               data2={rightGraphData}
               {leftData}
               {rightData}
-              {filterYears}
+              filterYears = { filterToggle ? filterYears : filterYearsOff}
             />
           </div>
         </div>
@@ -107,7 +118,7 @@
               data2={rightGraphData}
               {leftData}
               {rightData}
-              {filterYears}
+              filterYears = { filterToggle ? filterYears : filterYearsOff}
             />
           </div>
         </div>
@@ -166,7 +177,58 @@
     -webkit-text-stroke: 1px black;
     gap: 2px;
     cursor: pointer;
+    
   }
+
+input[type=checkbox]{
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 75px;
+  height: 34px;
+  background: #fed703;
+  display: block;
+  border-radius: 34px;
+  position: absolute;
+  display: flex;
+  top: 7vh;
+  left: 2vw;
+  filter: drop-shadow(3px 3px 0px black);
+  border: 2px solid black;
+
+}
+
+label:after {
+  content: '';
+  position: absolute;
+  top: 2.5px;
+  right: 2.5px;
+  width: 25px;
+  height: 25px;
+  background: #fff;
+  border-radius: 25px;
+  transition: 0.3s;
+  border: 2px solid black;
+}
+
+input:checked + label {
+  background: grey;
+
+}
+
+input:checked + label:after {
+  right: calc(100% - 2.5px);
+  transform: translateX(100%);
+}
+
+label:active:after {
+  width: 6vh;
+}
 
   #filter-text {
     padding-top: 2px;
