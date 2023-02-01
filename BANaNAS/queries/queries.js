@@ -94731,7 +94731,7 @@ export let queries = {
   Bananas: {
     bananaExport: {
       description: 'Banana export (kg)',
-      queryString: `http://localhost:4000/api/countryName/bananas/startYear/endYear`,
+      queryString: `http://localhost:4000/api/Comodity/countryName/bananas/startYear/endYear`,
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
