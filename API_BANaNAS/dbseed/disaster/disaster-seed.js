@@ -5,7 +5,6 @@ import volcanoes from '../wiki-scrape/volcanoes.json' assert { type: 'json' };
 import { Sequelize } from 'sequelize';
 import { DataTypes } from '@sequelize/core';
 import dotenv from 'dotenv';
-import fs from 'fs';
 dotenv.config();
 
 const sequelize = new Sequelize(process.env.DB_CONNECTION_STRING, {
