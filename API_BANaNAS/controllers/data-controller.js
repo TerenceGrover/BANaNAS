@@ -4,10 +4,12 @@ import { Sequelize } from 'sequelize';
 
 export const dataController = async (req, res) => {
   try {
+    console.log(req.params);
     const categoryName = req.params.categoryName;
     const noun1 = req.params.param1; // country
     const noun2 = req.params.param2; // commodity or name
     const responseObj = {};
+
     async function queryModel(categoryName) {
       let data;
       switch (categoryName) {
@@ -18,6 +20,7 @@ export const dataController = async (req, res) => {
               commodity: noun2,
             },
           });
+          console.log('commodity hit');
           return data;
           break;
         case 'Wealth':
@@ -32,7 +35,7 @@ export const dataController = async (req, res) => {
     }
     let data = await queryModel(categoryName);
 
-    if (!data.length) {
+    if (!data || !data.length) {
       res.status(404).json({
         message: 'no data found, check your commodity name and year values',
       });
