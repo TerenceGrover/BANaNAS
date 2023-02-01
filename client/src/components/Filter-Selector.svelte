@@ -1,9 +1,13 @@
 <script>
-  import { claim_svg_element } from 'svelte/internal';
   import { splitWordsOnCapitalLetters } from '../utils/helpers.js';
+  import { getFilteredCategoryYears } from '../utils/api-services.js';
 
   export let filterCategories;
-  export let filteredYears = [];
+  export let filterYears;
+  export let filter;
+
+  $: filterYears, console.log(filterYears, 'YEARS');
+
 
   let categoryList = Object.keys(filterCategories).map((category) => ({
     value: category,
@@ -65,8 +69,13 @@
         <column class="column" id="country" style="width: {columnWidth}%;">
           <div class="column-title">{selectedSubCategory.name}</div>
           <list class="list-container">
-            {#each selectedSubCategory.values as options}
-              <option class="list-item">{options}</option>
+            {#each selectedSubCategory.values as option}
+              <option class="list-item"
+                on:click={async () => {
+                  await getFilteredCategoryYears(selectedCategory, option).then(res => filterYears = res)
+                  filter = false;
+                }}
+              >{option}</option>
             {/each}
           </list>
         </column>

@@ -3,6 +3,7 @@
   export let rightGraphData;
   export let leftData;
   export let rightData;
+  export let filterYears = [];
 
   import Scrollbar from '../components/Scrollbar.svelte';
   import LineGraph2 from '../components/Data/Line-Graph2.svelte';
@@ -24,7 +25,6 @@
 
   let filter = false;
   let filterCategories = [];
-  let filterYears = []
 
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
   let position = Math.floor((graphs.length - 1) / 2);
@@ -84,6 +84,7 @@
       <FilterSelector
         {filterCategories}
         bind:filterYears={filterYears}
+        bind:filter={filter}
         />
     {:else}
       {#if position === 0}
