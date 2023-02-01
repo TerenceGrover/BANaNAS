@@ -12,6 +12,7 @@
   export let leftCategory = '';
   export let rightCategory = '';
 
+  const isMobile = window.innerWidth < 768;
   let loading = true;
   let currentSide = 'left';
   let hoveredCategory = { name: '' };
@@ -59,9 +60,12 @@
 
 
 <main>
+
   {#if loading}
+
     <CharAnimatedBackground />
     <Loader />
+
   {:else}
     <h1 id="title">Choose Your Fighter</h1>
     <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
@@ -85,6 +89,7 @@
           currentSide = 'left';
         }}
       >
+
         {#if leftCategory === ''}
           <img
             id="selector-left"
@@ -95,16 +100,19 @@
         {:else}
           <h2 id="left-selected-category-name">{leftCategory}</h2>
         {/if}
+        
         <Player_Zone selectedPlayer={leftCategory} player="P1" />
       </div>
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
         id="player-container-right"
         on:click={() => {
+
           if (document.getElementById('selector-right'))
             document
               .getElementById('selector-right')
               .classList.toggle('hidden');
+
           if (document.getElementById('selector-left'))
             document.getElementById('selector-left').classList.toggle('hidden');
 
@@ -112,6 +120,7 @@
           currentSide = 'right';
         }}
       >
+
         {#if rightCategory === ''}
           <img
             id="selector-right"
@@ -122,6 +131,7 @@
         {:else}
           <h2 id="right-selected-category-name">{rightCategory}</h2>
         {/if}
+
         <Player_Zone selectedPlayer={rightCategory} player="P2" />
       </div>
     </div>
@@ -137,7 +147,9 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     {#if right.what !== '' && left.what !== '' && right.where !== '' && left.where !== ''}
       <Versus {changePage} {left} {right} {leftCategory} {rightCategory} />
-    {:else}
+    
+      {:else}
+
       {#if rightCategory !== ''}
         <SubSelector
           category={rightCategory}
@@ -146,6 +158,7 @@
           currentSide="right"
         />
       {/if}
+
       {#if leftCategory !== ''}
         <SubSelector
           category={leftCategory}
@@ -155,12 +168,20 @@
         />
       {/if}
     {/if}
+
+    {#if isMobile}
+      <span id="mobile-warning">
+        This game is not optimized for mobile devices. Please use a desktop
+        computer for the best experience.
+      </span>
+    {:else}
     <div id="category-list">
       <Category_Collection
         bind:currentlyHovered={hoveredCategory}
         bind:currentlySelected={selectedCategory}
       />
     </div>
+    {/if}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <h4 id="home-button" on:click={() => changePage('home')}>
       <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon" />
@@ -168,6 +189,7 @@
     </h4>
 
     <CharStaticBackground />
+
   {/if}
 </main>
 
