@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import * as d3 from "d3";
-  import {splitWordsOnCapitalLetters} from '../../utils/helpers';
+  import {splitWordsOnCapitalLetters} from '../../Utils/helpers';
 
   export let data1;
   export let data2;
