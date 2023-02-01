@@ -9428,7 +9428,7 @@ export let queries = {
       parameters_needed: ['filterOne'],
       provider: 'Bananas API',
       availableFilters: {
-        value: {
+        filterOne: {
           name: 'Type of Disaster',
           values: ['earthquake', 'tornado', 'volcano', 'avalanche'],
         },
