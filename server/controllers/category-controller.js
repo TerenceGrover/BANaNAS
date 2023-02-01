@@ -5,11 +5,19 @@ export const categoryController = async (req, res) => {
     const category = req.params.selectedCategory;
     let responseObj = {};
     for (let query in queries[category]) {
-      responseObj[query] = {
-        description: queries[category][query]['description'],
-        parameters_needed: queries[category][query]['parameters_needed'],
-        available_countries: queries[category][query]['availableCountries'],
-      };
+      if (category === 'Filters') {
+        responseObj[query] = {
+          description: queries[category][query]['description'],
+          parameters_needed: queries[category][query]['parameters_needed'],
+          available_filters: queries[category][query]['availableFilters'],
+        };
+      } else {
+        responseObj[query] = {
+          description: queries[category][query]['description'],
+          parameters_needed: queries[category][query]['parameters_needed'],
+          available_countries: queries[category][query]['availableCountries'],
+        };
+      }
     }
     res.status(200).json(responseObj);
   } catch (err) {
