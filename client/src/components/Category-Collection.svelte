@@ -10,7 +10,7 @@
 <main>
   <div id="category-container">
     <div class='row'>
-    {#each categoryList.slice(0, 5) as category}
+    {#each categoryList.slice(0, 6) as category}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div class="category"
         on:mouseenter={() => currentlyHovered.name = category.name}
@@ -22,7 +22,7 @@
     {/each}
     </div>
     <div class='row'>
-    {#each categoryList.slice(5, 11) as category}
+    {#each categoryList.slice(6, 14) as category}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div class="category"
         on:mouseenter={() => {currentlyHovered.name = category.name}}
@@ -34,7 +34,7 @@
     {/each}
     </div>
     <div class='row'>
-    {#each categoryList.slice(11, 16) as category}
+    {#each categoryList.slice(14, 20) as category}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div class="category"
         on:mouseenter={() => currentlyHovered.name = category.name}
