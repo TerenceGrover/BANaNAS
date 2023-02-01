@@ -178,18 +178,14 @@
 
   #current-graph {
     position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
     padding: 2vh 2vw;
     border: 3px solid white;
-    box-shadow: 25px 25px #000000aa;
+    box-shadow: 22px 22px #000000aa;
+    margin-top: 1vh;
+    margin-bottom: 1.5vh;
     border-radius: 12px;
     background-color: #00000044;
-  }
-
-  #D3-container {
-    margin-bottom: 20px;
   }
 
   .fade-in {

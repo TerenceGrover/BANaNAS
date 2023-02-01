@@ -40,7 +40,7 @@
   function drawGraph() {
     // Set the dimensions of the canvas / graph
     let margin = { top: 60, right: 120, bottom: 100, left: 100 },
-      width = window.innerWidth * 0.7 - margin.left - margin.right,
+      width = window.innerWidth * 0.72 - margin.left - margin.right,
       height = window.innerHeight * 0.6 - margin.top - margin.bottom;
 
     // Set the ranges
@@ -298,7 +298,7 @@
   }
 
   .line-graph {
-    width: 67vw;
+    width: 73vw;
     height: 55vh;
   }
 
