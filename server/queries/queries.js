@@ -45717,7 +45717,7 @@ export let queries = {
     Billionaires: {
       description: 'Net worth of a billionaire (in USD)',
       queryString: `http://localhost:4000/api/Wealth/name`,
-      parameters_needed: ['name'],
+      parameters_needed: ['name', 'startYear', 'endYear'],
       unit: 'USD',
       provider: 'Bananas API',
       availableCountries: [
