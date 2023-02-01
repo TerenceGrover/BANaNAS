@@ -4,6 +4,7 @@
   import { getBananas } from '../Utils/api-services';
   export let changePage;
   let shadowStr = '0px 0px 0px 0px #000';
+  import Carousel from '../components/Carousel.svelte';
 
   function handleMove(e) {
     shadowStr = transformMouseIntoCSSShadow(e.clientX, e.clientY);

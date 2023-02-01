@@ -90,7 +90,7 @@
     background-color: #052c46;
     position: absolute;
     left: -100vw;
-    top: -5vh;
+    top: -10vh;
     clip-path: polygon(0 0, 100% 0, 100% 50%, 40% 45%, 60% 55%, 0 50%);
     z-index: 11;
   }
@@ -99,7 +99,7 @@
     background-color: #fed703;
     position: absolute;
     right: -100vw;
-    bottom: -5vh;
+    bottom: -10vh;
     clip-path: polygon(0 100%, 100% 100%, 100% 50%, 40% 45%, 60% 55%, 0 50%);
     z-index: 9;
   }

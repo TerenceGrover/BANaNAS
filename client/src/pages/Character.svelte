@@ -1,4 +1,6 @@
 <script>
+  const isMobile = window.innerWidth < 768;
+
   import Category_Collection from '../components/Category-Collection.svelte';
   import Loader from '../components/Loader-Falling.svelte';
   import Versus from '../components/Versus.svelte';
@@ -7,12 +9,12 @@
   import CharStaticBackground from '../components/Char-Static-Background.svelte';
   import SubSelector from '../components/Sub-Selector.svelte';
   import { onMount } from 'svelte';
-  export let changePage;
+  import Carousel from '../components/Carousel.svelte';
 
+  export let changePage;
   export let leftCategory = '';
   export let rightCategory = '';
 
-  const isMobile = window.innerWidth < 768;
   let loading = true;
   let currentSide = 'left';
   let hoveredCategory = { name: '' };
@@ -54,22 +56,23 @@
     document.getElementById('selector-right').classList.add('hidden');
     document.getElementById('selector-left').classList.remove('hidden');
   }
-  
 </script>
 
-
-
 <main>
-
   {#if loading}
-
     <CharAnimatedBackground />
     <Loader />
-
   {:else}
-    <h1 id="title">Choose Your Fighter</h1>
+    {#if isMobile}
+      <div id="top-carousel">
+        <Carousel bind:currentlySelected={leftCategory} />
+      </div>
+      <div id="bot-carousel">
+        <Carousel bind:currentlySelected={rightCategory} />
+      </div>
+    {/if}
+    <h1 id="title" class={isMobile && (leftCategory != '' || rightCategory !== '') && 'hidden'}>Choose Your Fighter</h1>
     <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
-
     <div id="player-zone-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
@@ -82,15 +85,11 @@
           if (document.getElementById('selector-left'))
             document.getElementById('selector-left').classList.toggle('hidden');
 
-          console.log(document.getElementById('selector-right'));
-          console.log(document.getElementById('selector-left'));
-
           selectedCategory = { name: '' };
           currentSide = 'left';
         }}
       >
-
-        {#if leftCategory === ''}
+        {#if leftCategory === '' && !isMobile}
           <img
             id="selector-left"
             class="selector-arrow"
@@ -100,14 +99,14 @@
         {:else}
           <h2 id="left-selected-category-name">{leftCategory}</h2>
         {/if}
-        
-        <Player_Zone selectedPlayer={leftCategory} player="P1" />
+        {#if !isMobile}
+          <Player_Zone selectedPlayer={leftCategory} player="P1" />
+        {/if}
       </div>
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
         id="player-container-right"
         on:click={() => {
-
           if (document.getElementById('selector-right'))
             document
               .getElementById('selector-right')
@@ -120,8 +119,7 @@
           currentSide = 'right';
         }}
       >
-
-        {#if rightCategory === ''}
+        {#if rightCategory === '' && !isMobile}
           <img
             id="selector-right"
             class="hidden selector-arrow"
@@ -132,7 +130,9 @@
           <h2 id="right-selected-category-name">{rightCategory}</h2>
         {/if}
 
-        <Player_Zone selectedPlayer={rightCategory} player="P2" />
+        {#if !isMobile}
+          <Player_Zone selectedPlayer={rightCategory} player="P2" />
+        {/if}
       </div>
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -147,9 +147,7 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     {#if right.what !== '' && left.what !== '' && right.where !== '' && left.where !== ''}
       <Versus {changePage} {left} {right} {leftCategory} {rightCategory} />
-    
-      {:else}
-
+    {:else}
       {#if rightCategory !== ''}
         <SubSelector
           category={rightCategory}
@@ -169,18 +167,13 @@
       {/if}
     {/if}
 
-    {#if isMobile}
-      <span id="mobile-warning">
-        This game is not optimized for mobile devices. Please use a desktop
-        computer for the best experience.
-      </span>
-    {:else}
-    <div id="category-list">
-      <Category_Collection
-        bind:currentlyHovered={hoveredCategory}
-        bind:currentlySelected={selectedCategory}
-      />
-    </div>
+    {#if !isMobile}
+      <div id="category-list">
+        <Category_Collection
+          bind:currentlyHovered={hoveredCategory}
+          bind:currentlySelected={selectedCategory}
+        />
+      </div>
     {/if}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <h4 id="home-button" on:click={() => changePage('home')}>
@@ -189,11 +182,8 @@
     </h4>
 
     <CharStaticBackground />
-
   {/if}
 </main>
-
-
 
 <style>
   main {
@@ -203,7 +193,6 @@
     justify-content: space-between;
     height: 100vh;
     width: 100vw;
-    overflow: none;
     font-family: 'Farro', sans-serif;
     color: #fed703;
     overflow: hidden;
@@ -342,6 +331,26 @@
     display: none;
   }
 
+  #top-carousel {
+    z-index: 1000000;
+    position: absolute;
+    left: 50%;
+    top: 17.5%;
+    transform: translate(-50%, -50%);
+    width: 85vw;
+    height: 25vh;
+  }
+
+  #bot-carousel {
+    z-index: 1000000;
+    position: absolute;
+    left: 50%;
+    top: 68%;
+    transform: translate(-50%, -50%);
+    width: 85vw;
+    height: 25vh;
+  }
+
   @keyframes pulse {
     0% {
       transform: scale(0.95);
@@ -370,8 +379,7 @@
     }
   }
 
-  @media screen and (max-width : 768px) {
-
+  @media screen and (max-width: 768px) {
     main {
       position: relative;
     }
@@ -389,7 +397,7 @@
     #player-container-right {
       position: absolute;
       left: 50%;
-      top: 75%;
+      top: 67%;
       transform: translate(-50%, -50%);
       width: 50vw;
       height: 30vh;
@@ -398,11 +406,23 @@
     #player-container-left {
       position: absolute;
       left: 50%;
-      top: 25%;
+      top: 32.5%;
       transform: translate(-50%, -50%);
       width: 50vw;
       height: 30vh;
     }
-  }
 
+    #home-button {
+      top: 2vh;
+      left: 2vw;
+      font-size: 2vh;
+      width: 5vw;
+    }
+
+    #reset-categories {
+      top: 2vh;
+      right: 2vw;
+      font-size: 2vh;
+    }
+  }
 </style>

@@ -5,14 +5,35 @@
   export let leftCategory;
   export let rightCategory;
 
-  function handleclick() {
-    console.log('CLICKED VERSUS');
-    changePage(
-      'data', 
-    { cat : leftCategory, what : left.what.value, where : left.where.value}, 
-    { cat : rightCategory, what : right.what.value, where : right.where.value});
-  }
+  const isMobile = window.innerWidth < 768;
 
+  function handleclick() {
+    console.log(
+      'left',
+      left,
+      'right',
+      right,
+      'leftCategory',
+      leftCategory,
+      'rightCategory',
+      rightCategory
+    );
+    isMobile
+      ? changePage(
+          'data',
+          { cat: leftCategory, what: left.what, where: left.where },
+          { cat: rightCategory, what: right.what, where: right.where }
+        )
+      : changePage(
+          'data',
+          { cat: leftCategory, what: left.what.value, where: left.where.value },
+          {
+            cat: rightCategory,
+            what: right.what.value,
+            where: right.where.value,
+          }
+        );
+  }
 </script>
 
 <main>
@@ -51,6 +72,13 @@
     }
     100% {
       transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #vs {
+      height: 150px;
+      width: 170px;
     }
   }
 </style>

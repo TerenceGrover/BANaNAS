@@ -2,6 +2,8 @@
   export let selectedPlayer;
   export let player;
 
+  const isMobile = window.innerWidth < 768;
+
   let src = '';
   $: selectedPlayer,
     (src = `../../assets/jobs/${selectedPlayer.toLowerCase()}.svg`);
