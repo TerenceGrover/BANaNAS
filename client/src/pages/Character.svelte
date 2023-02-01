@@ -1,4 +1,6 @@
 <script>
+  const isMobile = window.innerWidth < 768;
+
   import Category_Collection from '../components/Category-Collection.svelte';
   import Loader from '../components/Loader-Falling.svelte';
   import Versus from '../components/Versus.svelte';
@@ -7,8 +9,9 @@
   import CharStaticBackground from '../components/Char-Static-Background.svelte';
   import SubSelector from '../components/Sub-Selector.svelte';
   import { onMount } from 'svelte';
-  export let changePage;
+  import Carousel from '../components/Carousel.svelte';
 
+  export let changePage;
   export let leftCategory = '';
   export let rightCategory = '';
 
@@ -60,9 +63,16 @@
     <CharAnimatedBackground />
     <Loader />
   {:else}
-    <h1 id="title">Choose Your Fighter</h1>
+    {#if isMobile}
+      <div id="top-carousel">
+        <Carousel bind:currentlySelected={leftCategory} />
+      </div>
+      <div id="bot-carousel">
+        <Carousel bind:currentlySelected={rightCategory} />
+      </div>
+    {/if}
+    <h1 id="title" class={isMobile && (leftCategory != '' || rightCategory !== '') && 'hidden'}>Choose Your Fighter</h1>
     <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
-
     <div id="player-zone-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
@@ -75,14 +85,11 @@
           if (document.getElementById('selector-left'))
             document.getElementById('selector-left').classList.toggle('hidden');
 
-          console.log(document.getElementById('selector-right'));
-          console.log(document.getElementById('selector-left'));
-
           selectedCategory = { name: '' };
           currentSide = 'left';
         }}
       >
-        {#if leftCategory === ''}
+        {#if leftCategory === '' && !isMobile}
           <img
             id="selector-left"
             class="selector-arrow"
@@ -92,7 +99,9 @@
         {:else}
           <h2 id="left-selected-category-name">{leftCategory}</h2>
         {/if}
-        <Player_Zone selectedPlayer={leftCategory} player="P1" />
+        {#if !isMobile}
+          <Player_Zone selectedPlayer={leftCategory} player="P1" />
+        {/if}
       </div>
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
@@ -102,6 +111,7 @@
             document
               .getElementById('selector-right')
               .classList.toggle('hidden');
+
           if (document.getElementById('selector-left'))
             document.getElementById('selector-left').classList.toggle('hidden');
 
@@ -109,7 +119,7 @@
           currentSide = 'right';
         }}
       >
-        {#if rightCategory === ''}
+        {#if rightCategory === '' && !isMobile}
           <img
             id="selector-right"
             class="hidden selector-arrow"
@@ -119,7 +129,10 @@
         {:else}
           <h2 id="right-selected-category-name">{rightCategory}</h2>
         {/if}
-        <Player_Zone selectedPlayer={rightCategory} player="P2" />
+
+        {#if !isMobile}
+          <Player_Zone selectedPlayer={rightCategory} player="P2" />
+        {/if}
       </div>
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -143,6 +156,7 @@
           currentSide="right"
         />
       {/if}
+
       {#if leftCategory !== ''}
         <SubSelector
           category={leftCategory}
@@ -152,12 +166,15 @@
         />
       {/if}
     {/if}
-    <div id="category-list">
-      <Category_Collection
-        bind:currentlyHovered={hoveredCategory}
-        bind:currentlySelected={selectedCategory}
-      />
-    </div>
+
+    {#if !isMobile}
+      <div id="category-list">
+        <Category_Collection
+          bind:currentlyHovered={hoveredCategory}
+          bind:currentlySelected={selectedCategory}
+        />
+      </div>
+    {/if}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <h4 id="home-button" on:click={() => changePage('home')}>
       <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon" />
@@ -176,7 +193,6 @@
     justify-content: space-between;
     height: 100vh;
     width: 100vw;
-    overflow: none;
     font-family: 'Farro', sans-serif;
     color: #fed703;
     overflow: hidden;
@@ -237,16 +253,6 @@
   }
 
   #player-container-right {
-    position: relative;
-    width: 30vw;
-    height: 70vh;
-    z-index: 100000;
-    cursor: pointer;
-    color: #052c46;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
     position: relative;
     width: 30vw;
     height: 70vh;
@@ -325,6 +331,26 @@
     display: none;
   }
 
+  #top-carousel {
+    z-index: 1000000;
+    position: absolute;
+    left: 50%;
+    top: 17.5%;
+    transform: translate(-50%, -50%);
+    width: 85vw;
+    height: 25vh;
+  }
+
+  #bot-carousel {
+    z-index: 1000000;
+    position: absolute;
+    left: 50%;
+    top: 68%;
+    transform: translate(-50%, -50%);
+    width: 85vw;
+    height: 25vh;
+  }
+
   @keyframes pulse {
     0% {
       transform: scale(0.95);
@@ -350,6 +376,53 @@
 
     100% {
       transform: translateY(0);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    main {
+      position: relative;
+    }
+
+    #title {
+      position: absolute;
+      font-size: 5vh;
+      margin-top: 0;
+      top: 50%;
+      left: 50%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+    }
+
+    #player-container-right {
+      position: absolute;
+      left: 50%;
+      top: 67%;
+      transform: translate(-50%, -50%);
+      width: 50vw;
+      height: 30vh;
+    }
+
+    #player-container-left {
+      position: absolute;
+      left: 50%;
+      top: 32.5%;
+      transform: translate(-50%, -50%);
+      width: 50vw;
+      height: 30vh;
+    }
+
+    #home-button {
+      top: 2vh;
+      left: 2vw;
+      font-size: 2vh;
+      width: 5vw;
+    }
+
+    #reset-categories {
+      top: 2vh;
+      right: 2vw;
+      font-size: 2vh;
     }
   }
 </style>

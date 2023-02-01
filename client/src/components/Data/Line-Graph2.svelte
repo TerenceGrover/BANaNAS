@@ -7,25 +7,42 @@
   export let data2;
   export let leftData;
   export let rightData;
+  export let filterYears;
+
+  $: filterYears, console.log(filterYears);
 
   window.addEventListener('resize', function () {
     d3.select('.line-graph').html('');
     drawGraph();
   });
 
-  const dataArray1 = Object.entries(data1)
-    .filter(([year, value]) => value !== null)
+  let dataArray1 = Object.entries(data1)
+    .filter(([year, value]) => {
+      if (filterYears.length>0) {
+        return (filterYears.includes(+year) && value !== null)
+      } else {
+        return value !== null
+      }
+    })
     .map(([year, value]) => ({
       year: +year,
       value: value,
     }));
 
+
   const dataArray2 = Object.entries(data2)
-    .filter(([year, value]) => value !== null)
+    .filter(([year, value]) => {
+      if (filterYears.length>0) {
+        return (filterYears.includes(+year) && value !== null)
+      } else {
+        return value !== null
+      }
+    })
     .map(([year, value]) => ({
       year: +year,
       value: value,
     }));
+
 
   const lowestYear = Math.min(dataArray1[0].year, dataArray2[0].year);
   const highestYear = Math.max(

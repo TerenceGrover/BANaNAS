@@ -7,20 +7,34 @@
   export let data2;
   export let leftData;
   export let rightData;
+  export let filterYears;
 
-  const dataArray1 = Object.entries(data1)
-  .filter(([year, value]) => value !== null)
-  .map(([year, value]) => ({
-    year: +year,
-    value: value
-  }));
+  let dataArray1 = Object.entries(data1)
+    .filter(([year, value]) => {
+      if (filterYears.length>0) {
+        return (filterYears.includes(+year) && value !== null)
+      } else {
+        return value !== null
+      }
+    })
+    .map(([year, value]) => ({
+      year: +year,
+      value: value,
+    }));
+
 
   const dataArray2 = Object.entries(data2)
-  .filter(([year, value]) => value !== null)
-  .map(([year, value]) => ({
-    year: +year,
-    value: value
-  }));
+    .filter(([year, value]) => {
+      if (filterYears.length>0) {
+        return (filterYears.includes(+year) && value !== null)
+      } else {
+        return value !== null
+      }
+    })
+    .map(([year, value]) => ({
+      year: +year,
+      value: value,
+    }));
 
   const lowestYear = Math.min(dataArray1[0].year, dataArray2[0].year);
   const highestYear = Math.max(
@@ -152,7 +166,7 @@
         div1.transition()
           .duration(100)
           .style("opacity", 1)
-        div1.html((datum.value).toFixed(2))
+        div1.html((datum.year).toFixed(2))
           .style("left", (event.offsetX + 25) + "px")
           .style("top", (event.offsetY - 10) + "px")
       })
@@ -184,7 +198,7 @@
         div2.transition()
           .duration(100)
           .style("opacity", 1)
-        div2.html((datum.value).toFixed(2))
+        div2.html((datum.year).toFixed(2))
           .style("left", (event.offsetX + 25) + "px")
           .style("top", (event.offsetY - 10) + "px")
       })
