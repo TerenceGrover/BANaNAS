@@ -23650,7 +23650,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Afghanistan',
         'Albania',
         'Algeria',
@@ -23782,7 +23782,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Angola',
         'Argentina',
         'Australia',
@@ -23892,7 +23892,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'liters',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -24054,7 +24054,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -24230,7 +24230,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'US$',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -24403,7 +24403,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'US$',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -24596,7 +24596,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Afghanistan',
         'Albania',
         'Algeria',
@@ -24762,7 +24762,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -24945,7 +24945,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Angola',
         'Argentina',
         'Australia',
@@ -25061,7 +25061,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -25209,7 +25209,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'US$',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -25396,7 +25396,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'US$',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -25595,7 +25595,7 @@ export let queries = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Angola',
         'Argentina',
         'Australia',
@@ -45720,7 +45720,7 @@ export let queries = {
       parameters_needed: ['name', 'startYear', 'endYear'],
       unit: 'USD',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Jeff Bezos',
         'Elon Musk',
         'Bernard Arnault & family',
@@ -94731,11 +94731,11 @@ export let queries = {
   Bananas: {
     bananaExport: {
       description: 'Banana export (kg)',
-      queryString: `http://localhost:4000/api/Commodity/countryName/bananas`,
+      queryString: `http://localhost:4000/api/countryName/bananas/startYear/endYear`,
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      counties_available: [
+      availableCountries: [
         'Algeria',
         'Angola',
         'Antigua and Barbuda',
