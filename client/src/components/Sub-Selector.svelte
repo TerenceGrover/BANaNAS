@@ -14,10 +14,6 @@
   export let category;
   export let currentSide;
 
-  $: if (what) {
-    console.log(what);
-  }
-
   let inputFields;
 
   onMount(() => {
@@ -88,7 +84,7 @@
     </div>
 
     <div class="input-container" id={!what && 'disabled'}>
-      <label for="Where">Where : </label>
+      <label for="Where">{what && (what.value === 'Billionaires' || what === 'Billionaires') ? 'Who : ' : 'Where : '}</label>
       {#if isMobile}
         <select class="sub-input" id="What" bind:value={where}>
           <!-- <option value="" disabled selected>Select a data point</option> -->
