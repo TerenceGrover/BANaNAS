@@ -5,6 +5,7 @@ import { cityToLatAndLong } from '../middleware/meteo-middleware.js';
 import { meteoParser } from '../response-parsers/meteo-parser.js';
 import { worldBankParser } from '../response-parsers/worldBank-parser.js';
 import { BananaCounter } from '../models/model.js';
+import bananaFacts from '../bananaFacts.js';
 function findCountryCode(country) {
   return countryCodes[country];
 }
@@ -89,8 +90,7 @@ const globalController = async (req, res) => {
           queries[`${category}`][`${metricName}`].indicatorCode;
         response = meteoParser(response, indicatorCode);
         break;
-      case 'EuroStatParser':
-        // parse using EuroStatParser
+      case 'Bananas API':
         break;
       default:
         // do nothing
@@ -148,6 +148,22 @@ export const getBananas = async (req, res) => {
       0
     );
     res.status(200).json(bananaCountObj);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const getBananaFact = async (req, res) => {
+  try {
+    const bananaCount = await BananaCounter.findAll();
+    let BananaCountNumber = bananaCount.reduce((acc, user) => acc + user.count, 0);
+
+    const random = Math.floor(Math.random() * 21);
+    const randomFact = bananaFacts[`${random}`];
+
+    const fact = randomFact.replace('BananaCountNumber', BananaCountNumber);
+    res.status(200).json({ fact });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: 'Server error' });
