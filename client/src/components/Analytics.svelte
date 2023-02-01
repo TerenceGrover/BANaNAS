@@ -1,6 +1,10 @@
 <script>
-
-  import {mean, standardDeviation, getPearsonCorrelation, splitWordsOnCapitalLetters} from '../Utils/helpers';
+  import {
+    mean,
+    standardDeviation,
+    getPearsonCorrelation,
+    splitWordsOnCapitalLetters,
+  } from '../Utils/helpers';
   import categoryList from '../Utils/categoryList';
 
   export let leftData;
@@ -19,11 +23,13 @@
     return item.name === rightData.cat;
   }).emoji;
 
-  let meanLeft = largeNumbercompactor(mean(arrLeft))
-  let meanRight = largeNumbercompactor(mean(arrRight))
+  let meanLeft = largeNumbercompactor(mean(arrLeft));
+  let meanRight = largeNumbercompactor(mean(arrRight));
 
-  let standardDeviationLeft = largeNumbercompactor(standardDeviation(arrLeft))
-  let standardDeviationRight = largeNumbercompactor(standardDeviation(arrRight))
+  let standardDeviationLeft = largeNumbercompactor(standardDeviation(arrLeft));
+  let standardDeviationRight = largeNumbercompactor(
+    standardDeviation(arrRight)
+  );
 
   let rIndex = getPearsonCorrelation(arrLeft, arrRight);
 
@@ -36,39 +42,42 @@
       return number;
     }
   }
-
 </script>
 
 <main>
-
-  
   <div id="top-container">
-    <div id='test'>GRAPH</div>
-    <h2 id='r'>R-index = {rIndex}</h2>
-    <h2 id='emoji'>{emojiLeft} / {emojiRight}</h2>
+    <div id="test">GRAPH</div>
+    <h2 id="r">R-index = {rIndex}</h2>
+    <h2 id="emoji">{emojiLeft} / {emojiRight}</h2>
   </div>
 
   <div id="paragraph-container">
     <p id="paragraph">
-      The R-index is a measure of the correlation between two variables. The closer the R-index is to 1, the more correlated the two variables are. The closer the R-index is to 0, the less correlated the two variables are.
-      the R-index can also be negative, meaning that the two variables are negatively correlated.
+      The R-index is a measure of the correlation between two variables. The
+      closer the R-index is to 1, the more correlated the two variables are. The
+      closer the R-index is to 0, the less correlated the two variables are. the
+      R-index can also be negative, meaning that the two variables are
+      negatively correlated.
     </p>
     <p id="paragraph">
-      The R-index is {rIndex}. Meaning that the {splitWordsOnCapitalLetters(leftData.what)} in {leftData.where} and the {splitWordsOnCapitalLetters(rightData.what)} in {rightData.where} are {rIndex > 0.5 ? 'highly' : 'not'} correlated.
+      The R-index is {rIndex}. Meaning that the {splitWordsOnCapitalLetters(
+        leftData.what
+      )} in {leftData.where} and the {splitWordsOnCapitalLetters(
+        rightData.what
+      )} in {rightData.where} are {rIndex > 0.5 ? 'highly' : 'not'} correlated.
     </p>
     <p id="paragraph">
-      The mean of the {splitWordsOnCapitalLetters(leftData.what)} in {leftData.where} is {meanLeft} and the standard deviation is {standardDeviationLeft}.
+      The mean of the {splitWordsOnCapitalLetters(leftData.what)} in {leftData.where}
+      is {meanLeft} and the standard deviation is {standardDeviationLeft}.
     </p>
     <p id="paragraph">
-      The mean of the {splitWordsOnCapitalLetters(rightData.what)} in {rightData.where} is {meanRight} and the standard deviation is {standardDeviationRight}.
+      The mean of the {splitWordsOnCapitalLetters(rightData.what)} in {rightData.where}
+      is {meanRight} and the standard deviation is {standardDeviationRight}.
     </p>
   </div>
-
-
 </main>
 
 <style>
-
   main {
     display: flex;
     flex-direction: column;
@@ -77,16 +86,17 @@
     width: 100%;
     gap: 5vh;
     min-height: 70vh;
-    padding: 3vh, 1vh;
+    padding: 3vh, 1vw;
+    margin: 0 2vw 2vh 2vw;
   }
 
-  #test{
+  #test {
     background-color: rgba(103, 103, 103, 0.384);
     height: 250px;
     width: 400px;
   }
 
-  #top-container{
+  #top-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -105,7 +115,6 @@
     border-radius: 12px;
     box-shadow: 8px 8px 0px 2px #000000aa;
   }
-  
 
   #r {
     font-size: 2rem;
@@ -113,13 +122,13 @@
     color: #052c46;
   }
 
-  #emoji{
+  #emoji {
     font-size: 2rem;
     font-weight: 700;
     color: #052c46;
   }
 
-  #paragraph-container{
+  #paragraph-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -139,6 +148,4 @@
     box-shadow: 8px 8px 0px 2px #000000aa;
     text-align: justify;
   }
-
-
 </style>

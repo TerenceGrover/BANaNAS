@@ -5,8 +5,6 @@
   export let rightData;
 
   import Scrollbar from '../components/Scrollbar.svelte';
-  // import BarGraph from '../components/Data/Bar-Graph.svelte';
-  // import LineGraph from '../componexnts/Data/Line-Graph.svelte';
   import LineGraph2 from '../components/Data/Line-Graph2.svelte';
   import Scatterplot from './Data/Scatterplot.svelte';
 
