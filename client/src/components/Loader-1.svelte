@@ -1,7 +1,7 @@
 <script>
   import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
   import { onMount } from 'svelte';
-  import { getBananaFact } from '../utils/api-services';
+  import { getBananaFact } from '../Utils/api-services';
 
   let bananaFact;
 
