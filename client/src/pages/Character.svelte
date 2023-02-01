@@ -267,7 +267,7 @@
   #hovered-category-name {
     position: absolute;
     z-index: 1000000000;
-    margin-top: 15vh;
+    margin-top: 12.5vh;
     font-size: 5vh;
     color: #fed703;
   }
