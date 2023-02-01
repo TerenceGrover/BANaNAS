@@ -53,7 +53,10 @@
     document.getElementById('selector-right').classList.add('hidden');
     document.getElementById('selector-left').classList.remove('hidden');
   }
+  
 </script>
+
+
 
 <main>
   {#if loading}
@@ -168,6 +171,8 @@
   {/if}
 </main>
 
+
+
 <style>
   main {
     display: flex;
@@ -237,16 +242,6 @@
   }
 
   #player-container-right {
-    position: relative;
-    width: 30vw;
-    height: 70vh;
-    z-index: 100000;
-    cursor: pointer;
-    color: #052c46;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
     position: relative;
     width: 30vw;
     height: 70vh;
@@ -352,4 +347,40 @@
       transform: translateY(0);
     }
   }
+
+  @media screen and (max-width : 768px) {
+
+    main {
+      position: relative;
+    }
+
+    #title {
+      position: absolute;
+      font-size: 5vh;
+      margin-top: 0;
+      top: 50%;
+      left: 50%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+    }
+
+    #player-container-right {
+      position: absolute;
+      left: 50%;
+      top: 75%;
+      transform: translate(-50%, -50%);
+      width: 50vw;
+      height: 30vh;
+    }
+
+    #player-container-left {
+      position: absolute;
+      left: 50%;
+      top: 25%;
+      transform: translate(-50%, -50%);
+      width: 50vw;
+      height: 30vh;
+    }
+  }
+
 </style>
