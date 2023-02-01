@@ -144,7 +144,7 @@
   }
 
   :global(input){
-    color: #052c46 !important;
+    color: #fed703 !important;
   }
 
   :global(.sub-input) {

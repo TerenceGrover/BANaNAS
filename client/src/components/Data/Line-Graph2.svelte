@@ -47,7 +47,7 @@
     let x = d3
       .scaleLinear()
       .domain([lowestYear, highestYear])
-      .range([0, width]);
+      .range([10, width - 10]);
 
     let yLeft = d3
       .scaleLinear()
@@ -56,7 +56,7 @@
           .extent(dataArray1, function (d) {
             return d.value;
           })
-          .map((val, i) => val + (i ? 0.05 : -0.05) * val)
+          .map((val, i) => val + (i ? 0.02 : -0.02) * val)
       )
       .interpolate(d3.interpolateRound)
       .nice()
@@ -69,7 +69,7 @@
           .extent(dataArray2, function (d) {
             return d.value;
           })
-          .map((val, i) => val + (i ? 0.05 : -0.05) * val)
+          .map((val, i) => val + (i ? 0.02 : -0.02) * val)
       )
       .interpolate(d3.interpolateRound)
       .nice()
@@ -210,9 +210,7 @@
       .attr('x', width - 100)
       .attr('y', -40)
       .style('fill', '#fe9400')
-      .text(
-        splitWordsOnCapitalLetters(leftData.what) + ' in ' + leftData.where
-      );
+      .text(leftData.where);
 
     // Add the second line label
 
@@ -222,9 +220,7 @@
       .attr('x', width - 100)
       .attr('y', -20)
       .style('fill', '#f8ff2a')
-      .text(
-        splitWordsOnCapitalLetters(rightData.what) + ' in ' + rightData.where
-      );
+      .text(rightData.where);
 
     // Add the title
 
@@ -268,7 +264,7 @@
       .attr('x', -height / 2)
       .attr('y', -40)
       .style('text-anchor', 'middle')
-      .style('fill', '#fff')
+      .style('fill', '#fe9400')
       .text(leftData.desc);
 
     // Add the second y-axis label
@@ -278,10 +274,11 @@
       .attr('class', 'label')
       .attr('transform', 'rotate(-90)')
       .attr('x', -height / 2)
-      .attr('y', width + 40)
+      .attr('y', width + 50)
       .style('text-anchor', 'middle')
-      .style('fill', '#fff')
+      .style('fill', '#f8ff2a')
       .text(rightData.desc);
+
   }
 </script>
 

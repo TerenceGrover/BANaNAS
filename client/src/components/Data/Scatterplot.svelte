@@ -22,6 +22,12 @@
     value: value
   }));
 
+  const lowestYear = Math.min(dataArray1[0].year, dataArray2[0].year);
+  const highestYear = Math.max(
+    dataArray1[dataArray1.length - 1].year,
+    dataArray2[dataArray2.length - 1].year
+  );
+
 
   onMount(async () => {
 
@@ -31,43 +37,33 @@
       height = window.innerHeight * 0.6 - margin.top - margin.bottom;
 
     // Set the ranges
-    var x = d3
+    let x = d3
       .scaleLinear()
-      .domain([
-        d3.min(dataArray1, function(d) {
-          return d.year;
-        }),
-        d3.max(dataArray1, function(d) {
-          return d.year;
-        })
-      ])
-      .range([0, width]);
+      .domain([lowestYear, highestYear])
+      .range([10, width - 10]);
 
-    var yLeft = d3
+      let yLeft = d3
       .scaleLinear()
-      .domain([
-        d3.min(dataArray1, function(d) {
-          return d.value;
-        }),
-        d3.max(dataArray1, function(d) {
-          return d.value;
-        })
-      ])
+      .domain(
+        d3
+          .extent(dataArray1, function (d) {
+            return d.value;
+          })
+          .map((val, i) => val + (i ? 0.01 : -0.02) * val)
+      )
       .interpolate(d3.interpolateRound)
       .nice()
       .range([height, 0]);
 
-
-    var yRight = d3
+    let yRight = d3
       .scaleLinear()
-      .domain([
-        d3.min(dataArray2, function(d) {
-          return d.value;
-        }),
-        d3.max(dataArray2, function(d) {
-          return d.value;
-        })
-      ])
+      .domain(
+        d3
+          .extent(dataArray2, function (d) {
+            return d.value;
+          })
+          .map((val, i) => val + (i ? 0.02 : -0.02) * val)
+      )
       .interpolate(d3.interpolateRound)
       .nice()
       .range([height, 0]);
@@ -210,7 +206,7 @@
       .attr("x", width - 100)
       .attr("y", -40)
       .style("fill", "#fe9400")
-      .text(splitWordsOnCapitalLetters(leftData.what) + " in " + leftData.where);
+      .text(leftData.where);
 
     // Add the second line label
 
@@ -220,7 +216,7 @@
       .attr("x", width - 100)
       .attr("y", -20)
       .style("fill", "#f8ff2a")
-      .text(splitWordsOnCapitalLetters(rightData.what) + " in " + rightData.where);
+      .text(rightData.where);
 
     // Add the title
 
