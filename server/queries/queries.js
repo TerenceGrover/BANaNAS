@@ -9421,5 +9421,15 @@ export let queries = {
         'Venezuela',
       ],
     },
+    NaturalDisasters: {
+      description: [
+        'large scale natural disasters',
+        ['earthquake', 'tornado', 'avalanche', 'volcano'],
+      ],
+      queryString: `http://localhost:4000/filter/api/Disaster/value`,
+      parameters_needed: ['value'],
+      provider: 'Bananas API',
+      availableCountries: [],
+    },
   },
 };
