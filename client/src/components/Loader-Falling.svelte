@@ -1,91 +1,106 @@
 <script>
   import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 </script>
 
 <main>
 
   <div id="loader">
-    <div id="left">
+    {#if isMobile}
       <LottiePlayer
       src={`assets/Loaders/banana-falling.json`}
-      autoplay="{true}"
-      loop="{true}"
-      controls="{false}"
+      autoplay={true}
+      loop={true}
+      controls={false}
       renderer="svg"
       background="transparent"
-      height={window.innerHeight}
-      width={window.innerWidth / 3}
+      height={1400}
+      width={480}
       controlsLayout={null}
       />
-    </div>
-    <div id="center">
-      <LottiePlayer
-      src={`assets/Loaders/banana-falling.json`}
-      autoplay="{true}"
-      loop="{true}"
-      controls="{false}"
-      renderer="svg"
-      background="transparent"
-      height={window.innerHeight}
-      width={window.innerWidth / 3}
-      controlsLayout={null}
-      />
-    </div>
-    <div id="right">
-      <LottiePlayer
-      src={`assets/Loaders/banana-falling.json`}
-      autoplay="{true}"
-      loop="{true}"
-      controls="{false}"
-      renderer="svg"
-      background="transparent"
-      height={window.innerHeight}
-      width={window.innerWidth / 3}
-      controlsLayout={null}
-      />
-  </div>
+    {:else}
+      <div id="left">
+        <LottiePlayer
+        src={`assets/Loaders/banana-falling.json`}
+        autoplay={true}
+        loop={true}
+        controls={false}
+        renderer="svg"
+        background="transparent"
+        height={window.innerHeight}
+        width={window.innerWidth / 3}
+        controlsLayout={null}
+        />
+      </div>
+      <div id="center">
+        <LottiePlayer
+        src={`assets/Loaders/banana-falling.json`}
+        autoplay={true}
+        loop={true}
+        controls={false}
+        renderer="svg"
+        background="transparent"
+        height={window.innerHeight}
+        width={window.innerWidth / 3}
+        controlsLayout={null}
+        />
+      </div>
+      <div id="right">
+        <LottiePlayer
+        src={`assets/Loaders/banana-falling.json`}
+        autoplay={true}
+        loop={true}
+        controls={false}
+        renderer="svg"
+        background="transparent"
+        height={window.innerHeight}
+        width={window.innerWidth / 3}
+        controlsLayout={null}
+        />
+      </div>
+    {/if}
   
 </main>
 
 <style>
 
-  main {
-    position: absolute;
+  main{
+    overflow: hidden;
     height: 100vh;
     width: 100vw;
-    overflow: none;
-    z-index: 0;
   }
 
   #loader {
+    overflow: hidden;
      position: absolute;
      height: 100vh;
-     width: 70vw;
+     width: 100vw;
      top: 50%;
-     left: 50%;
+     left: 50vw;
      transform: translate(-50%, -50%);
   }
 
   #left {
      position: absolute;
      top: 50%;
-     left: 0%;
-     transform: translate(-50%, -50%);
+     left: 0vw;
+    transform: translateY(-50%);
   }
 
   #right {
      position: absolute;
      top: 50%;
-     left: 100%;
-     transform: translate(-50%, -50%);
+     left: 70vw;
+     transform: translateY(-50%)
   }
 
   #center {
      position: absolute;
+     transform: translate(-50%, -50%) rotate(180deg);
      top: 50%;
      left: 50%;
-     transform: translate(-50%, -50%) rotate(180deg);
   }
 
 

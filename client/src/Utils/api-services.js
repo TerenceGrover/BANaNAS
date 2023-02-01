@@ -1,13 +1,26 @@
-const API = 'https://api.data-banana.com/api'
+const API = 'https://api.data-banana.com'
 
 export async function getSubCategories(selected) {
-  const response = await fetch(`${API}/${selected}`)
+  const response = await fetch(`${API}/api/${selected}`)
+  return response.json()
+}
+
+export async function getDescription(selectedCategory, selectedSubCategory) {
+  const response = await fetch(`${API}/api/${selectedCategory}/${selectedSubCategory}`)
   return response.json()
 }
 
 export async function getMetrics(selectedCategory, selectedSubCategory, country) {
-  const response = await fetch(`${API}/${selectedCategory}/${selectedSubCategory}/${country}/1000/2023`)
-  console.log(response);
-  
+  const response = await fetch(`${API}/api/${selectedCategory}/${selectedSubCategory}/${country}/1000/2022`)
+  return response.json()
+}
+
+export async function getBananaFact() {
+  const response = await fetch(`${API}/bananaFact`)
+  return response.json()
+}
+
+export async function getBananas() {
+  const response = await fetch(`${API}/bananas`)
   return response.json()
 }

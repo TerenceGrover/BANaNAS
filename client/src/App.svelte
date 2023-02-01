@@ -1,5 +1,4 @@
 <script>
-
   import Character from "./pages/Character.svelte";
   import Data from "./pages/Data.svelte";
   import Home from "./pages/Home.svelte";
@@ -35,3 +34,9 @@
 
 
 </main>
+
+<style>
+  main {
+    max-width: 1920px;
+  }
+</style>

@@ -33,7 +33,7 @@
     getSubCategories(category).then((data) => {
       APIdata = data;
       whatItems = Object.keys(data).map((item) => {
-        return { value: item, label: splitWordsOnCapitalLetters(item) }
+        return { value: item, label: splitWordsOnCapitalLetters(item)}
       })
     })
   }
@@ -81,6 +81,7 @@
       bind:value = {where}
       disabled={!what}
       floatingConfig={topConfig}
+      clearable={false}
       />
     </div>
   </div>
@@ -135,7 +136,7 @@
     align-items: center;
     justify-content: center;
     gap: 2.5vh;
-    z-index: 10000;
+    z-index: 100000;
     padding: 2vh 2vw;
     border: 3px solid white;
     border-radius: 16px;
@@ -143,7 +144,7 @@
   }
 
   :global(input){
-    color: #052c46 !important;
+    color: #fed703 !important;
   }
 
   :global(.sub-input) {

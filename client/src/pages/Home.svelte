@@ -1,12 +1,20 @@
 <script>
   import Footer from '../components/Footer.svelte';
   import { transformMouseIntoCSSShadow } from '../Utils/helpers';
+  import { getBananas } from '../Utils/api-services';
   export let changePage;
   let shadowStr = '0px 0px 0px 0px #000';
 
   function handleMove(e) {
     shadowStr = transformMouseIntoCSSShadow(e.clientX, e.clientY);
   }
+
+  let teamBananas;
+
+  getBananas().then(bananaData => {
+    teamBananas = bananaData;
+    console.log(teamBananas);
+  })
 
   let paragraph = 'Transparency';
 
@@ -97,7 +105,8 @@
           and see what kind of interesting connections you can make.
         </p>
       {:else if paragraph === 'Creators'}
-        <p id="sub-info">
+      <div>
+          <p id="sub-info">
           Created by :
           <br />
           <span
@@ -110,15 +119,35 @@
             ><a href="https://github.com/Al366io"
               >Alessio (Alex but in Italian)</a
             > : A backend genius that can give endpoints faster than you can ask
-            for them.
+            for them. This guy would never slip on a peel.
           </span>
           <br />
-          <a href="https://github.com/sethjplatt">Seth</a> : Organized and
-          efficient, he's the glue that holds the team together. With him
+          <a href="https://github.com/sethjplatt">Seth</a> : Organized,
+          efficient and nicknamed 'Big Banana' during highschool, he's the glue that holds the team together. With him
           working on the backend, you know the app is in good hands.
           <br />
           <a href="https://github.com/TerenceGrover">Terence</a> : A brilliant polymath fullstack developer, with some weird love for frontend, data visualization and bananas.
         </p>
+          <table id="banana-table">
+            <p id="table-header" style="grid-column-start: 1; grid-row-start: 1; grid-column-end: 5">
+              Bananas eaten during the making of this project:
+            </p>
+            <tr id="table-names" style="grid-row-start: 2; grid-row-end: 2;">
+              <th class="table-cell" style="grid-column-start: 1; grid-column-end: auto;">Alex</th>
+              <th class="table-cell" style="grid-column-start: 2; grid-column-end: auto;">Alessio</th>
+              <th class="table-cell" style="grid-column-start: 3; grid-column-end: auto">Seth</th>
+              <th class="table-cell" style="grid-column-start: 4; grid-column-end: auto;">Terence</th>
+              <th class="table-cell" style="grid-column-start: 5; grid-column-end: auto;">Total</th>
+            </tr>
+            <tr id="table-bananas" style="grid-row-start: 3; grid-row-end: 3;">
+              <td class="table-cell" style="grid-column-start: 1; grid-column-end: auto">{teamBananas.alex} 🍌</td>
+              <td class="table-cell" style="grid-column-start: 2; grid-column-end: auto">{teamBananas.alessio} 🍌</td>
+              <td class="table-cell" style="grid-column-start: 3; grid-column-end: auto">{teamBananas.seth} 🍌</td>
+              <td class="table-cell" style="grid-column-start: 4; grid-column-end: auto">{teamBananas.terence} 🍌</td>
+              <td class="table-cell" style="grid-column-start: 5; grid-column-end: auto">{teamBananas.total} 🍌</td>
+            </tr>
+          </table>
+          </div>
 
       {:else if paragraph === "Concept"}
       <p id="sub-info">
@@ -126,20 +155,6 @@
         We believe that data analysis should be accessible to everyone, not just the experts in the field. That's why we've created BANaNAS, a tool that allows users to explore data in a fun and interactive way. With BANaNAS, you never know what kind of connection you might make.
 
         It all started with a spark of inspiration and a lot of hard work, and we're excited to share BANaNAS with the world. So go ahead, give it a try and see what kind of interesting connections you can make.
-      </p>
-      {:else if paragraph === "Creators"}
-      <p id="sub-info">
-        BANaNAS 
-        <br><br>
-        Created by :
-        <br><br>
-        <span><a href="https://github.com/alexryanjones">Alex</a> : A design magician with a focus on frontend. His organization and forward thinking made it all come together as smooth as a good slice of Banana Bread. </span>
-        <br><br>
-        <span><a href="https://github.com/Al366io">Alessio (Alex but in Italian)</a> : A backend genius that can give endpoints faster than you can ask for them. </span>
-        <br><br>
-        <span><a href="https://github.com/sethjplatt">Seth</a> : Organized and efficient, he's the glue that holds the team together. With him working on the backend, you know the app is in good hands. </span>
-        <br><br>
-        <span><a href="https://github.com/TerenceGrover">Terence</a> : A brilliant polymath fullstack developer, with some weird love for frontend, data visualization and bananas.</span>
       </p>
       {/if}
     </div>
@@ -157,6 +172,7 @@
     justify-content: center;
     height: 100%;
     width: 100vw;
+    overflow-x: hidden;
   }
 
   #top-section {
@@ -242,9 +258,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 100px;
-    padding-left: 7vw;
-    padding-right: 7vw;
+    gap: 5vw;
+    padding-left: 4vw;
+    padding-right: 4vw;
     padding-top: 5vh;
     padding-bottom: 5vh;
     min-height: 75vh;
@@ -290,14 +306,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 50px;
-    height: 100%;
     width: 75vw;
     background-color: #fed703;
-    padding-bottom: 40px;
   }
 
-  #paragraph-container > p {
+  #paragraph-container > p, #paragraph-container > div {
     font-size: 18px;
     font-family: 'Farro', sans-serif;
     font-weight: 600;
@@ -310,6 +323,42 @@
     border: 2px solid #052c46;
     border-radius: 12px;
     box-shadow: 8px 8px 0px 2px #000000aa;
+  }
+
+#banana-table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fed703;
+    margin-top: 5vh;
+  }
+
+  #table-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #table-names {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    justify-content: center;
+  }
+  #table-bananas {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .table-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   #footer {
@@ -359,6 +408,64 @@
   50% { transform: rotate(0eg); }
   75% { transform: rotate(-5deg); }
   100% { transform: rotate(0deg); }
+}
+
+@media screen and (max-width : 1080px) {
+  #paragraph-container > p {
+    font-size: 1.5vw;
+  }
+}
+
+@media screen and (max-width : 800px) {
+
+  #top-header {
+    font-size: 9vh;
+  }
+
+  #sub-section{
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 2vh;
+    padding-bottom: 5vh;
+    height: auto;
+    min-height: 80vh;
+    max-height: none;
+  }
+  
+  #paragraph-container{
+    width: 80vw;
+    height: 50vh;
+    height: fit-content;
+  }
+
+  #paragraph-container > p {
+    font-size: 13px;
+    line-height: 3vh;
+  }
+
+  #button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
+    gap: 25px;
+    background-color: #fed703;
+  }
+
+  .home-buttons {
+    font-size: 13.5px;
+    padding: 1vh 2vw;
+    margin-top: 10px;
+    min-width: 27vw;
+    max-width: 27vw;
+  }
+
+  #footer {
+    height: 7.5vh;
+    padding-left: 7.5vw;
+  }
+  
 }
 
 </style>

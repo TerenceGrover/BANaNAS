@@ -6,9 +6,11 @@
   import GraphContainer from '../components/Graph-Container.svelte';
   import Footer from '../components/Footer.svelte';
   import { onMount } from 'svelte';
-  import { getMetrics } from '../Utils/api-services';
+  import { getMetrics, getDescription } from '../Utils/api-services';
   import Loader_1 from '../components/Loader-1.svelte';
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
+  import Analytics from '../components/Analytics.svelte';  
+
 
   let leftGraphData = [];
   let rightGraphData = [];
@@ -29,7 +31,14 @@
   }, 2500);
 
   onMount(() => {
-    getAllData();
+    getAllData().then(
+      getDescription(leftData.cat, leftData.what).then((data) => {
+        leftData.desc = data.description;
+      }),
+      getDescription(rightData.cat, rightData.what).then((data) => {
+        rightData.desc = data.description;
+      })
+    )
   });
 </script>
 
@@ -68,7 +77,12 @@
 
   <hr id="hr-sub-divider" />
 
-  <section id="sub-section" />
+  <section id="sub-section">
+  {#if !loading}
+    <Analytics {leftData} {rightData} {leftGraphData} {rightGraphData} />
+  {/if}
+
+  </section>
   <section id="footer">
     <Footer />
   </section>

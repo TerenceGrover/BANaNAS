@@ -28,7 +28,7 @@
     position: absolute;
     height: 100vh;
     width: 100vw;
-    overflow: none;
+    overflow: hidden;
     z-index: 10;
   }
 
