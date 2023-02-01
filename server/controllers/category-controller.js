@@ -15,7 +15,7 @@ export const categoryController = async (req, res) => {
         responseObj[query] = {
           description: queries[category][query]['description'],
           parameters_needed: queries[category][query]['parameters_needed'],
-          available_countries: queries[category][query]['availableCountries'],
+          available_countries: queries[category][query]['countries_available'],
         };
       }
     }
