@@ -1,6 +1,6 @@
 <script>
-  import { splitWordsOnCapitalLetters } from '../utils/helpers.js';
-  import { getFilteredCategoryYears } from '../utils/api-services.js';
+  import { splitWordsOnCapitalLetters } from '../Utils/helpers.js';
+  import { getFilteredCategoryYears } from '../Utils/api-services.js';
 
   export let filterCategories;
   export let filterYears;
