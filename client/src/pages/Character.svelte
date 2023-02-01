@@ -380,6 +380,11 @@
   }
 
   @media screen and (max-width: 768px) {
+
+    *{
+      overflow: hidden;
+    }
+
     main {
       position: relative;
     }
