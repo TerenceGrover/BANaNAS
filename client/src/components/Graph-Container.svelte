@@ -7,6 +7,9 @@
   import Scrollbar from '../components/Scrollbar.svelte';
   import LineGraph2 from '../components/Data/Line-Graph2.svelte';
   import Scatterplot from './Data/Scatterplot.svelte';
+  import FilterSelector from './Filter-Selector.svelte';
+
+  import { getFilterCategories } from '../Utils/api-services';
 
   let graphs = [
     {
@@ -18,6 +21,10 @@
       component: Scatterplot,
     },
   ];
+
+  let filter = false;
+  let filterCategories = [];
+  let filterYears = []
 
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
   let position = Math.floor((graphs.length - 1) / 2);
@@ -46,7 +53,12 @@
 <main>
   <section id="top-section">
     <h2 id="top-sub-header">Graph Type</h2>
-    <button id="filter-button">
+    <button id="filter-button"
+      on:click = {async () => {
+        await getFilterCategories().then(res => filterCategories = res)
+        filter = !filter;
+        console.log(filterCategories);
+      }}>
       <img
         id="filter-icon"
         class="icon"
@@ -68,28 +80,37 @@
       id="left"
       class="scroll-buttons">{'<'}</button
     >
-    {#if position === 0}
-      <div id="D3-container" class="fade-in">
-        <div id="current-graph">
-          <LineGraph2
-            data1={leftGraphData}
-            data2={rightGraphData}
-            {leftData}
-            {rightData}
-          />
+    {#if filter}
+      <FilterSelector
+        {filterCategories}
+        bind:filterYears={filterYears}
+        />
+    {:else}
+      {#if position === 0}
+        <div id="D3-container" class="fade-in">
+          <div id="current-graph">
+            <LineGraph2
+              data1={leftGraphData}
+              data2={rightGraphData}
+              {leftData}
+              {rightData}
+              {filterYears}
+            />
+          </div>
         </div>
-      </div>
-    {:else if position === 1}
-      <div id="D3-container" class="fade-in">
-        <div id="current-graph">
-          <Scatterplot
-            data1={leftGraphData}
-            data2={rightGraphData}
-            {leftData}
-            {rightData}
-          />
+      {:else if position === 1}
+        <div id="D3-container" class="fade-in">
+          <div id="current-graph">
+            <Scatterplot
+              data1={leftGraphData}
+              data2={rightGraphData}
+              {leftData}
+              {rightData}
+              {filterYears}
+            />
+          </div>
         </div>
-      </div>
+      {/if}
     {/if}
     <button
       on:click={() => {
