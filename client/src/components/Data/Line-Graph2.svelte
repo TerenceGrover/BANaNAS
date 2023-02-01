@@ -1,330 +1,301 @@
 <script>
-  import { onMount } from "svelte";
-  import * as d3 from "d3";
-  import {splitWordsOnCapitalLetters} from '../../Utils/helpers';
-  import {getDescription} from '../../Utils/api-services';
+  import { onMount } from 'svelte';
+  import * as d3 from 'd3';
+  import { splitWordsOnCapitalLetters } from '../../Utils/helpers';
 
   export let data1;
   export let data2;
   export let leftData;
   export let rightData;
 
-  window.addEventListener("resize", function() {
-    d3.select(".line-graph").html("");
+  window.addEventListener('resize', function () {
+    d3.select('.line-graph').html('');
     drawGraph();
   });
 
-  function compactBigNumber(num) {
-    if (num > 1000) {
-      return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(num);
-    } else {
-      return num;
-    }
-  }
-
   const dataArray1 = Object.entries(data1)
-  .filter(([year, value]) => value !== null)
-  .map(([year, value]) => ({
-    year: +year,
-    value: value
-  }));
+    .filter(([year, value]) => value !== null)
+    .map(([year, value]) => ({
+      year: +year,
+      value: value,
+    }));
 
   const dataArray2 = Object.entries(data2)
-  .filter(([year, value]) => value !== null)
-  .map(([year, value]) => ({
-    year: +year,
-    value: value
-  }));
+    .filter(([year, value]) => value !== null)
+    .map(([year, value]) => ({
+      year: +year,
+      value: value,
+    }));
 
-  let desc1 
-  let desc2
-  
-  getDescription(leftData.cat,leftData.what).then((data) => {
-    desc1 = data.description
-  })
-  getDescription(rightData.cat, rightData.what).then((data) => {
-    desc2 = data.description
-  })
-
+  const lowestYear = Math.min(dataArray1[0].year, dataArray2[0].year);
+  const highestYear = Math.max(
+    dataArray1[dataArray1.length - 1].year,
+    dataArray2[dataArray2.length - 1].year
+  );
 
   onMount(async () => {
     drawGraph();
   });
 
   function drawGraph() {
-
     // Set the dimensions of the canvas / graph
-    var margin = { top: 60, right: 120, bottom: 100, left: 120 },
+    let margin = { top: 60, right: 120, bottom: 100, left: 100 },
       width = window.innerWidth * 0.7 - margin.left - margin.right,
       height = window.innerHeight * 0.6 - margin.top - margin.bottom;
 
     // Set the ranges
-    var x = d3
+    let x = d3
       .scaleLinear()
-      .domain([
-        d3.min(dataArray1, function(d) {
-          return d.year;
-        }),
-        d3.max(dataArray1, function(d) {
-          return d.year;
-        })
-      ])
+      .domain([lowestYear, highestYear])
       .range([0, width]);
 
-    var yLeft = d3
+    let yLeft = d3
       .scaleLinear()
-      .domain([
-        d3.min(dataArray1, function(d) {
-          return d.value;
-        }),
-        d3.max(dataArray1, function(d) {
-          return d.value;
-        })
-      ])
+      .domain(
+        d3
+          .extent(dataArray1, function (d) {
+            return d.value;
+          })
+          .map((val, i) => val + (i ? 0.05 : -0.05) * val)
+      )
       .interpolate(d3.interpolateRound)
       .nice()
       .range([height, 0]);
 
-
-    var yRight = d3
+    let yRight = d3
       .scaleLinear()
-      .domain([
-        d3.min(dataArray2, function(d) {
-          return d.value;
-        }),
-        d3.max(dataArray2, function(d) {
-          return d.value;
-        })
-      ])
+      .domain(
+        d3
+          .extent(dataArray2, function (d) {
+            return d.value;
+          })
+          .map((val, i) => val + (i ? 0.05 : -0.05) * val)
+      )
       .interpolate(d3.interpolateRound)
       .nice()
       .range([height, 0]);
 
     // Define the left and right y-axis
-    var yAxisLeft = d3.axisLeft(compactBigNumber(yLeft));
-    var yAxisRight = d3.axisRight(compactBigNumber(yRight));
+    let yAxisLeft = d3.axisLeft(yLeft).tickFormat(d3.format('.2s'));
+    let yAxisRight = d3.axisRight(yRight).tickFormat(d3.format('.2s'));
 
     // Define the bottom x-axis
-    var xAxis = d3
-      .axisBottom(x)
-      .tickFormat(d3.format("d"))
-      .tickPadding(10);
+    let xAxis = d3.axisBottom(x).tickFormat(d3.format('d')).tickPadding(10);
 
     // Define the two line generators
-    var line1 = d3
+    let line1 = d3
       .line()
-      .x(function(d) {
+      .x(function (d) {
         return x(d.year);
       })
-      .y(function(d) {
+      .y(function (d) {
         return yLeft(d.value);
       })
       .curve(d3.curveCardinal);
 
-    var line2 = d3
+    let line2 = d3
       .line()
-      .x(function(d) {
+      .x(function (d) {
         return x(d.year);
       })
-      .y(function(d) {
+      .y(function (d) {
         return yRight(d.value);
       })
       .curve(d3.curveCardinal);
 
     // Adds the svg canvas
 
-    var svg = d3
-      .select(".line-graph")
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    let svg = d3
+      .select('.line-graph')
+      .append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
     // Add the left y-axis
 
     svg
-      .append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(0,0)")
+      .append('g')
+      .attr('class', 'y axis')
+      .attr('transform', 'translate(0,0)')
       .call(yAxisLeft)
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 6)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end')
       .style('color', '#fe9400')
-      .text("Value ($)");
+      .text('Value ($)');
 
     // Add the right y-axis
 
     svg
-      .append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + width + ",0)")
+      .append('g')
+      .attr('class', 'y axis')
+      .attr('transform', 'translate(' + width + ',0)')
       .call(yAxisRight)
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Value ($)");
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 6)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end')
+      .text('Value ($)');
 
     // Add the bottom x-axis
 
     svg
-      .append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
+      .append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis)
-      .append("text")
-      .attr("x", width)
-      .attr("y", -6)
-      .style("text-anchor", "end")
-      .text("Year");
+      .append('text')
+      .attr('x', width)
+      .attr('y', -6)
+      .style('text-anchor', 'end')
+      .text('Year');
 
-    const div1 = d3.select("#tooltip1");
-    const div2 = d3.select("#tooltip2");
+    const div1 = d3.select('#tooltip1');
+    const div2 = d3.select('#tooltip2');
 
     // Add the first line
 
     svg
-      .append("path")
-      .attr("class", "line")
-      .attr("d", line1(dataArray1))
-      .style("stroke", "#fe9400")
-      .style('stroke-width', '3px')
-      .style("fill", "#fe940055")
+      .append('path')
+      .attr('class', 'line')
+      .attr('d', line1(dataArray1))
+      .style('stroke', '#fe9400')
+      .style('stroke-width', '4px')
+      .style('fill', 'none')
       .on('mouseover', function (event, datum) {
-        d3.select(this).transition()
-          .duration('100')
-        div1.transition()
-          .duration(100)
-          .style("opacity", 1)
-        div1.html((datum.value).toFixed(2))
-          .style("left", (event.offsetX + 25) + "px")
-          .style("top", (event.offsetY - 10) + "px")
+        d3.select(this).transition().duration('100');
+        div1.transition().duration(100).style('opacity', 1);
+        div1
+          .html(datum.value.toFixed(2))
+          .style('left', event.offsetX + 25 + 'px')
+          .style('top', event.offsetY - 10 + 'px');
       })
-      .on('mouseout', function (event, datum) {
-        d3.select(this).transition()
-          .duration('200')
-        div1.transition()
-          .duration('200')
-          .style("opacity", 0);
+      .on('mouseout', function () {
+        d3.select(this).transition().duration('200');
+        div1.transition().duration('200').style('opacity', 0);
       });
 
     // Add the second line
 
     svg
-      .append("path")
-      .attr("class", "line")
-      .attr("d", line2(dataArray2))
-      .style("stroke", "#f8ff2a")
-      .style('stroke-width', '3px')
-      .style("fill", "#f8ff2a55").on('mouseover', function (event, datum) {
-        d3.select(this).transition()
-          .duration('100')
-          .attr("r", 7);
-        div2.transition()
-          .duration(100)
-          .style("opacity", 1)
-        div2.html((datum.value).toFixed(2))
-          .style("left", (event.offsetX + 25) + "px")
-          .style("top", (event.offsetY - 10) + "px")
+      .append('path')
+      .attr('class', 'line')
+      .attr('d', line2(dataArray2))
+      .style('stroke', '#f8ff2a')
+      .style('stroke-width', '4px')
+      .style('fill', 'none')
+      .on('mouseover', function (event, datum) {
+        d3.select(this).transition().duration('100').attr('r', 7);
+        div2.transition().duration(100).style('opacity', 1);
+        div2
+          .html(datum.value.toFixed(2))
+          .style('left', event.offsetX + 25 + 'px')
+          .style('top', event.offsetY - 10 + 'px');
       })
-      .on('mouseout', function (event, datum) {
-        d3.select(this).transition()
-          .duration('200')
-          .attr("r", 3);
-        div2.transition()
-          .duration('200')
-          .style("opacity", 0);
+      .on('mouseout', function () {
+        d3.select(this).transition().duration('200').attr('r', 3);
+        div2.transition().duration('200').style('opacity', 0);
       });
 
     // Add the first line label
 
     svg
-      .append("text")
-      .attr("class", "label")
-      .attr("x", width - 100)
-      .attr("y", -40)
-      .style("fill", "#fe9400")
-      .text(splitWordsOnCapitalLetters(leftData.what) + " in " + leftData.where);
+      .append('text')
+      .attr('class', 'label')
+      .attr('x', width - 100)
+      .attr('y', -40)
+      .style('fill', '#fe9400')
+      .text(
+        splitWordsOnCapitalLetters(leftData.what) + ' in ' + leftData.where
+      );
 
     // Add the second line label
 
     svg
-      .append("text")
-      .attr("class", "label")
-      .attr("x", width - 100)
-      .attr("y", -20)
-      .style("fill", "#f8ff2a")
-      .text(splitWordsOnCapitalLetters(rightData.what) + " in " + rightData.where);
+      .append('text')
+      .attr('class', 'label')
+      .attr('x', width - 100)
+      .attr('y', -20)
+      .style('fill', '#f8ff2a')
+      .text(
+        splitWordsOnCapitalLetters(rightData.what) + ' in ' + rightData.where
+      );
 
     // Add the title
 
     svg
-      .append("text")
-      .attr("class", "title")
-      .attr("x", width / 2)
-      .attr("y", -20)
-      .style("text-anchor", "middle")
-      .style("font-size", "18px")
-      .style("text-decoration", "underline")
-      .style("text-decoration", "bold")
+      .append('text')
+      .attr('class', 'title')
+      .attr('x', width / 2)
+      .attr('y', -20)
+      .style('text-anchor', 'middle')
+      .style('font-size', '18px')
+      .style('text-decoration', 'underline')
+      .style('text-decoration', 'bold')
       .style('fill', '#fff')
-      .text(splitWordsOnCapitalLetters(leftData.what) + " in " + leftData.where + " VS " + splitWordsOnCapitalLetters(rightData.what)  + " in " + rightData.where);
+      .text(
+        splitWordsOnCapitalLetters(leftData.what) +
+          ' in ' +
+          leftData.where +
+          ' VS ' +
+          splitWordsOnCapitalLetters(rightData.what) +
+          ' in ' +
+          rightData.where
+      );
 
     // Add the x-axis label
 
     svg
-      .append("text")
-      .attr("class", "label")
-      .attr("x", width / 2)
-      .attr("y", height + 50)
-      .style("text-anchor", "middle")
+      .append('text')
+      .attr('class', 'label')
+      .attr('x', width / 2)
+      .attr('y', height + 50)
+      .style('text-anchor', 'middle')
       .style('fill', '#fff')
-      .text("Years");
+      .text('Years');
 
     // Add the y-axis label
 
     svg
-      .append("text")
-      .attr("class", "label")
-      .attr("transform", "rotate(-90)")
-      .attr("x", -height / 2)
-      .attr("y", -40)
-      .style("text-anchor", "middle")
+      .append('text')
+      .attr('class', 'label')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -height / 2)
+      .attr('y', -40)
+      .style('text-anchor', 'middle')
       .style('fill', '#fff')
-      .text(desc1);
+      .text(leftData.desc);
 
-      // Add the second y-axis label
+    // Add the second y-axis label
 
     svg
-      .append("text")
-      .attr("class", "label")
-      .attr("transform", "rotate(-90)")
-      .attr("x", -height / 2)
-      .attr("y", width + 40)
-      .style("text-anchor", "middle")
+      .append('text')
+      .attr('class', 'label')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -height / 2)
+      .attr('y', width + 40)
+      .style('text-anchor', 'middle')
       .style('fill', '#fff')
-      .text(desc2);
-
-  };
-
+      .text(rightData.desc);
+  }
 </script>
 
 <main>
-  <div id="tooltip1" style="opacity: 0;"></div>
-  <div id="tooltip2" style="opacity: 0;"></div>
+  <div id="tooltip1" style="opacity: 0;" />
+  <div id="tooltip2" style="opacity: 0;" />
 
-  <svg class="line-graph"></svg>
+  <svg class="line-graph" />
 </main>
 
 <style>
-  *{
+  * {
     color: white;
   }
-  
 
   .line-graph {
     width: 67vw;
@@ -334,7 +305,7 @@
   #tooltip1 {
     position: fixed;
     text-align: center;
-    padding: .2rem;
+    padding: 0.2rem;
     background: #052c46;
     color: #fe9400;
     border: 2px solid #fe9400;
@@ -348,7 +319,7 @@
   #tooltip2 {
     position: fixed;
     text-align: center;
-    padding: .2rem;
+    padding: 0.2rem;
     background: #052c46;
     color: #fed703;
     border: 2px solid #fed703;
@@ -358,5 +329,4 @@
     font-family: 'Farro', sans-serif;
     filter: drop-shadow(2px 2px 0px black);
   }
-
 </style>

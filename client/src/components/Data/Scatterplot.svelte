@@ -8,14 +8,6 @@
   export let leftData;
   export let rightData;
 
-  function compactBigNumber(num) {
-    if (num > 1000) {
-      return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(num);
-    } else {
-      return num;
-    }
-  }
-
   const dataArray1 = Object.entries(data1)
   .filter(([year, value]) => value !== null)
   .map(([year, value]) => ({
@@ -34,7 +26,7 @@
   onMount(async () => {
 
     // Set the dimensions of the canvas / graph
-    var margin = { top: 60, right: 120, bottom: 100, left: 120 },
+    var margin = { top: 60, right: 120, bottom: 100, left: 100 },
       width = window.innerWidth * 0.7 - margin.left - margin.right,
       height = window.innerHeight * 0.6 - margin.top - margin.bottom;
 
@@ -81,33 +73,14 @@
       .range([height, 0]);
 
     // Define the left and right y-axis
-    var yAxisLeft = d3.axisLeft(compactBigNumber(yLeft));
-    var yAxisRight = d3.axisRight(compactBigNumber(yRight));
+    var yAxisLeft = d3.axisLeft(yLeft).tickFormat(d3.format('.2s'));
+    var yAxisRight = d3.axisRight(yRight).tickFormat(d3.format('.2s'));
 
     // Define the bottom x-axis
     var xAxis = d3
       .axisBottom(x)
       .tickFormat(d3.format("d"))
       .tickPadding(10);
-
-    // Define the two line generators
-    var line1 = d3
-      .line()
-      .x(function(d) {
-        return x(d.year);
-      })
-      .y(function(d) {
-        return yLeft(d.value);
-      });
-
-    var line2 = d3
-      .line()
-      .x(function(d) {
-        return x(d.year);
-      })
-      .y(function(d) {
-        return yRight(d.value);
-      });
 
     // Adds the svg canvas
 
@@ -277,26 +250,26 @@
     // Add the y-axis label
 
     svg
-      .append("text")
-      .attr("class", "label")
-      .attr("transform", "rotate(-90)")
-      .attr("x", -height / 2)
-      .attr("y", -40)
-      .style("text-anchor", "middle")
-      .style('fill', '#fff')
-      .text("Value ($)1");
+      .append('text')
+      .attr('class', 'label')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -height / 2)
+      .attr('y', -40)
+      .style('text-anchor', 'middle')
+      .style('fill', '#fe9400')
+      .text(leftData.desc);
 
-      // Add the second y-axis label
+    // Add the second y-axis label
 
     svg
-      .append("text")
-      .attr("class", "label")
-      .attr("transform", "rotate(-90)")
-      .attr("x", -height / 2)
-      .attr("y", width + 40)
-      .style("text-anchor", "middle")
-      .style('fill', '#fff')
-      .text("Value ($)2");
+      .append('text')
+      .attr('class', 'label')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -height / 2)
+      .attr('y', width + 40)
+      .style('text-anchor', 'middle')
+      .style('fill', '#f8ff2a')
+      .text(rightData.desc);
 
   });
 
