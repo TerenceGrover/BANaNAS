@@ -1,6 +1,16 @@
+<script>
+  const isMobile = window.innerWidth < 768;
+</script>
+
 <main>
-  <div id='left' class="backgound-element"></div>
-  <div id='right' class="backgound-element"></div>
+  {#if isMobile}
+    <div id="top-mobile" class="mobile-element" />
+    <div id="bot-mobile" class="mobile-element" />
+  {:else}
+    <div id="left" class="backgound-element" />
+    <div id="left-under" class="backgound-element" />
+    <div id="right" class="backgound-element" />
+  {/if}
 </main>
 
 <style>
@@ -29,7 +39,28 @@
   .backgound-element{
     position: absolute;
     top: 0;
-    transition: all 1.8s cubic-bezier(0.77,0,0.26,1.01);
+    width: 100vw;
+    height: 100vh;
+  }
+
+  #top-mobile {
+    background-color: #052c46;
+    position: absolute;
+    left: 0;
+    top: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 40% 45%, 60% 55%, 0 50%);
+  }
+
+  #bot-mobile {
+    background-color: #fed703;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    clip-path: polygon(0 100%, 100% 100%, 100% 50%, 40% 45%, 60% 55%, 0 50%);
+  }
+
+  .mobile-element {
+    position: absolute;
     width: 100vw;
     height: 100vh;
   }
