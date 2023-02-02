@@ -1,4 +1,4 @@
-# 🍌 BANaNAS - The Data Correlation App 🍌
+# <div align="center">🍌 BANaNAS - The Data Correlation App 🍌</div
 Welcome to BANaNAS, a web app developed by a team of four software engineering students with a passion for data analysis and a curious streak. The idea behind BANaNAS is to take two random pieces of data from around the web and see if they're related in any way. It's like a game of "Six Degrees of Kevin Bacon" but with data, and you never know what kind of interesting pattern you might uncover.
 
 ## Concept
