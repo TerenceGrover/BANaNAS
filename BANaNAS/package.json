@@ -2,8 +2,8 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index",
-  "typings": "dist/index",
+  "main": "SERVER_BANaNAS",
+  "typings": "dist/SERVER_BANaNAS",
   "type": "module",
   "scripts": {
     "test": "jest --forceExit",
