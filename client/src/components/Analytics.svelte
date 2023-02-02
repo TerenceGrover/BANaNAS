@@ -18,8 +18,25 @@
   leftData.what = splitWordsOnCapitalLetters(leftData.what);
   rightData.what = splitWordsOnCapitalLetters(rightData.what);
 
-  leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1];
-  rightData.unit = rightData.desc.match(/\(([^)]+)\)/)[1];
+  if (leftData.desc && rightData.desc) {
+    if(leftData.desc.match(/\(([^)]+)\)/).length > 2){
+      //Join element 1 and 2
+      leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1] + leftData.desc.match(/\(([^)]+)\)/)[2];
+    } else {
+      leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1];
+    }
+
+    if(rightData.desc.match(/\(([^)]+)\)/).length > 2){
+      //Join element 1 and 2
+      rightData.unit = rightData.desc.match(/\(([^)]+)\)/)[1] + rightData.desc.match(/\(([^)]+)\)/)[2];
+    } else {
+      rightData.unit = rightData.desc.match(/\(([^)]+)\)/)[1];
+    }
+  } else {
+    leftData.unit = '';
+    rightData.unit = '';
+  }
+
   leftData.unit = leftData.unit.replace('current', '');
   rightData.unit = rightData.unit.replace('current', '');
 
@@ -55,15 +72,11 @@
 
   let meanLeft = largeNumbercompactor(mean(arrLeft));
   let meanRight = largeNumbercompactor(mean(arrRight));
-  let lowestLeft = largeNumbercompactor(Math.min(...arrLeft));
-  let lowestRight = largeNumbercompactor(Math.min(...arrRight));
+
+  let lowestLeft = largeNumbercompactor(Math.min(...arrLeft.filter((item) => item > 0)));
+  let lowestRight = largeNumbercompactor(Math.min(...arrRight.filter((item) => item > 0)));
   let highestLeft = largeNumbercompactor(Math.max(...arrLeft));
   let highestRight = largeNumbercompactor(Math.max(...arrRight));
-
-  let standardDeviationLeft = largeNumbercompactor(standardDeviation(arrLeft));
-  let standardDeviationRight = largeNumbercompactor(
-    standardDeviation(arrRight)
-  );
 
   let rIndex = getPearsonCorrelation(arrLeft, arrRight).toFixed(3);
 
@@ -108,7 +121,7 @@
       >
     </div>
   </div>
-  <div id="left-container">
+  <div id="right-container">
     <div id="top-container">
       <ol>
         <li id="bullet-1">
@@ -151,7 +164,7 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 75px;
+    grid-column-gap: 60px;
     width: 100%;
     min-height: 70vh;
     padding: 3vh, 1vw;
@@ -162,17 +175,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 5vw;
+    justify-content: space-between;
+    gap: 5vh;
     font-size: 18px;
     font-family: 'Farro', sans-serif;
     font-weight: 600;
     color: #052c46;
     background-color: #fed703;
     border: none;
+    padding: 7vh 4vw;
+    line-height: 4vh;
+  }
+
+  #right-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3vh;
+    font-size: 18px;
+    font-weight: 600;
     padding: 2vh 4vw;
     line-height: 4vh;
-    margin-top: 20px;
   }
 
   i {
@@ -181,11 +205,17 @@
   }
 
   #r {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 500;
-    color: #052c46;
+    line-height: 6vh;
+    color: #fed703;
+    background-color: #052c46;
+    padding: 4vh 2vw;
+    margin-bottom: 20%;
+    border-radius: 12px;
+    box-shadow: 8px 8px 0px 2px #000000aa;
     text-decoration: underline;
-    margin: 5vh 0;
+    text-align: center;
   }
 
   #button-container {
@@ -221,6 +251,10 @@
 
   ol > li {
     text-align: start;
+    color: #052c46;
+    font-family: 'Farro', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
   }
 
   #paragraph-container {
@@ -236,13 +270,14 @@
     border: none;
     padding: 4vh 4vw;
     line-height: 4vh;
-    margin-top: 20px;
+    margin-top: 10px;
     border: 2px solid #052c46;
     border-radius: 12px;
     box-shadow: 8px 8px 0px 2px #000000aa;
   }
 
-  #paragraph {
-    text-align: center;
+  #paragraph-container > p {
+    text-align: justify;
   }
+  
 </style>
