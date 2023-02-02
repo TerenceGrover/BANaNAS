@@ -14,6 +14,16 @@
 
   let paragraph = 'Transparency';
 
+  leftData.what = splitWordsOnCapitalLetters(leftData.what);
+  rightData.what = splitWordsOnCapitalLetters(rightData.what);
+
+  leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1];
+  rightData.unit = rightData.desc.match(/\(([^)]+)\)/)[1];
+  leftData.unit = leftData.unit.replace('current', '');
+  rightData.unit = rightData.unit.replace('current', '');
+
+  console.log(leftData, rightData);
+
   function ParagraphSelector(newP) {
     paragraph = newP;
   }
@@ -31,6 +41,10 @@
 
   let meanLeft = largeNumbercompactor(mean(arrLeft));
   let meanRight = largeNumbercompactor(mean(arrRight));
+  let lowestLeft = largeNumbercompactor(Math.min(...arrLeft));
+  let lowestRight = largeNumbercompactor(Math.min(...arrRight));
+  let highestLeft = largeNumbercompactor(Math.max(...arrLeft));
+  let highestRight = largeNumbercompactor(Math.max(...arrRight));
 
   let standardDeviationLeft = largeNumbercompactor(standardDeviation(arrLeft));
   let standardDeviationRight = largeNumbercompactor(
@@ -52,23 +66,31 @@
 
 <main>
   <div id="left-container">
-    <div id="test">GRAPH</div>
-    <h2 id="r">{emojiLeft} / {emojiRight} R-index = {rIndex}</h2>
+    <h2 id="r">
+      {emojiLeft} / {emojiRight} R-index =
+      <i
+        style={rIndex > 0
+          ? 'color: green'
+          : rIndex < 0
+          ? 'color: red'
+          : 'color: #052c46'}>{rIndex}</i
+      >
+    </h2>
     <div id="button-container">
       <button
         class="detail-buttons"
         on:click={() => ParagraphSelector('Transparency')}
-        ><i>🔎</i><br /> Transparency</button
+        ><i>🔎</i><br /></button
       >
       <button
         class="detail-buttons"
         on:click={() => ParagraphSelector('Concept')}
-        ><i>💡</i><br /> Concept</button
+        ><i>💡</i><br /></button
       >
       <button
         class="detail-buttons"
         on:click={() => ParagraphSelector('Creators')}
-        ><i>☭</i><br /> Creators</button
+        ><i>☭</i><br /></button
       >
     </div>
   </div>
@@ -76,52 +98,36 @@
     <div id="top-container">
       <ol>
         <li id="bullet-1">
-          {leftData.where}'s {leftData.what} has an average of {meanLeft}
+          {leftData.where}'s {leftData.what} has an average of {meanLeft} {leftData.unit}
         </li>
         <li id="bullet-2">
-          {rightData.where}'s {rightData.what} has an average of {meanRight}
+          {rightData.where}'s {rightData.what} has an average of {meanRight} {rightData.unit}
         </li>
         <li id="bullet-3">
-          As {leftData.where}'s {leftData.what} increases by one, {rightData.where}'s
-          {rightData.what}
-          {rIndex > 0.5
-            ? 'increases by ' + rIndex
-            : rIndex < -0.5
-            ? 'decreases by ' + Math.abs(rIndex)
-            : 'does not change'}
+        Everything is pointless and meaningless. Only bananas matter.  
         </li>
       </ol>
     </div>
     <div id="paragraph-container">
       <p id="paragraph">
-        The R-index is {rIndex}. Meaning that when
+        When
         {splitWordsOnCapitalLetters(leftData.what)} in {leftData.where}
-        goes up,
+        goes up by one {leftData.unit},
         {splitWordsOnCapitalLetters(rightData.what)} in {rightData.where}
         {rIndex > 0.5
-          ? 'goes up'
+          ? 'goes up by ' + rIndex + ' ' + rightData.unit
           : rIndex < -0.5
-          ? 'goes down'
-          : "doesn't care"}.
+          ? 'goes down by ' + Math.abs(rIndex) + ' ' + rightData.unit
+          : "could'nt care less"}.
       </p>
-      <p id="text1">
-        Mean : {meanLeft}
-        <br />
-        Standard Deviation (68% of data) : {standardDeviationLeft}
-        <br />
-        2 Standard deviations (95% of data) : {2 * standardDeviationLeft}
+      <p>
+        During the requested time frame, the lowest {leftData.what} in {leftData.where} was {lowestLeft} {leftData.unit} and the highest {leftData.what} was {highestLeft} {leftData.unit}.
       </p>
-      <p id="text2">
-        Mean : {meanRight}
-        <br />
-        Standard Deviation (68% of data) : {standardDeviationRight}
-        <br />
-        2 Standard deviations (95% of data) : {2 * standardDeviationRight}
+      <p>
+        On the other hand, the lowest {rightData.what} in {rightData.where} was {lowestRight} {rightData.unit} and the highest {rightData.what} was {highestRight} {rightData.unit}.
       </p>
-      <p id="text3">
-        The R-index is a measure of the correlation between two variables.
-      </p>
-      <p id="text4">Jeff Bezos is a mass murderer.</p>
+      <p>The R-index is a measure of the correlation between two variables.</p>
+      <p>Jeff Bezos is a mass murderer.</p>
     </div>
   </div>
 </main>
@@ -136,12 +142,6 @@
     min-height: 70vh;
     padding: 3vh, 1vw;
     margin: 0 2vw 2vh 2vw;
-  }
-
-  #test {
-    background-color: rgba(103, 103, 103, 0.384);
-    height: 250px;
-    width: 400px;
   }
 
   #left-container {
@@ -163,6 +163,7 @@
 
   i {
     font-style: normal;
+    font-weight: 700;
   }
 
   #r {
@@ -170,6 +171,7 @@
     font-weight: 500;
     color: #052c46;
     text-decoration: underline;
+    margin: 5vh 0;
   }
 
   #button-container {
@@ -177,9 +179,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
     width: 25vw;
-    gap: 100px;
+    gap: 50px;
     background-color: #fed703;
   }
 
@@ -191,7 +192,6 @@
     background-color: #fed703;
     border: none;
     padding: 2vh 4vw;
-    margin-top: 20px;
     border: 2px solid #052c46;
     border-radius: 12px;
     box-shadow: 6px 6px 0px 2px #000000aa;
@@ -206,11 +206,7 @@
   }
 
   ol > li {
-    font-family: 'Farro', sans-serif;
-    font-weight: 500;
-    font-size: 1.2rem;
-    border: none;
-    text-align: center;
+    text-align: start;
   }
 
   #paragraph-container {
@@ -218,12 +214,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3vw;
-    font-size: 18px;
-    font-family: 'Farro', sans-serif;
+    gap: 2vh;
+    font-size: 16px;
     font-weight: 600;
-    color: #052c46;
-    background-color: #fed703;
+    color: #fed703;
+    background-color: #052c46;
     border: none;
     padding: 4vh 4vw;
     line-height: 4vh;
