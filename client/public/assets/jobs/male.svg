@@ -32,14 +32,11 @@
        id="g10"
        transform="scale(0.1)"><path
          d="M 0,0 H 40000 V 40000 H 0 Z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         style="fill:#ffffff;fill-opacity:0;fill-rule:nonzero;stroke:none"
          id="path12" /><g
          id="g1654"><g
            id="g1656"
-           clip-path="url(#clipPath1660)"><path
-             d="m 30938.9,28106.1 h 6500 v 2000.02 h -6500 z"
-             style="fill:#e6e6e7;fill-opacity:1;fill-rule:nonzero;stroke:none"
-             id="path1662" /></g></g><path
+           clip-path="url(#clipPath1660)"></g></g><path
          d="m 32789.3,30812.3 c 42.9,26.5 85.9,54.6 129.1,84.1 558.4,382 1152.6,1026 1766,1914.2 99.3,143.9 63.2,341.1 -80.7,440.5 -143.9,99.3 -341.1,63.3 -440.4,-80.7 -1007.9,-1459.3 -1916.8,-2175.8 -2628.3,-2071.8 -826.7,120.7 -1227.5,1325.6 -1231.4,1337.7 -54,166.1 -232.4,257.4 -398.5,203.7 -166.2,-53.6 -257.6,-231.4 -204.3,-397.7 20.8,-64.9 523.5,-1589.9 1739.7,-1769.9 428.6,-63.5 881.8,50.9 1348.8,339.9"
          style="fill:#a64b2a;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="path1664" /><path
