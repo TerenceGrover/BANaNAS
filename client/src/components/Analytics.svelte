@@ -7,11 +7,24 @@
   } from '../Utils/helpers';
   import { meanQuote, stDevQuote } from '../Utils/humorous-desc';
   import categoryList from '../Utils/categoryList';
+  import { getConclusion } from '../Utils/api-services';
 
   export let leftData;
   export let rightData;
   export let leftGraphData;
   export let rightGraphData;
+
+  const leftWhat = splitWordsOnCapitalLetters(leftData.what);
+  const rightWhat = splitWordsOnCapitalLetters(rightData.what);
+
+  let conclusion;
+
+  $: rIndex, conclude(); 
+
+  async function conclude() {
+    const response = await getConclusion(leftWhat, leftData.where, rightWhat, rightData.where, rIndex);
+    conclusion = response
+  }
 
   let arrRight = Object.values(rightGraphData);
   let arrLeft = Object.values(leftGraphData);
@@ -54,21 +67,21 @@
   <div id="paragraph-container">
     <p id="paragraph" class="r-index">
       The R-index is {rIndex}. Meaning that when
-      {splitWordsOnCapitalLetters(leftData.what)} in {leftData.where}
+      {leftWhat} in {leftData.where}
       goes up,
-      {splitWordsOnCapitalLetters(rightData.what)} in {rightData.where}
+      {rightWhat} in {rightData.where}
       {rIndex > 0.5 ? 'goes up' : rIndex < -0.5 ? 'goes down' : "doesn't care"}.
     </p>
 
     <div id="gridcontainer">
       <span id="header1" class="grid-item header"
-        >{leftData.what} {emojiLeft}</span
+        >{splitWordsOnCapitalLetters(leftData.what)} {emojiLeft}</span
       >
       <span id="header2" class="grid-item header"
-        >{rightData.what} {emojiRight}</span
+        >{rightWhat} {emojiRight}</span
       >
       <span id="header3" class="grid-item header"
-        >{leftData.what} <br /> & <br /> {rightData.what}</span
+        >{leftWhat} <br /> & <br /> {rightData.what}</span
       >
       <span id="header4" class="grid-item header">🔎 Conclusion 🔎</span>
 
@@ -89,7 +102,7 @@
       <p id="text3" class="grid-item">
         The R-index is a measure of the correlation between two variables.
       </p>
-      <p id="text4" class="grid-item">Jeff Bezos is a mass murderer.</p>
+      <p id="text4" class="grid-item">{conclusion}</p>
 
     </div>
   </div>

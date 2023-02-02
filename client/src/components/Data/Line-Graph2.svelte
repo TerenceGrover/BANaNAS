@@ -116,7 +116,7 @@
       .y(function (d) {
         return yLeft(d.value);
       })
-      .curve(d3.curveCardinal);
+      .curve(d3.curveMonotoneX);
 
     let line2 = d3
       .line()
@@ -126,7 +126,7 @@
       .y(function (d) {
         return yRight(d.value);
       })
-      .curve(d3.curveCardinal);
+      .curve(d3.curveMonotoneX);
 
     // Adds the svg canvas
 
@@ -192,18 +192,18 @@
       .style('stroke', '#fe9400')
       .style('stroke-width', '4px')
       .style('fill', 'none')
-      .on('mouseover', function (event, datum) {
-        d3.select(this).transition().duration('100');
-        div1.transition().duration(100).style('opacity', 1);
-        div1
-          .html(datum.value.toFixed(2))
-          .style('left', event.offsetX + 25 + 'px')
-          .style('top', event.offsetY - 10 + 'px');
-      })
-      .on('mouseout', function () {
-        d3.select(this).transition().duration('200');
-        div1.transition().duration('200').style('opacity', 0);
-      });
+      // .on('mouseover', function (event, datum) {
+      //   d3.select(this).transition().duration('100');
+      //   div1.transition().duration(100).style('opacity', 1);
+      //   div1
+      //     .html(datum.value.toFixed(2))
+      //     .style('left', event.offsetX + 25 + 'px')
+      //     .style('top', event.offsetY - 10 + 'px');
+      // })
+      // .on('mouseout', function () {
+      //   d3.select(this).transition().duration('200');
+      //   div1.transition().duration('200').style('opacity', 0);
+      // });
 
     // Add the second line
 
@@ -214,18 +214,18 @@
       .style('stroke', '#f8ff2a')
       .style('stroke-width', '4px')
       .style('fill', 'none')
-      .on('mouseover', function (event, datum) {
-        d3.select(this).transition().duration('100').attr('r', 7);
-        div2.transition().duration(100).style('opacity', 1);
-        div2
-          .html(datum.value.toFixed(2))
-          .style('left', event.offsetX + 25 + 'px')
-          .style('top', event.offsetY - 10 + 'px');
-      })
-      .on('mouseout', function () {
-        d3.select(this).transition().duration('200').attr('r', 3);
-        div2.transition().duration('200').style('opacity', 0);
-      });
+      // .on('mouseover', function (event, datum) {
+      //   d3.select(this).transition().duration('100').attr('r', 7);
+      //   div2.transition().duration(100).style('opacity', 1);
+      //   div2
+      //     .html(datum.value.toFixed(2))
+      //     .style('left', event.offsetX + 25 + 'px')
+      //     .style('top', event.offsetY - 10 + 'px');
+      // })
+      // .on('mouseout', function () {
+      //   d3.select(this).transition().duration('200').attr('r', 3);
+      //   div2.transition().duration('200').style('opacity', 0);
+      // });
 
     // Add the first line label
 
