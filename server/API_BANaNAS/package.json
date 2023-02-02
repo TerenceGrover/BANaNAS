@@ -1,0 +1,32 @@
+{
+  "name": "api_bananas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "API_BANaNAS",
+  "typings": "build/API_BANaNAS",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --project ./",
+    "dev": "tsc && npx nodemon build/API_BANaNAS.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "pg": "^8.9.0",
+    "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "@sequelize/core": "^7.0.0-alpha.10",
+    "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.16",
+    "@types/node": "^18.11.18",
+    "@types/sequelize": "^4.28.14",
+    "ts-node": "^10.9.1"
+  }
+}
