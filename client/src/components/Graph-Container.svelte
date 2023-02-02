@@ -25,7 +25,7 @@
       component: Scatterplot,
     },
     {
-      name: 'Matrix',
+      name: 'Correlation Heat Map',
       component: Matrix,
     },
   ];
@@ -59,13 +59,15 @@
 
 <main>
   <section id="top-section">
-    <h2 id="top-sub-header">Graph Type</h2>
-    <button id="filter-button"
-      on:click = {async () => {
-        await getFilterCategories().then(res => filterCategories = res)
+    <h2 id="top-sub-header">{graphs[position].name}</h2>
+    <button
+      id="filter-button"
+      on:click={async () => {
+        await getFilterCategories().then((res) => (filterCategories = res));
         filter = !filter;
         console.log(filterCategories);
-      }}>
+      }}
+    >
       <img
         id="filter-icon"
         class="icon"
@@ -83,10 +85,12 @@
     {#if filterYears.length > 0}
       <input id="switch" type="checkbox" />
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <label for="switch"
+      <label
+        for="switch"
         on:click={() => {
           filterToggle = !filterToggle;
-        }}>Toggle</label>
+        }}>Toggle</label
+      >
     {/if}
     <button
       on:click={() => {
@@ -98,45 +102,40 @@
     {#if filter}
       <FilterSelector
         {filterCategories}
-        bind:filterYears={filterYears}
-        bind:filter={filter}
-        bind:filterYearsOff={filterYearsOff}
-        />
-    {:else}
-      {#if position === 0}
-        <div id="D3-container" class="fade-in">
-          <div id="current-graph">
-            <LineGraph2
-              data1={leftGraphData}
-              data2={rightGraphData}
-              {leftData}
-              {rightData}
-              filterYears = { filterToggle ? filterYears : filterYearsOff}
-            />
-          </div>
+        bind:filterYears
+        bind:filter
+        bind:filterYearsOff
+      />
+    {:else if position === 0}
+      <div id="D3-container" class="fade-in">
+        <div id="current-graph">
+          <LineGraph2
+            data1={leftGraphData}
+            data2={rightGraphData}
+            {leftData}
+            {rightData}
+            filterYears={filterToggle ? filterYears : filterYearsOff}
+          />
         </div>
-      {:else if position === 1}
-        <div id="D3-container" class="fade-in">
-          <div id="current-graph">
-            <Matrix
-              data1={leftGraphData}
-              data2={rightGraphData}
-            />
-          </div>
+      </div>
+    {:else if position === 1}
+      <div id="D3-container" class="fade-in">
+        <div id="current-graph">
+          <Scatterplot
+            data1={leftGraphData}
+            data2={rightGraphData}
+            {leftData}
+            {rightData}
+            filterYears={filterToggle ? filterYears : filterYearsOff}
+          />
         </div>
-      {:else if position === 2}
-        <div id="D3-container" class="fade-in">
-          <div id="current-graph">
-            <Scatterplot
-              data1={leftGraphData}
-              data2={rightGraphData}
-              {leftData}
-              {rightData}
-              filterYears = { filterToggle ? filterYears : filterYearsOff}
-            />
-          </div>
+      </div>
+    {:else if position === 2}
+      <div id="D3-container" class="fade-in">
+        <div id="current-graph">
+          <Matrix data1={leftGraphData} data2={rightGraphData} />
         </div>
-      {/if}
+      </div>
     {/if}
     <button
       on:click={() => {
@@ -191,58 +190,55 @@
     -webkit-text-stroke: 1px black;
     gap: 2px;
     cursor: pointer;
-    
   }
 
-input[type=checkbox]{
-  height: 0;
-  width: 0;
-  visibility: hidden;
-}
+  input[type='checkbox'] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
 
-label {
-  cursor: pointer;
-  text-indent: -9999px;
-  width: 75px;
-  height: 34px;
-  background: #fed703;
-  display: block;
-  border-radius: 34px;
-  position: absolute;
-  display: flex;
-  top: 7vh;
-  left: 2vw;
-  filter: drop-shadow(3px 3px 0px black);
-  border: 2px solid black;
+  label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 75px;
+    height: 34px;
+    background: #fed703;
+    display: block;
+    border-radius: 34px;
+    position: absolute;
+    display: flex;
+    top: 7vh;
+    left: 2vw;
+    filter: drop-shadow(3px 3px 0px black);
+    border: 2px solid black;
+  }
 
-}
+  label:after {
+    content: '';
+    position: absolute;
+    top: 2.5px;
+    right: 2.5px;
+    width: 25px;
+    height: 25px;
+    background: #fff;
+    border-radius: 25px;
+    transition: 0.3s;
+    border: 2px solid black;
+  }
 
-label:after {
-  content: '';
-  position: absolute;
-  top: 2.5px;
-  right: 2.5px;
-  width: 25px;
-  height: 25px;
-  background: #fff;
-  border-radius: 25px;
-  transition: 0.3s;
-  border: 2px solid black;
-}
+  input:checked + label {
+    background: grey;
+  }
 
-input:checked + label {
-  background: grey;
+  input:checked + label:after {
+    right: calc(100% - 2.5px);
+    transform: translateX(100%);
+  }
 
-}
-
-input:checked + label:after {
-  right: calc(100% - 2.5px);
-  transform: translateX(100%);
-}
-
-label:active:after {
-  width: 6vh;
-}
+  label:active:after {
+    width: 6vh;
+  }
 
   #filter-text {
     padding-top: 2px;
