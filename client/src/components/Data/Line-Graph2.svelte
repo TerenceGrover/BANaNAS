@@ -43,6 +43,7 @@
       value: value,
     }));
 
+  console.log(dataArray1[0], dataArray2[0]);
 
   const lowestYear = Math.min(dataArray1[0].year, dataArray2[0].year);
   const highestYear = Math.max(
