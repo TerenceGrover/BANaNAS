@@ -1,9 +1,10 @@
 import { queries } from '../queries/queries.js';
+import { Request, Response } from 'express';
 
-export const categoryController = async (req, res) => {
+export const categoryController = async (req: Request, res: Response) => {
   try {
     const category = req.params.selectedCategory;
-    let responseObj = {};
+    let responseObj: any = {};
     for (let query in queries[category]) {
       if (category === 'Filters') {
         responseObj[query] = {
@@ -15,7 +16,7 @@ export const categoryController = async (req, res) => {
         responseObj[query] = {
           description: queries[category][query]['description'],
           parameters_needed: queries[category][query]['parameters_needed'],
-          available_countries: queries[category][query]['availableCountries'],
+          available_countries: queries[category][query]['countries_available'],
         };
       }
     }

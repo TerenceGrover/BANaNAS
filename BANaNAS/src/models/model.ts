@@ -47,7 +47,7 @@ synchronize();
 let BananaCountNumber = 0;
 setInterval(async () => {
   const bananaCount = await BananaCounter.findAll();
-  BananaCountNumber = bananaCount.reduce((acc, user) => acc + user.count, 0);
+  BananaCountNumber = bananaCount.reduce((acc, user:any) => acc + user.count, 0);
 }, 2000);
 
 

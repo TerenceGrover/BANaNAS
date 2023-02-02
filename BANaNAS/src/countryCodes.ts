@@ -1,4 +1,4 @@
-{
+export const countryCodes: any = {
   "Afghanistan": "AF",
   "Albania": "AL",
   "Algeria": "DZ",

@@ -34,3 +34,5 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   console.log('Launched 🚀: ' + ' http://localhost:' + port);
 });
+
+export default app;

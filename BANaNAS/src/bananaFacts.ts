@@ -1,5 +1,5 @@
 
-let bananaFacts = {
+let bananaFacts: any = {
   1: 'The banana plant is not actually a tree, but is classified as an herb.',
   2: 'The "trunk" of the banana plant is actually made up of tightly packed leaves, which can grow up to 25 feet in height.',
   3: 'The banana plant is the largest herbaceous flowering plant',

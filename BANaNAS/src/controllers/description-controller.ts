@@ -1,10 +1,11 @@
 import { queries } from '../queries/queries.js';
+import { Request, Response } from 'express';
 
-export const descriptionController = async (req, res) => {
+export const descriptionController = async (req: Request, res: Response) => {
   try {
     const category = req.params.selectedCategory;
     const metric = req.params.selectedMetric;
-    let responseObj = {};
+    let responseObj: any = {};
     responseObj.description = queries[category][metric]['description'];
     res.status(200).json(responseObj);
   } catch (err) {

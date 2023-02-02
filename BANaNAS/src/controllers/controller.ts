@@ -1,27 +1,18 @@
 // functions to interact with db
 import { queries } from '../queries/queries.js';
-import countryCodes from '../countryCodes.json' assert { type: 'json' };
+import { Request, Response } from 'express';
+import { countryCodes } from '../countryCodes.js';
 import { cityToLatAndLong } from '../middleware/meteo-middleware.js';
 import { meteoParser } from '../response-parsers/meteo-parser.js';
 import { worldBankParser } from '../response-parsers/worldBank-parser.js';
 import { BananaCounter } from '../models/model.js';
 import bananaFacts from '../bananaFacts.js';
-function findCountryCode(country) {
+
+function findCountryCode(country: string) {
   return countryCodes[country];
 }
-// IN ORDER TO HAVE TWO GRAPHS THAT ARE COMPARED, NUMBER OF YEARS MUST BE THE SAME !!!!!
 
-// the request from the frontedn looks like this:
-// BASEURL/api/CATEGORY/METRICNAME/PARAM1/PARAM2/PARAM3?/PARAM4?/PARAM5?
-// example:
-// or http://localhost:3000/api/Weather/AverageTemperature/Stockholm/2021/2022
-// or http://localhost:3000/api/Demographics/BirthRate/Italy/2019/2022
-// or http://localhost:3000/api/Demographics/DeathRate/Italy/2019/2021
-// or http://localhost:3000/api/Enviroment/AveragePrecipitation/Germany/2017/2019
-
-// SHEEEEEEEEESH
-
-const globalController = async (req, res) => {
+const globalController = async (req: Request, res: Response) => {
   try {
     // every call will have category and metricName. We need to check if they are valid.
     const { category, metricName } = req.params;
@@ -37,10 +28,10 @@ const globalController = async (req, res) => {
     if (category === 'Weather') {
       const city = req.params.param1;
       const { lat, lng } = await cityToLatAndLong(city);
-      req.params.param1 = +lat;
+      req.params.param1 = lat;
       req.params.param4 = req.params.param3;
       req.params.param3 = req.params.param2;
-      req.params.param2 = +lng;
+      req.params.param2 = lng;
     }
     // here check what parameters we need for the called category&metricName
     // and assign params values to them
@@ -59,14 +50,14 @@ const globalController = async (req, res) => {
     if (paramsNeeded.length !== paramsPassed) {
       return res.status(400).send('Missing some parameters!');
     }
-    let params = [];
-    paramsNeeded.forEach((_, index) => {
+    let params: any = [];
+    paramsNeeded.forEach((_: any, index: number) => {
       params.push(req.params[`param${index + 1}`]);
     });
 
     // take the query string from queries.js and replace the params with the values
     let queryString = queries[`${category}`][`${metricName}`].queryString;
-    paramsNeeded.forEach((param, index) => {
+    paramsNeeded.forEach((param: string, index: number) => {
       // if param is country, we need to find the country code
       if (param === 'countryCode') {
         params[index] = findCountryCode(params[index]);
@@ -86,7 +77,7 @@ const globalController = async (req, res) => {
         response = worldBankParser(response);
         break;
       case 'Open-Meteo':
-        let indicatorCode =
+        let indicatorCode: string =
           queries[`${category}`][`${metricName}`].indicatorCode;
         response = meteoParser(response, indicatorCode);
         break;
@@ -103,11 +94,11 @@ const globalController = async (req, res) => {
   }
 };
 
-export const addBanana = async (req, res) => {
+export const addBanana = async (req: Request, res: Response) => {
   try {
     const name = req.params.name;
     // find one or create if not found
-    const bananaCount = await BananaCounter.findOrCreate({
+    const bananaCount: any = await BananaCounter.findOrCreate({
       where: { name: name },
       defaults: { count: 0 },
     });
@@ -122,7 +113,7 @@ export const addBanana = async (req, res) => {
   }
 };
 
-export const deleteBanana = async (req, res) => {
+export const deleteBanana = async (req: Request, res: Response) => {
   // go in db and reset count to 0 for every user
   try {
     await BananaCounter.update({ count: 0 }, { where: {} });
@@ -133,18 +124,18 @@ export const deleteBanana = async (req, res) => {
   }
 };
 
-export const getBananas = async (req, res) => {
+export const getBananas = async (req: Request, res: Response) => {
   // go in db and get count for every user
   try {
-    const bananaCount = await BananaCounter.findAll();
+    const bananaCount: any = await BananaCounter.findAll();
     // vreate an object with key value pairs name and count
-    const bananaCountObj = {};
-    bananaCount.forEach((user) => {
+    const bananaCountObj: any = {};
+    bananaCount.forEach((user: any) => {
       bananaCountObj[user.name] = user.count;
     });
     // add total count to the object
     bananaCountObj.total = bananaCount.reduce(
-      (acc, user) => acc + user.count,
+      (acc: number, user: any) => acc + user.count,
       0
     );
     res.status(200).json(bananaCountObj);
@@ -154,12 +145,15 @@ export const getBananas = async (req, res) => {
   }
 };
 
-export const getBananaFact = async (req, res) => {
+export const getBananaFact = async (req: Request, res: Response) => {
   try {
     const bananaCount = await BananaCounter.findAll();
-    let BananaCountNumber = bananaCount.reduce((acc, user) => acc + user.count, 0);
+    let BananaCountNumber = bananaCount.reduce(
+      (acc: number, user: any) => acc + user.count,
+      0
+    );
 
-    const random = Math.floor(Math.random() * 21);
+    const random: number = Math.floor(Math.random() * 21);
     const randomFact = bananaFacts[`${random}`];
 
     const fact = randomFact.replace('BananaCountNumber', BananaCountNumber);

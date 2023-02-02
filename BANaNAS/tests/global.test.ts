@@ -1,6 +1,6 @@
 import { it } from 'node:test';
 import request from 'supertest';
-import app from '../index.js';
+import app from '../src/SERVER_BANaNAS';
 
 let server;
 function startServer(){
