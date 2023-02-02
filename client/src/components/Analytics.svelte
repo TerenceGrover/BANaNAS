@@ -18,14 +18,14 @@
   rightData.what = splitWordsOnCapitalLetters(rightData.what);
 
   if (leftData.desc && rightData.desc) {
-    if(leftData.desc.match(/\(([^)]+)\)/).length > 2){
+    if(leftData.desc.match(/\(([^)]+)\)/) && leftData.desc.match(/\(([^)]+)\)/).length > 2){
       //Join element 1 and 2
       leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1] + leftData.desc.match(/\(([^)]+)\)/)[2];
     } else {
       leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1];
     }
 
-    if(rightData.desc.match(/\(([^)]+)\)/).length > 2){
+    if(rightData.desc.match(/\(([^)]+)\)/) && rightData.desc.match(/\(([^)]+)\)/).length > 2){
       //Join element 1 and 2
       rightData.unit = rightData.desc.match(/\(([^)]+)\)/)[1] + rightData.desc.match(/\(([^)]+)\)/)[2];
     } else {
