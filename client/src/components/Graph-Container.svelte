@@ -13,6 +13,7 @@
   import FilterSelector from './Filter-Selector.svelte';
 
   import { getFilterCategories } from '../Utils/api-services';
+  import Matrix from './Data/Matrix.svelte';
 
   let graphs = [
     {
@@ -22,6 +23,10 @@
     {
       name: 'Scatterplot',
       component: Scatterplot,
+    },
+    {
+      name: 'Matrix',
+      component: Matrix,
     },
   ];
 
@@ -114,6 +119,18 @@
         <div id="D3-container" class="fade-in">
           <div id="current-graph">
             <Scatterplot
+              data1={leftGraphData}
+              data2={rightGraphData}
+              {leftData}
+              {rightData}
+              filterYears = { filterToggle ? filterYears : filterYearsOff}
+            />
+          </div>
+        </div>
+      {:else if position === 1}
+        <div id="D3-container" class="fade-in">
+          <div id="current-graph">
+            <Matrix
               data1={leftGraphData}
               data2={rightGraphData}
               {leftData}

@@ -30,7 +30,6 @@
       inputFields[1].value = '';
     }
     getSubCategories(category).then((data) => {
-      console.log(data);
       APIdata = data;
       whatItems = Object.keys(data).map((item) => {
         return { value: item, label: splitWordsOnCapitalLetters(item) };
@@ -42,7 +41,9 @@
     reset();
   }
 
-  $: if ((what.value && !where.value) || (isMobile && what && APIdata[what] && !where)) {
+  $: if ((what.value && !where.value) || (isMobile && what)) {
+    console.log('what', what);
+    console.log('what', APIdata[what]);
     isMobile
       ? (whereItems = APIdata[what].available_countries)
       : (whereItems = APIdata[what.value].available_countries);
