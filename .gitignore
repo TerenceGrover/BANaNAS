@@ -108,3 +108,5 @@ API_BANaNAS/dbseed/normalized.json
 
 dist
 build
+
+.DS_Store
