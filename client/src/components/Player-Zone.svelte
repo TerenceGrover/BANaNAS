@@ -26,6 +26,12 @@
           <img id="player" class="gender1" src="../../assets/jobs/male.svg" alt="sprite" />
           <img id="player" class="gender2" src="../../assets/jobs/female.svg" alt="sprite" />
         </div>
+      {:else if selectedPlayer === 'weather'}
+      <div id="weather">
+          <img id="player" class="weather1" src="../../assets/jobs/cloudsun.svg" alt="sprite" />
+          <img id="player" class="weather2" src="../../assets/jobs/weather.svg" alt="sprite" />
+          <img id="player" class="weather3" src="../../assets/jobs/cloudthunder.svg" alt="sprite" />
+        </div>
       {:else}
         <img id="player" {src} alt="sprite" />
       {/if}
@@ -58,6 +64,22 @@
     width: 10vw;
   }
 
+  .socialdevelopment1 {
+    position: absolute;
+    z-index: 1;
+    padding-left: 15vw;
+  }
+  .socialdevelopment2 {
+    position: absolute;
+    z-index: 3;
+  }
+
+  .socialdevelopment3 {
+    position: absolute;
+    z-index: 2;
+    padding-right: 15vw;
+  }
+
   #gender {
     position: relative;
     display: flex;
@@ -77,21 +99,40 @@
     z-index: 3;
   }
 
-  .socialdevelopment1 {
+  #weather {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 55vh;
+    width: 10vw;
+  }
+
+  .weather1 {
     position: absolute;
     z-index: 1;
     padding-left: 15vw;
+    margin-left: 5vw;
+    margin-bottom: 35vh;
+    -webkit-text-stroke: 3px black;
+
   }
-  .socialdevelopment2 {
+
+  .weather2 {
     position: absolute;
     z-index: 3;
   }
 
-  .socialdevelopment3 {
+  .weather3 {
     position: absolute;
     z-index: 2;
     padding-right: 15vw;
+    margin-right: 5vw;
+    margin-bottom: 30vh;
+    -webkit-text-stroke: 3px black;
+
   }
+
 
   img {
     filter: drop-shadow(10px 10px 0px #000000aa);
