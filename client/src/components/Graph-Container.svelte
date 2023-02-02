@@ -118,19 +118,16 @@
       {:else if position === 1}
         <div id="D3-container" class="fade-in">
           <div id="current-graph">
-            <Scatterplot
+            <Matrix
               data1={leftGraphData}
               data2={rightGraphData}
-              {leftData}
-              {rightData}
-              filterYears = { filterToggle ? filterYears : filterYearsOff}
             />
           </div>
         </div>
-      {:else if position === 1}
+      {:else if position === 2}
         <div id="D3-container" class="fade-in">
           <div id="current-graph">
-            <Matrix
+            <Scatterplot
               data1={leftGraphData}
               data2={rightGraphData}
               {leftData}

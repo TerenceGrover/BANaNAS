@@ -9,10 +9,7 @@
   export let rightData;
   export let filterYears;
 
-  $: filterYears, console.log(filterYears);
-
-  let dataArray1;
-  $: filterYears, dataArray1 = Object.entries(data1)
+  let dataArray1 = Object.entries(data1)
     .filter(([year, value]) => {
       if (filterYears.length>0) {
         return (filterYears.includes(+year) && value !== null)
@@ -25,8 +22,7 @@
       value: value,
     }));
 
-  let dataArray2;
-  $: filterYears, dataArray2 = Object.entries(data2)
+  let dataArray2 = Object.entries(data2)
     .filter(([year, value]) => {
       if (filterYears.length>0) {
         return (filterYears.includes(+year) && value !== null)
@@ -170,7 +166,7 @@
         div1.transition()
           .duration(100)
           .style("opacity", 1)
-        div1.html((datum.year).toFixed(2))
+        div1.html((datum.value).toFixed(2))
           .style("left", (event.offsetX + 25) + "px")
           .style("top", (event.offsetY - 10) + "px")
       })
@@ -202,7 +198,7 @@
         div2.transition()
           .duration(100)
           .style("opacity", 1)
-        div2.html((datum.year).toFixed(2))
+        div2.html((datum.value).toFixed(2))
           .style("left", (event.offsetX + 25) + "px")
           .style("top", (event.offsetY - 10) + "px")
       })
