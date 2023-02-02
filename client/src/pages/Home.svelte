@@ -4,7 +4,6 @@
   import { getBananas } from '../Utils/api-services';
   export let changePage;
   let shadowStr = '0px 0px 0px 0px #000';
-  import Carousel from '../components/Carousel.svelte';
 
   function handleMove(e) {
     shadowStr = transformMouseIntoCSSShadow(e.clientX, e.clientY);
@@ -286,7 +285,7 @@
     border-radius: 12px;
     box-shadow: 6px 6px 0px 2px #000000aa;
     min-width: 250px;
-    max-width: 200px;
+    max-width: 250px;
   }
 
   .home-buttons:hover {
