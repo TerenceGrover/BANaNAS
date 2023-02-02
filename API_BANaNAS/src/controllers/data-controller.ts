@@ -1,16 +1,18 @@
 import { Commodity } from '../models/commodity-model.js';
 import { WealthAmount } from '../models/wealth-model.js';
 import { Sequelize } from 'sequelize';
+import { Request, Response } from 'express';
+import { DataResponse } from '../../returnTypes';
 
-export const dataController = async (req, res) => {
+export const dataController = async (req: Request, res: Response) => {
   try {
     console.log(req.params);
     const categoryName = req.params.categoryName;
     const noun1 = req.params.param1; // country
     const noun2 = req.params.param2; // commodity or name
-    const responseObj = {};
+    const responseObj: DataResponse = {};
 
-    async function queryModel(categoryName) {
+    async function queryModel(categoryName: string) {
       let data;
       switch (categoryName) {
         case 'Commodity':
@@ -41,7 +43,7 @@ export const dataController = async (req, res) => {
       });
       return;
     }
-    data.forEach((element) => {
+    data.forEach((element: any) => {
       let year = element.get('year');
       let value = element.get('value');
       responseObj[year] = value;

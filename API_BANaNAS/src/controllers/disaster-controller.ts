@@ -1,7 +1,10 @@
 import { Disaster } from '../models/disaster-model.js';
+import { Request, Response } from 'express';
+import { DisasterResponse } from '../../returnTypes.js';
 
-export const disasterController = async (req, res) => {
+export const disasterController = async (req: Request, res: Response) => {
   try {
+    const responseObj: DisasterResponse = {};
     const category = req.params.category;
     const data = await Disaster.findAll({
       where: {
@@ -14,8 +17,7 @@ export const disasterController = async (req, res) => {
       });
       return;
     }
-    const responseObj = {};
-    data.forEach((element) => {
+    data.forEach((element: any) => {
       const year = element.get('year');
       const place = element.get('place');
       const deathtoll = element.get('deathtoll');

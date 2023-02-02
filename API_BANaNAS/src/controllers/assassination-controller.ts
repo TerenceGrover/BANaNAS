@@ -1,11 +1,13 @@
 import { Assassination } from '../models/assassination-model.js';
-import { assassinCategoryFilters } from '../filter-categories/assassin-filters.js';
+import { assassinationCategoryFilters } from '../assassination-filters.js';
+import { Request, Response } from 'express';
+import { AssassinationResponse } from '../../returnTypes';
 
-export const assassinationController = async (req, res) => {
+export const assassinationController = async (req: Request, res: Response) => {
   try {
     const value = req.params.value;
-    const responseObj = {};
-    const data = assassinCategoryFilters.includes(value)
+    const responseObj: AssassinationResponse = {};
+    const data = assassinationCategoryFilters.includes(value)
       ? await Assassination.findAll({
           where: {
             category: value,
@@ -22,7 +24,8 @@ export const assassinationController = async (req, res) => {
       });
       return;
     }
-    data.forEach((element) => {
+    console.log(data);
+    data.forEach((element: any) => {
       const year = element.get('year');
       const victim = element.get('victim');
       const position = element.get('position');
