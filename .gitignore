@@ -106,3 +106,5 @@ dist
 # JSON seed data
 API_BANaNAS/dbseed/normalized.json
 
+dist
+build
