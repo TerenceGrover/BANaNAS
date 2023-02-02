@@ -20176,7 +20176,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Afghanistan',
         'Albania',
         'Algeria',
@@ -20308,7 +20308,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Angola',
         'Argentina',
         'Australia',
@@ -20418,7 +20418,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'liters',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -20580,7 +20580,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -20756,7 +20756,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'US$',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -20929,7 +20929,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'US$',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -21122,7 +21122,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Afghanistan',
         'Albania',
         'Algeria',
@@ -21288,7 +21288,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -21471,7 +21471,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Angola',
         'Argentina',
         'Australia',
@@ -21587,7 +21587,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -21735,7 +21735,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'US$',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -21922,7 +21922,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'US$',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Albania',
         'Algeria',
         'Andorra',
@@ -22121,7 +22121,7 @@ export let queries: any = {
       parameters_needed: ['countryName', 'startYear', 'endYear'],
       unit: 'kg',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Angola',
         'Argentina',
         'Australia',
@@ -37450,7 +37450,7 @@ export let queries: any = {
       parameters_needed: ['name', 'startYear', 'endYear'],
       unit: 'USD',
       provider: 'Bananas API',
-      availableCountries: [
+      countries_available: [
         'Jeff Bezos',
         'Elon Musk',
         'Bernard Arnault & family',
