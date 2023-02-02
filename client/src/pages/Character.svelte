@@ -20,6 +20,8 @@
   let hoveredCategory = { name: '' };
   let selectedCategory = { name: '' };
 
+  console.log(selectedCategory);
+
   let left = {
     what: '',
     where: '',
@@ -267,7 +269,7 @@
   #hovered-category-name {
     position: absolute;
     z-index: 1000000000;
-    margin-top: 15vh;
+    margin-top: 12.5vh;
     font-size: 5vh;
     color: #fed703;
   }
@@ -335,20 +337,18 @@
     z-index: 1000000;
     position: absolute;
     left: 50%;
-    top: 17.5%;
+    top: 12.5%;
     transform: translate(-50%, -50%);
     width: 85vw;
-    height: 25vh;
   }
 
   #bot-carousel {
     z-index: 1000000;
     position: absolute;
     left: 50%;
-    top: 68%;
+    top: 63%;
     transform: translate(-50%, -50%);
     width: 85vw;
-    height: 25vh;
   }
 
   @keyframes pulse {
@@ -380,6 +380,11 @@
   }
 
   @media screen and (max-width: 768px) {
+
+    *{
+      overflow: hidden;
+    }
+
     main {
       position: relative;
     }
@@ -399,7 +404,7 @@
       left: 50%;
       top: 67%;
       transform: translate(-50%, -50%);
-      width: 50vw;
+      width: 100vw;
       height: 30vh;
     }
 
@@ -408,7 +413,7 @@
       left: 50%;
       top: 32.5%;
       transform: translate(-50%, -50%);
-      width: 50vw;
+      width: 100vw;
       height: 30vh;
     }
 

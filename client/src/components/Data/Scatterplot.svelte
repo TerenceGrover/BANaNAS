@@ -22,8 +22,7 @@
       value: value,
     }));
 
-
-  const dataArray2 = Object.entries(data2)
+  let dataArray2 = Object.entries(data2)
     .filter(([year, value]) => {
       if (filterYears.length>0) {
         return (filterYears.includes(+year) && value !== null)
@@ -36,6 +35,7 @@
       value: value,
     }));
 
+  console.log(dataArray1[0], dataArray2[0]);
   const lowestYear = Math.min(dataArray1[0].year, dataArray2[0].year);
   const highestYear = Math.max(
     dataArray1[dataArray1.length - 1].year,
@@ -166,7 +166,7 @@
         div1.transition()
           .duration(100)
           .style("opacity", 1)
-        div1.html((datum.year).toFixed(2))
+        div1.html((datum.value).toFixed(2))
           .style("left", (event.offsetX + 25) + "px")
           .style("top", (event.offsetY - 10) + "px")
       })
@@ -198,7 +198,7 @@
         div2.transition()
           .duration(100)
           .style("opacity", 1)
-        div2.html((datum.year).toFixed(2))
+        div2.html((datum.value).toFixed(2))
           .style("left", (event.offsetX + 25) + "px")
           .style("top", (event.offsetY - 10) + "px")
       })

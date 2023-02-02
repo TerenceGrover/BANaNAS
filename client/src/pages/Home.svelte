@@ -83,11 +83,14 @@
           <br />
           Sources:
           <br />
-          [Source 1]
+          <span
+            ><a href="https://documents.worldbank.org/">World Bank API</a> - The Master of Data and the King of APIs.
+          </span>
           <br />
-          [Source 2]
+          <span
+            ><a href="https://www.shutterstock.com/g/heruka">HerukArt</a> - The Father of Monkeys. Our anonymous benefactor.
           <br />
-          [Source 3]
+          <a href="https://openweathermap.org/api">Open Weather Map API</a> - Rain or sun, this API is always there for you.
         </p>
       {:else if paragraph === 'Concept'}
         <p id="sub-info">

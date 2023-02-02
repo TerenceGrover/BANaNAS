@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import * as d3 from 'd3';
   import { splitWordsOnCapitalLetters } from '../../Utils/helpers';
 
@@ -14,6 +14,13 @@
   window.addEventListener('resize', function () {
     d3.select('.line-graph').html('');
     drawGraph();
+  });
+
+  onDestroy(() => {
+    window.removeEventListener('resize', function () {
+      d3.select('.line-graph').html('');
+      drawGraph();
+    });
   });
 
   let dataArray1 = Object.entries(data1)
@@ -43,6 +50,7 @@
       value: value,
     }));
 
+  console.log(dataArray1[0], dataArray2[0]);
 
   const lowestYear = Math.min(dataArray1[0].year, dataArray2[0].year);
   const highestYear = Math.max(
