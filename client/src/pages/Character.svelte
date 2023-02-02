@@ -20,6 +20,8 @@
   let hoveredCategory = { name: '' };
   let selectedCategory = { name: '' };
 
+  console.log(selectedCategory);
+
   let left = {
     what: '',
     where: '',

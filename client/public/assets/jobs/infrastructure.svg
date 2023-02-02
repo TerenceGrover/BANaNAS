@@ -7,7 +7,7 @@
    xml:space="preserve"
    width="6666.6665"
    height="4000"
-   viewBox="0 0 1600 2000"
+   viewBox="50 0 1650 2000"
    sodipodi:docname="Infrastructure.eps"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -28,7 +28,7 @@
        id="g10"
        transform="scale(0.1)"><path
          d="M 0,0 H 50000 V 30000 H 0 Z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         style="fill:#ffffff;fill-opacity:0;fill-rule:nonzero;stroke:none"
          id="path12" /><path
          d="m 4363.59,18684.4 c 42.92,26.6 85.96,54.6 129.09,84.1 558.42,382 1152.59,1026 1765.98,1914.2 99.38,143.9 63.28,341.1 -80.61,440.5 -143.88,99.4 -341.11,63.3 -440.46,-80.6 -1007.85,-1459.4 -1916.73,-2175.9 -2628.32,-2071.9 -826.61,120.7 -1227.41,1325.6 -1231.36,1337.7 -53.99,166.1 -232.35,257.4 -398.53,203.7 -166.16,-53.6 -257.6,-231.4 -204.26,-397.7 20.81,-64.8 523.49,-1589.9 1739.67,-1769.9 428.67,-63.5 881.81,50.9 1348.8,339.9"
          style="fill:#865439;fill-opacity:1;fill-rule:nonzero;stroke:none"

@@ -5,7 +5,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   viewBox="2800 2000 800 1800"
+   viewBox="2800 2000 2400 1800"
    height="4000"
    width="6666.6665"
    xml:space="preserve"
@@ -17,7 +17,7 @@
      id="defs6" /><g
      transform="matrix(1.3333333,0,0,-1.3333333,0,4000)"
      id="g10"><g
-       transform="scale(0.1)"
+       transform="scale(0.12)"
        id="g12"><g
          transform="scale(3.06748)"
          id="g14"></g><g
