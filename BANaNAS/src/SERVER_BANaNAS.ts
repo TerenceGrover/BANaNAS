@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(router);
 app.get('*', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/dist/public/index.html');
 });
 
 app.listen(port, () => {
