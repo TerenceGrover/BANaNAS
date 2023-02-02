@@ -9,6 +9,7 @@ import path from 'path';
 const app = express();
 const port = 3000;
 let __dirname = path.resolve();
+let pathToPrivate = path.join(__dirname, '..');
 
 async function startDB() {
   try {
@@ -28,7 +29,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(router);
 app.get('*', (req, res) => {
-  res.sendFile(__dirname + '/dist/public/index.html');
+  res.sendFile(pathToPrivate + '/src/public/index.html');
 });
 
 app.listen(port, () => {
