@@ -69,6 +69,7 @@ export default {
       'process.env.OPEN_AI_API_KEY': JSON.stringify(
         process.env.OPEN_AI_API_KEY
       ),
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
     commonjs(),
 
