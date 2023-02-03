@@ -87,8 +87,6 @@
     top: 50%;
     left: 0vw;
     transform: translateY(-50%);
-    border: 1px solid red;
-
   }
 
   #right {
@@ -96,8 +94,6 @@
     top: 50%;
     right: 0vw;
     transform: translateY(-50%);
-    border: 1px solid red;
-
   }
 
   #center {
@@ -105,8 +101,6 @@
     transform: translate(-50%, -50%) rotate(180deg);
     top: 50%;
     left: 50%;
-    border: 1px solid red;
-    bottom: 20vh;
   }
 
 

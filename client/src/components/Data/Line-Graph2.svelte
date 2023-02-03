@@ -262,8 +262,8 @@
       .text(
         splitWordsOnCapitalLetters(leftData.what) +
           ' in ' +
-          leftData.where +
-          ' VS ' +
+          leftData.where + 
+          '\n' + ' VS ' + '\n' +
           splitWordsOnCapitalLetters(rightData.what) +
           ' in ' +
           rightData.where

@@ -59,7 +59,7 @@
   const leftWhat = splitWordsOnCapitalLetters(leftData.what);
   const rightWhat = splitWordsOnCapitalLetters(rightData.what);
 
-  let conclusion;
+  let conclusion = 'concluding...';
 
   $: rIndex, conclude();
 
@@ -176,7 +176,7 @@
         {rightData.unit}.
       </p>
       <p>The R-index is a measure of the correlation between two variables.</p>
-      <p>Jeff Bezos is a mass murderer.</p>
+      <p>{conclusion}</p>
     </div>
   </div>
 </main>

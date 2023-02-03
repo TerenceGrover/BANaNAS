@@ -20,8 +20,6 @@
   let hoveredCategory = { name: '' };
   let selectedCategory = { name: '' };
 
-  console.log(selectedCategory);
-
   let left = {
     what: '',
     where: '',
@@ -37,6 +35,32 @@
       leftCategory = selectedCategory.name;
     } else if (currentSide === 'right') {
       rightCategory = selectedCategory.name;
+    }
+  }
+
+  $: onChange(right.what, left.what, right.where, left.where);
+
+  function onChange(rightWhat, leftWhat, rightWhere, leftWhere) {
+    if (leftWhere !== '' && leftWhat !== '') {
+      currentSide = 'right';
+      if (document.getElementById('selector-right')) {
+        document.getElementById('selector-right').classList.add('show');
+        document.getElementById('selector-right').classList.remove('hidden');
+      }
+      if (document.getElementById('selector-left')) {
+        document.getElementById('selector-left').classList.remove('show');
+        document.getElementById('selector-left').classList.add('hidden');
+      }
+    } else if (rightWhere !== '' && rightWhat !== '') {
+      currentSide = 'left';
+      if (document.getElementById('selector-left')) {
+        document.getElementById('selector-left').classList.add('show');
+        document.getElementById('selector-left').classList.remove('hidden');
+      }
+      if (document.getElementById('selector-right')) {
+        document.getElementById('selector-right').classList.remove('show');
+        document.getElementById('selector-right').classList.add('hidden');
+      }
     }
   }
 
@@ -80,13 +104,16 @@
       <div
         id="player-container-left"
         on:click={() => {
-          if (document.getElementById('selector-right'))
-            document
-              .getElementById('selector-right')
-              .classList.toggle('hidden');
-          if (document.getElementById('selector-left'))
-            document.getElementById('selector-left').classList.toggle('hidden');
-
+          if (document.getElementById('selector-left')) {
+            document.getElementById('selector-left').classList.add('show');
+            document.getElementById('selector-left').classList.remove('hidden');
+          }
+          if (document.getElementById('selector-right')) {
+            document.getElementById('selector-right').classList.remove('show');
+            document.getElementById('selector-right').classList.add('hidden');
+          }
+          console.log(document.getElementById('selector-left'));
+          console.log(document.getElementById('selector-right'));
           selectedCategory = { name: '' };
           currentSide = 'left';
         }}
@@ -94,7 +121,7 @@
         {#if leftCategory === '' && !isMobile}
           <img
             id="selector-left"
-            class="selector-arrow"
+            class="selector-arrow show"
             src="../../assets/icons/selector-down.svg"
             alt="selector"
           />
@@ -109,13 +136,14 @@
       <div
         id="player-container-right"
         on:click={() => {
-          if (document.getElementById('selector-right'))
-            document
-              .getElementById('selector-right')
-              .classList.toggle('hidden');
-
-          if (document.getElementById('selector-left'))
-            document.getElementById('selector-left').classList.toggle('hidden');
+          if (document.getElementById('selector-right')) {
+            document.getElementById('selector-right').classList.add('show');
+            document.getElementById('selector-right').classList.remove('hidden');
+          }
+          if (document.getElementById('selector-left')) {
+            document.getElementById('selector-left').classList.remove('show');
+            document.getElementById('selector-left').classList.add('hidden');
+          }
 
           selectedCategory = { name: '' };
           currentSide = 'right';
@@ -124,7 +152,7 @@
         {#if rightCategory === '' && !isMobile}
           <img
             id="selector-right"
-            class="hidden selector-arrow"
+            class="selector-arrow hidden"
             src="../../assets/icons/selector-up.svg"
             alt="selector"
           />
@@ -331,6 +359,10 @@
   }
   .hidden {
     display: none;
+  }
+
+  .show {
+    display: block;
   }
 
   #top-carousel {
