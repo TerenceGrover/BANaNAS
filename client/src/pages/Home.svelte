@@ -351,7 +351,7 @@
     height: 15vh;
     width: 100vw;
     background-color: #fed703;
-    z-index: 2;
+    z-index: 3;
   }
 
   #divider-text {
@@ -384,7 +384,7 @@
     max-height: 75vh;
     background-color: #fed703;
     width: 100vw;
-    z-index: 1; 
+    z-index: 3; 
   }
 
   .home-buttons {

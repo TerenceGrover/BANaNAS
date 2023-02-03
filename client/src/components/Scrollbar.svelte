@@ -56,7 +56,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 7%;
+    gap: 7.25%;
     height: 100%;
     width: 100%;
   }
