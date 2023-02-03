@@ -29,8 +29,8 @@ const globalController = async (req: Request, res: Response) => {
       const city = req.params.param1;
       try {
         const { lat, lng } = await cityToLatAndLong(city);
-        req.params.param3 = req.params.param2;
         req.params.param4 = req.params.param3;
+        req.params.param3 = req.params.param2;
         req.params.param1 = lat;
         req.params.param2 = lng;
         const year: number = +req.params.param3;

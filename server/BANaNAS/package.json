@@ -7,7 +7,8 @@
   "type": "module",
   "scripts": {
     "test": "jest --forceExit",
-    "dev": "tsc && nodemon dist/SERVER_BANaNAS.js"
+    "dev": "tsc && nodemon dist/SERVER_BANaNAS.js",
+    "deploy": "tsc && ./deploy.sh"
   },
   "author": "",
   "license": "ISC",
