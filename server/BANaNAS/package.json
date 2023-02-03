@@ -7,7 +7,8 @@
   "type": "module",
   "scripts": {
     "test": "jest --forceExit",
-    "dev": "tsc && nodemon dist/SERVER_BANaNAS.js"
+    "dev": "tsc && nodemon dist/SERVER_BANaNAS.js",
+    "deploy": "tsc && ./deploy.sh"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +19,7 @@
     "@types/jest": "^29.4.0",
     "@types/node": "^18.11.18",
     "@typescript-eslint/parser": "^5.50.0",
+    "axios": "^1.3.1",
     "babel-jest": "^29.4.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

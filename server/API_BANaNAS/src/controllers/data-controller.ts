@@ -50,7 +50,7 @@ export const dataController = async (req: Request, res: Response) => {
     });
     res.status(200).json(responseObj);
   } catch (err) {
-    res.sendStatus(500);
+    return res.status(500).json({ message: 'Server error' });
     console.log(err);
   }
 };
