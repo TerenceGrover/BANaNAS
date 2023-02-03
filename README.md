@@ -34,4 +34,5 @@ BANaNAS was brought to life by these talented individuals:
 
 ## <div align="center"> Disclaimer
 BANaNAS is a project developed by students and is for educational and demonstration purposes only. The creators of BANaNAS are not professional statisticians and the app is not intended for professional or commercial use. The correlations found by BANaNAS should be taken with a grain of salt and used for entertainment purposes only.
-Enjoy 🍌
+
+  ##<div align="center"> Enjoy 🍌
