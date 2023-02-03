@@ -6,7 +6,7 @@
   export let data2;
 
   // set the dimensions and margins of the graph
-  let width = 700;
+  let width = 900;
   let height = 700;
 
   // get the years from the two datasets
@@ -17,10 +17,10 @@
   let maxValue = max([...Object.values(data1), ...Object.values(data2)]);
 
   // create a scale for the x axis (years of data1)
-  let xScale = scaleBand().domain(years1).range([80, 700]).padding(0.2);
+  let xScale = scaleBand().domain(years1).range([0, width * 1.1]);
 
   // create a scale for the y axis (years of data2)
-  let yScale = scaleBand().domain(years2).range([700, 80]).padding(0.2);
+  let yScale = scaleBand().domain(years2).range([height, 100]);
 
   // create a color scale for the proximity values
   let colorScale = scaleLinear()
@@ -43,19 +43,19 @@
       <rect
         x={xScale(year1)}
         y={yScale(year2)}
-        width={xScale.bandwidth()}
-        height={yScale.bandwidth()}
+        width={xScale.bandwidth() * 1.2}
+        height={yScale.bandwidth() * 1.2}
         fill={colorScale(getProximityValue(year1))}
       />
     {/each}
   {/each}
 
   <!-- Add the x axis with labels for the years of data1 -->
-  <g class="x-axis" transform={`translate(0, ${height - 60})`}>
+  <g class="x-axis" transform={`translate(0, 0)`}>
     {#each years1 as year}
       <text
         x={xScale(year) + xScale.bandwidth() / 2}
-        y={height}
+        y={0}
         text-anchor="middle"
         fill="white"
       >
@@ -80,7 +80,7 @@
   </g>
 
   <!-- Add the color legend for the proximity values -->
-  <g class="legend" transform={`translate(550, 80)`}>
+  <g class="legend" transform={`translate(${width * 1.05}}, 0)`}>
     {#each [0, maxValue / 4, maxValue / 2, (maxValue * 3) / 4, maxValue] as value}
       <rect
         x={width - 60}
