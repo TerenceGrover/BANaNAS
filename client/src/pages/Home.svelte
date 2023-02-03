@@ -2,6 +2,7 @@
   import Footer from '../components/Footer.svelte';
   import { transformMouseIntoCSSShadow } from '../Utils/helpers';
   import { getBananas } from '../Utils/api-services';
+  import DropBanana from '../components/Drop-Banana.svelte';
   export let changePage;
   let shadowStr = '0px 0px 0px 0px #000';
 
@@ -25,6 +26,7 @@
 
 <main on:mousemove={handleMove}>
   <section id="top-section">
+    <DropBanana />
     <h1 id="top-header" class="text-shadow-pop-br">BANaNAS</h1>
     <div id="top-sub-container">
       <h3 id="top-sub-header">
@@ -34,7 +36,7 @@
     <button
       style={`box-shadow : ${shadowStr}`}
       id="get-started"
-      on:click={() => changePage('character')}>Get Started</button
+      on:click={() => changePage('character')}>Start</button
     >
   </section>
 
@@ -179,6 +181,7 @@
   }
 
   #top-section {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -193,6 +196,7 @@
     font-family: 'Farro', sans-serif;
     color: #fed703;
     -webkit-text-stroke: black 2px;
+    z-index: 2;
   }
 
   #top-sub-container {
@@ -208,18 +212,20 @@
     font-size: 18px;
     font-family: 'Farro', sans-serif;
     color: #fff;
+    z-index: 2;
   }
 
   #get-started {
-    font-size: 36px;
+    font-size: 5.5vh;
     font-family: 'Farro', sans-serif;
-    font-weight: 600;
+    font-weight: 800;
     color: #052c46;
     background-color: #fed703;
     border: none;
-    border-radius: 8px;
-    padding: 20px 40px;
+    border-radius: 10px;
+    padding: 2.5vh 5vw;
     margin-top: 20px;
+    z-index: 2;
   }
 
   #get-started:hover {
@@ -240,6 +246,7 @@
     height: 15vh;
     width: 100vw;
     background-color: #fed703;
+    z-index: 2; 
   }
 
   #divider-text {
@@ -270,6 +277,7 @@
     max-height: 75vh;
     background-color: #fed703;
     width: 100vw;
+    z-index: 2; 
   }
 
   .home-buttons {

@@ -144,6 +144,7 @@
   }
 
   .input-container {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
