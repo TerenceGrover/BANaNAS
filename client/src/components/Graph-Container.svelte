@@ -109,7 +109,7 @@
     {:else if position === 0}
       <div id="D3-container" class="fade-in">
         <div id="current-graph">
-          <LineGraph2
+          <Scatterplot
             data1={leftGraphData}
             data2={rightGraphData}
             {leftData}
@@ -121,13 +121,13 @@
     {:else if position === 1}
       <div id="D3-container" class="fade-in">
         <div id="current-graph">
-          <Scatterplot
-            data1={leftGraphData}
-            data2={rightGraphData}
-            {leftData}
-            {rightData}
-            filterYears={filterToggle ? filterYears : filterYearsOff}
-          />
+          <LineGraph2
+          data1={leftGraphData}
+          data2={rightGraphData}
+          {leftData}
+          {rightData}
+          filterYears={filterToggle ? filterYears : filterYearsOff}
+        />
         </div>
       </div>
     {:else if position === 2}
