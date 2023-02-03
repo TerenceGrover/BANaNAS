@@ -1,3 +1,5 @@
+deploy.sh
+
 # Logs
 logs
 *.log
@@ -102,3 +104,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+# JSON seed data
+API_BANaNAS/dbseed/normalized.json
+
+dist
+build
+
+.DS_Store

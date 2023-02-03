@@ -1,6 +1,6 @@
 import { queries } from '../queries/queries.js';
 
-export const dcategoryController = async (req, res) => {
+export const categoryController = async (req, res) => {
   try {
     const category = req.params.selectedCategory;
     let responseObj = {};
