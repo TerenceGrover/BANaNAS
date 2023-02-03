@@ -178,7 +178,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3vh;
+    gap: 2vh;
     font-size: 18px;
     font-weight: 600;
     padding: 2vh 4vw;
@@ -234,6 +234,10 @@
     cursor: pointer;
     background-color: #ffe23c;
   }
+
+  ol{
+    margin: 0, 2vw;
+    }
 
   ol > li {
     text-align: start;

@@ -231,7 +231,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 5vh;
+    padding-top: 2vh;
     min-height: 75vh;
     background-color: #fed703;
     width: 100vw;
