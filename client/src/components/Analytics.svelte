@@ -281,6 +281,7 @@
   }
 
   #paragraph-container > p {
+    font-family: 'Farro', sans-serif;
     text-align: justify;
   }
   
