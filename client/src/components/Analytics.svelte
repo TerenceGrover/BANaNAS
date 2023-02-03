@@ -19,16 +19,26 @@
   rightData.what = splitWordsOnCapitalLetters(rightData.what);
 
   if (leftData.desc && rightData.desc) {
-    if(leftData.desc.match(/\(([^)]+)\)/) && leftData.desc.match(/\(([^)]+)\)/).length > 2){
+    if (
+      leftData.desc.match(/\(([^)]+)\)/) &&
+      leftData.desc.match(/\(([^)]+)\)/).length > 2
+    ) {
       //Join element 1 and 2
-      leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1] + leftData.desc.match(/\(([^)]+)\)/)[2];
+      leftData.unit =
+        leftData.desc.match(/\(([^)]+)\)/)[1] +
+        leftData.desc.match(/\(([^)]+)\)/)[2];
     } else {
       leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1];
     }
 
-    if(rightData.desc.match(/\(([^)]+)\)/) && rightData.desc.match(/\(([^)]+)\)/).length > 2){
+    if (
+      rightData.desc.match(/\(([^)]+)\)/) &&
+      rightData.desc.match(/\(([^)]+)\)/).length > 2
+    ) {
       //Join element 1 and 2
-      rightData.unit = rightData.desc.match(/\(([^)]+)\)/)[1] + rightData.desc.match(/\(([^)]+)\)/)[2];
+      rightData.unit =
+        rightData.desc.match(/\(([^)]+)\)/)[1] +
+        rightData.desc.match(/\(([^)]+)\)/)[2];
     } else {
       rightData.unit = rightData.desc.match(/\(([^)]+)\)/)[1];
     }
@@ -46,17 +56,22 @@
     paragraph = newP;
   }
 
-
   const leftWhat = splitWordsOnCapitalLetters(leftData.what);
   const rightWhat = splitWordsOnCapitalLetters(rightData.what);
 
   let conclusion;
 
-  $: rIndex, conclude(); 
+  $: rIndex, conclude();
 
   async function conclude() {
-    const response = await getConclusion(leftWhat, leftData.where, rightWhat, rightData.where, rIndex);
-    conclusion = response
+    const response = await getConclusion(
+      leftWhat,
+      leftData.where,
+      rightWhat,
+      rightData.where,
+      rIndex
+    );
+    conclusion = response;
   }
 
   let arrRight = Object.values(rightGraphData);
@@ -73,8 +88,12 @@
   let meanLeft = largeNumbercompactor(mean(arrLeft));
   let meanRight = largeNumbercompactor(mean(arrRight));
 
-  let lowestLeft = largeNumbercompactor(Math.min(...arrLeft.filter((item) => item > 0)));
-  let lowestRight = largeNumbercompactor(Math.min(...arrRight.filter((item) => item > 0)));
+  let lowestLeft = largeNumbercompactor(
+    Math.min(...arrLeft.filter((item) => item > 0))
+  );
+  let lowestRight = largeNumbercompactor(
+    Math.min(...arrRight.filter((item) => item > 0))
+  );
   let highestLeft = largeNumbercompactor(Math.max(...arrLeft));
   let highestRight = largeNumbercompactor(Math.max(...arrRight));
 
@@ -100,7 +119,7 @@
           ? 'color: green'
           : rIndex < 0
           ? 'color: red'
-          : 'color: #052c46'}>{rIndex}</i
+          : 'color: #fed703'}>{rIndex > 0 ? '+' + rIndex : rIndex}</i
       >
     </h2>
     <div id="button-container">
@@ -111,13 +130,11 @@
       >
       <button
         class="detail-buttons"
-        on:click={() => ParagraphSelector('Concept')}
-        ><i>💡</i><br /></button
+        on:click={() => ParagraphSelector('Concept')}><i>💡</i><br /></button
       >
       <button
         class="detail-buttons"
-        on:click={() => ParagraphSelector('Creators')}
-        ><i>☭</i><br /></button
+        on:click={() => ParagraphSelector('Creators')}><i>☭</i><br /></button
       >
     </div>
   </div>
@@ -125,13 +142,15 @@
     <div id="top-container">
       <ol>
         <li id="bullet-1">
-          {leftData.where}'s {leftData.what} has an average of {meanLeft} {leftData.unit}
+          {leftData.where}'s {leftData.what} has an average of {meanLeft}
+          {leftData.unit}
         </li>
         <li id="bullet-2">
-          {rightData.where}'s {rightData.what} has an average of {meanRight} {rightData.unit}
+          {rightData.where}'s {rightData.what} has an average of {meanRight}
+          {rightData.unit}
         </li>
         <li id="bullet-3">
-        Everything is pointless and meaningless. Only bananas matter.  
+          Everything is pointless and meaningless. Only bananas matter.
         </li>
       </ol>
     </div>
@@ -141,17 +160,20 @@
         {splitWordsOnCapitalLetters(leftData.what)} in {leftData.where}
         goes up by one {leftData.unit},
         {splitWordsOnCapitalLetters(rightData.what)} in {rightData.where}
-        {rIndex > 0.5
+        {rIndex > 0
           ? 'goes up by ' + rIndex + ' ' + rightData.unit
-          : rIndex < -0.5
-          ? 'goes down by ' + Math.abs(rIndex) + ' ' + rightData.unit
-          : "could'nt care less"}.
+          : 'goes down by ' + Math.abs(rIndex) + ' ' + rightData.unit}
       </p>
       <p>
-        During the requested time frame, the lowest {leftData.what} in {leftData.where} was {lowestLeft} {leftData.unit} and the highest {leftData.what} was {highestLeft} {leftData.unit}.
+        During the requested time frame, the lowest {leftData.what} in {leftData.where}
+        was {lowestLeft}
+        {leftData.unit} and the highest {leftData.what} was {highestLeft}
+        {leftData.unit}.
       </p>
       <p>
-        On the other hand, the lowest {rightData.what} in {rightData.where} was {lowestRight} {rightData.unit} and the highest {rightData.what} was {highestRight} {rightData.unit}.
+        On the other hand, the lowest {rightData.what} in {rightData.where} was {lowestRight}
+        {rightData.unit} and the highest {rightData.what} was {highestRight}
+        {rightData.unit}.
       </p>
       <p>The R-index is a measure of the correlation between two variables.</p>
       <p>Jeff Bezos is a mass murderer.</p>
@@ -249,9 +271,9 @@
     background-color: #ffe23c;
   }
 
-  ol{
+  ol {
     margin: 0, 2vw;
-    }
+  }
 
   ol > li {
     text-align: start;
@@ -284,5 +306,4 @@
     font-family: 'Farro', sans-serif;
     text-align: justify;
   }
-  
 </style>
