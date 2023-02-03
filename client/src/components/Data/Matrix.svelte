@@ -7,7 +7,7 @@
 
   // set the dimensions and margins of the graph
   let width = 900;
-  let height = 700;
+  let height = 600;
 
   // get the years from the two datasets
   let years1 = Object.keys(data1);
@@ -51,13 +51,14 @@
   {/each}
 
   <!-- Add the x axis with labels for the years of data1 -->
-  <g class="x-axis" transform={`translate(0, 0)`}>
+  <g class="x-axis" transform={`translate(0, 25)`}>
     {#each years1 as year}
       <text
         x={xScale(year) + xScale.bandwidth() / 2}
-        y={0}
+        y={height}
         text-anchor="middle"
         fill="white"
+        transform={`rotate(60, ${xScale(year) + xScale.bandwidth() / 2}, ${height})`}
       >
         {year}
       </text>
@@ -65,7 +66,7 @@
   </g>
 
   <!-- Add the y axis with labels for the years of data2 -->
-  <g class="y-axis" transform={`translate(60, 0)`}>
+  <!-- <g class="y-axis" transform={`translate(100, 0)`}>
     {#each years2 as year}
       <text
         x={0}
@@ -77,10 +78,10 @@
         {year}
       </text>
     {/each}
-  </g>
+  </g> -->
 
   <!-- Add the color legend for the proximity values -->
-  <g class="legend" transform={`translate(${width * 1.05}}, 0)`}>
+  <g class="legend" transform={`translate(${width * 1.05}, 0)`}>
     {#each [0, maxValue / 4, maxValue / 2, (maxValue * 3) / 4, maxValue] as value}
       <rect
         x={width - 60}
@@ -90,7 +91,10 @@
         fill={colorScale(value)}
       />
       <text x={30} y={value * 2 + 10} dominant-baseline="middle" fill="white">
-        {value.toFixed(2)}
+        {
+          typeof value === 'number'
+            ? value.toFixed(2)
+            : value}
       </text>
     {/each}
   </g>
