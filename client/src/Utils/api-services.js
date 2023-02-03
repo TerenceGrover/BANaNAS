@@ -63,6 +63,10 @@ export async function getConclusion(data1what, data1where, data2what, data2where
     body: JSON.stringify(data),
   })
 
-  const conclusion = await response.json();
-  return conclusion.choices[0].text;
+  let conclusion = await response.json();
+  conclusion = conclusion.choices[0].text;
+  conclusion = conclusion.slice(2);
+  conclusion = conclusion.replace(/^"|"$/g, '');
+  console.log(conclusion);
+  return conclusion;
 }
