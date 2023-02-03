@@ -25,7 +25,7 @@
       component: Scatterplot,
     },
     {
-      name: 'Correlation Heat Map',
+      name: 'Proximity Spectogram',
       component: Matrix,
     },
   ];
@@ -93,6 +93,11 @@
       >
     {/if}
     <button
+      on:keypress={(e) => {
+        if (e.key === 'ArrowLeft') {
+          handlePosition('left');
+        }
+      }}
       on:click={() => {
         handlePosition('left');
       }}
@@ -109,7 +114,7 @@
     {:else if position === 0}
       <div id="D3-container" class="fade-in">
         <div id="current-graph">
-          <LineGraph2
+          <Scatterplot
             data1={leftGraphData}
             data2={rightGraphData}
             {leftData}
@@ -121,13 +126,13 @@
     {:else if position === 1}
       <div id="D3-container" class="fade-in">
         <div id="current-graph">
-          <Scatterplot
-            data1={leftGraphData}
-            data2={rightGraphData}
-            {leftData}
-            {rightData}
-            filterYears={filterToggle ? filterYears : filterYearsOff}
-          />
+          <LineGraph2
+          data1={leftGraphData}
+          data2={rightGraphData}
+          {leftData}
+          {rightData}
+          filterYears={filterToggle ? filterYears : filterYearsOff}
+        />
         </div>
       </div>
     {:else if position === 2}
@@ -138,6 +143,11 @@
       </div>
     {/if}
     <button
+    on:keypress={(e) => {
+      if (e.key === 'ArrowRight') {
+        handlePosition('right');
+      }
+    }}
       on:click={() => {
         handlePosition('right');
       }}
@@ -259,15 +269,16 @@
 
   .scroll-buttons {
     position: absolute;
-    height: 10%;
-    width: 5%;
-    font-size: 5vh;
+    height: 10vh;
+    width: 10vw;
+    font-size: 7vh;
     font-family: 'Farro', sans-serif;
-    font-weight: 600;
+    font-weight: 800;
     color: #fed703;
     background-color: transparent;
     border: none;
     border-radius: 8px;
+    filter: drop-shadow(3px 3px 0px #000000aa);
   }
 
   #current-graph {
