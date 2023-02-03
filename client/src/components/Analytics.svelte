@@ -19,14 +19,14 @@
   rightData.what = splitWordsOnCapitalLetters(rightData.what);
 
   if (leftData.desc && rightData.desc) {
-    if(leftData.desc.match(/\(([^)]+)\)/).length > 2){
+    if(leftData.desc.match(/\(([^)]+)\)/) && leftData.desc.match(/\(([^)]+)\)/).length > 2){
       //Join element 1 and 2
       leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1] + leftData.desc.match(/\(([^)]+)\)/)[2];
     } else {
       leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1];
     }
 
-    if(rightData.desc.match(/\(([^)]+)\)/).length > 2){
+    if(rightData.desc.match(/\(([^)]+)\)/) && rightData.desc.match(/\(([^)]+)\)/).length > 2){
       //Join element 1 and 2
       rightData.unit = rightData.desc.match(/\(([^)]+)\)/)[1] + rightData.desc.match(/\(([^)]+)\)/)[2];
     } else {
@@ -50,7 +50,7 @@
   const leftWhat = splitWordsOnCapitalLetters(leftData.what);
   const rightWhat = splitWordsOnCapitalLetters(rightData.what);
 
-  let conclusion;
+  let conclusion = 'concluding...';
 
   $: rIndex, conclude(); 
 
@@ -154,7 +154,7 @@
         On the other hand, the lowest {rightData.what} in {rightData.where} was {lowestRight} {rightData.unit} and the highest {rightData.what} was {highestRight} {rightData.unit}.
       </p>
       <p>The R-index is a measure of the correlation between two variables.</p>
-      <p>Jeff Bezos is a mass murderer.</p>
+      <p>{conclusion}</p>
     </div>
   </div>
 </main>
@@ -192,7 +192,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3vh;
+    gap: 2vh;
     font-size: 18px;
     font-weight: 600;
     padding: 2vh 4vw;
@@ -249,6 +249,10 @@
     background-color: #ffe23c;
   }
 
+  ol{
+    margin: 0, 2vw;
+    }
+
   ol > li {
     text-align: start;
     color: #052c46;
@@ -277,6 +281,7 @@
   }
 
   #paragraph-container > p {
+    font-family: 'Farro', sans-serif;
     text-align: justify;
   }
   

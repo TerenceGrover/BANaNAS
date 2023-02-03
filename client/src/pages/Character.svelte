@@ -67,7 +67,7 @@
   onMount(() => {
     setTimeout(() => {
       loading = false;
-    }, 3500);
+    }, 3000);
   });
 
   function cleanUp() {
