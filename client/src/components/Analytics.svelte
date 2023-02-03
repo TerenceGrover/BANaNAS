@@ -6,6 +6,7 @@
     splitWordsOnCapitalLetters,
   } from '../Utils/helpers';
   import categoryList from '../Utils/categoryList';
+  import { getConclusion } from '../Utils/api-services';
 
   export let leftData;
   export let rightData;
@@ -43,6 +44,19 @@
 
   function ParagraphSelector(newP) {
     paragraph = newP;
+  }
+
+
+  const leftWhat = splitWordsOnCapitalLetters(leftData.what);
+  const rightWhat = splitWordsOnCapitalLetters(rightData.what);
+
+  let conclusion;
+
+  $: rIndex, conclude(); 
+
+  async function conclude() {
+    const response = await getConclusion(leftWhat, leftData.where, rightWhat, rightData.where, rIndex);
+    conclusion = response
   }
 
   let arrRight = Object.values(rightGraphData);
