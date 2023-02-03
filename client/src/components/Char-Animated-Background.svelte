@@ -9,7 +9,7 @@
           document.getElementById('left').style.left = '0';
           document.getElementById('left-under').style.left = '10px';
           document.getElementById('right').style.right = '0';
-        }, 1500)
+        }, 1000)
       : setTimeout(() => {
           console.log('mobile');
           document.getElementById('top-mobile').style.left = '0';
@@ -17,7 +17,7 @@
           document.getElementById('bot-mobile').style.bottom = '0';
           document.getElementById('top-mobile').style.top = '0';
 
-        }, 1500);
+        }, 1000);
   });
 </script>
 
@@ -81,7 +81,7 @@
   .backgound-element {
     position: absolute;
     top: 0;
-    transition: all 1.8s cubic-bezier(0.77, 0, 0.26, 1.01);
+    transition: all 1.5s cubic-bezier(0.77, 0, 0.26, 1.01);
     width: 100vw;
     height: 100vh;
   }
@@ -106,7 +106,7 @@
 
   .mobile-element {
     position: absolute;
-    transition: all 1.8s cubic-bezier(0.77, 0, 0.26, 1.01);
+    transition: all 1.5s cubic-bezier(0.77, 0, 0.26, 1.01);
     width: 100vw;
     height: 100vh;
   }
