@@ -36,7 +36,7 @@
 </script>
 
 <!-- Create an SVG element to hold the heatmap -->
-<svg class="line-graph" viewBox={`0 50 ${width} ${height}`}>
+<svg class="line-graph" viewBox={`25 25 ${width} ${height + 30}`}>
   <!-- Create a rectangle for each year in the datasets -->
   {#each years1 as year1}
     {#each years2 as year2}

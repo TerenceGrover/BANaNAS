@@ -25,7 +25,7 @@
       component: Scatterplot,
     },
     {
-      name: 'Correlation Heat Map',
+      name: 'Proximity Spectogram',
       component: Matrix,
     },
   ];
