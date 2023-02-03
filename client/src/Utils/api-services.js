@@ -42,8 +42,8 @@ export async function getBananas() {
 export async function getConclusion(data1what, data1where, data2what, data2where, rIndex){
   const url = 'https://api.openai.com/v1/engines/text-davinci-003/completions';
 
-  // const prompt = `Given that the r-index of ${data1what} in ${data1where} and ${data2what} in ${data2where} is ${rIndex}, respond with a hilarious, sarcastic and scathing conclusion about their relationship from the perspective of somebody from ${data1where}. Make sure to refrerence both countries in your response. keep the response under 75 words`;
-  const prompt = `In the context of a satirical debate between two imaginary political figures, what would be an accusing punchline to emphasize the fact that ${data1where} ${data1what} has a ${rIndex} correlation index to the ${data2what} of the ${data2where}? It should be funny. Keep the response under 75 words`;
+  const prompt = `Given that the r-index of ${data1what} in ${data1where} and ${data2what} in ${data2where} is ${rIndex}, respond with a humerous, sarcastic conclusion about their relationship from the perspective of somebody from ${data1where}. Make sure to refrerence both countries in your response. keep the response under 75 words`;
+  // const prompt = `In the context of a satirical debate between two imaginary political figures, what would be an accusing punchline to emphasize the fact that ${data1where} ${data1what} has a ${rIndex} correlation index to the ${data2what} of the ${data2where}? It should be funny. Keep the response under 75 words`;
 
   const apiKey = OPEN_AI_API_KEY;
   
