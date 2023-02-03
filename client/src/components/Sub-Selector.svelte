@@ -50,8 +50,9 @@
   }
 
   let topConfig = {
-    placement: currentSide === 'right' ? 'top-start' : 'bottom-start',
+    autoUpdate: true
   };
+
 </script>
 
 <main>
@@ -72,14 +73,15 @@
         </select>
       {:else}
         <Select
-          items={whatItems}
-          placeholder="Select a data point"
-          class="sub-input"
-          listAutoWidth={false}
-          id="What"
-          bind:value={what}
-          floatingConfig={topConfig}
-          clearable={false}
+        items={whatItems}
+        placeholder="Select a data point"
+        class="sub-input"
+        listAutoWidth={false}
+        id="What"
+        bind:value={what}
+        floatingConfig={topConfig}
+        clearable={false}
+        containerStyles="--list-max-height:200px;--height: 38px"
         />
       {/if}
     </div>
@@ -109,6 +111,7 @@
           disabled={!what}
           floatingConfig={topConfig}
           clearable={false}
+          containerStyles="--list-max-height:200px;--height: 38px"
         />
       {/if}
     </div>
@@ -144,6 +147,7 @@
   }
 
   .input-container {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;

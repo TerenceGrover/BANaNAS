@@ -2,9 +2,11 @@
   import Footer from '../components/Footer.svelte';
   import { transformMouseIntoCSSShadow } from '../Utils/helpers';
   import { getBananas } from '../Utils/api-services';
+  import DropBanana from '../components/Drop-Banana.svelte';
+  import { onMount } from 'svelte';
   export let changePage;
   let shadowStr = '0px 0px 0px 0px #000';
-  import Carousel from '../components/Carousel.svelte';
+  const isMobile = window.innerWidth < 768;
 
   function handleMove(e) {
     shadowStr = transformMouseIntoCSSShadow(e.clientX, e.clientY);
@@ -18,14 +20,109 @@
   })
 
   let paragraph = 'Transparency';
-
+  
   function ParagraphSelector(newP) {
     paragraph = newP;
   }
+  
+  if (!isMobile){
+    onMount( () =>{
+    canvas = document.querySelector("#canvas");
+    ctx = canvas.getContext("2d");
+    console.log(ctx, w, h);
+  
+  })
+
+  let ctx
+  let canvas
+
+  let w, h, bananas = [];
+  let mouse = {
+    x: undefined,
+    y: undefined
+  }
+
+  let lastMouseX, lastMouseY;
+
+  function init() {
+    resizeReset();
+    animationLoop();
+  }
+
+  function resizeReset() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  function animationLoop() {
+  ctx.clearRect(0, 0, w, h);
+  
+  if (mouse.x !== undefined && mouse.y !== undefined && (lastMouseX !== mouse.x || lastMouseY !== mouse.y)) {
+    bananas.push(new Banana());
+    lastMouseX = mouse.x;
+    lastMouseY = mouse.y;
+  }	 
+  for (let i = 0; i < bananas.length; i++) {
+    if (Date.now() - bananas[i].time > 500) {
+      bananas.splice(i, 1);
+      i--;
+    }
+  }
+  drawBananas();
+  requestAnimationFrame(animationLoop);
+}
+
+  function drawBananas() {
+    for (let i = 0; i < bananas.length; i++) {
+      bananas[i].draw();
+    }
+  }
+
+  function mousemove(e) {
+    mouse.x = e.x;
+    mouse.y = e.y;
+  }
+
+  function mouseout() {
+    mouse.x = undefined;
+    mouse.y = undefined;
+  }
+
+  function getRandomInt(min, max) {
+    return Math.round(Math.random() * (max - min)) + min;
+  }
+
+  class Banana {
+  constructor() {
+    this.text = "🍌";
+    this.x = mouse.x + getRandomInt(-20, 20);
+    this.y = mouse.y + getRandomInt(-20, 20);
+    this.size = getRandomInt(3, 20);
+    this.font = this.size + "px Arial";
+    this.style = "-webkit-text-stroke: 1px black;"
+    this.style += "filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.5));"
+    this.style += "z-index: 1000;"
+    this.time = Date.now();
+  }
+    draw() {
+      ctx.fillStyle = this.style;
+      ctx.font = this.font;
+      ctx.fillText(this.text, this.x, this.y);
+    }
+}
+
+  window.addEventListener("DOMContentLoaded", init);
+  window.addEventListener("resize", resizeReset);
+  window.addEventListener("mousemove", mousemove);
+  window.addEventListener("mouseout", mouseout);
+  }
+
 </script>
 
 <main on:mousemove={handleMove}>
+  <canvas id="canvas"></canvas>
   <section id="top-section">
+    <DropBanana />
     <h1 id="top-header" class="text-shadow-pop-br">BANaNAS</h1>
     <div id="top-sub-container">
       <h3 id="top-sub-header">
@@ -35,7 +132,7 @@
     <button
       style={`box-shadow : ${shadowStr}`}
       id="get-started"
-      on:click={() => changePage('character')}>Get Started</button
+      on:click={() => changePage('character')}>Start</button
     >
   </section>
 
@@ -168,7 +265,7 @@
   </div>
 </main>
 
-<style>
+<style global>
   main {
     display: flex;
     flex-direction: column;
@@ -179,7 +276,17 @@
     overflow-x: hidden;
   }
 
+  #canvas {
+	position: fixed;
+	z-index: 3;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
   #top-section {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -194,6 +301,7 @@
     font-family: 'Farro', sans-serif;
     color: #fed703;
     -webkit-text-stroke: black 2px;
+    z-index: 3;
   }
 
   #top-sub-container {
@@ -209,18 +317,20 @@
     font-size: 18px;
     font-family: 'Farro', sans-serif;
     color: #fff;
+    z-index: 3;
   }
 
   #get-started {
-    font-size: 36px;
+    font-size: 5.5vh;
     font-family: 'Farro', sans-serif;
-    font-weight: 600;
+    font-weight: 800;
     color: #052c46;
     background-color: #fed703;
     border: none;
-    border-radius: 8px;
-    padding: 20px 40px;
+    border-radius: 10px;
+    padding: 2.5vh 5vw;
     margin-top: 20px;
+    z-index: 3;
   }
 
   #get-started:hover {
@@ -241,6 +351,7 @@
     height: 15vh;
     width: 100vw;
     background-color: #fed703;
+    z-index: 2;
   }
 
   #divider-text {
@@ -251,6 +362,8 @@
     text-shadow: 2px 2px #ffffff;
     animation: pulse 2s infinite;
     cursor: pointer;
+    position: relative;
+    z-index: 100;
   }
 
   #divider-text:hover {
@@ -271,6 +384,7 @@
     max-height: 75vh;
     background-color: #fed703;
     width: 100vw;
+    z-index: 1; 
   }
 
   .home-buttons {
@@ -286,7 +400,8 @@
     border-radius: 12px;
     box-shadow: 6px 6px 0px 2px #000000aa;
     min-width: 250px;
-    max-width: 200px;
+    max-width: 250px;
+    z-index: 3;
   }
 
   .home-buttons:hover {
@@ -327,6 +442,7 @@
     border: 2px solid #052c46;
     border-radius: 12px;
     box-shadow: 8px 8px 0px 2px #000000aa;
+    z-index: 3;
   }
 
 #banana-table {
