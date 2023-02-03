@@ -4,6 +4,9 @@ import { Request, Response } from 'express';
 export const categoryController = async (req: Request, res: Response) => {
   try {
     const category = req.params.selectedCategory;
+    if(!queries[category])
+      return res.status(404).json({ message: 'Category not found' });
+      
     let responseObj: any = {};
     for (let query in queries[category]) {
       if (category === 'Filters') {
@@ -23,6 +26,6 @@ export const categoryController = async (req: Request, res: Response) => {
     res.status(200).json(responseObj);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: 'Server error' });
   }
 };

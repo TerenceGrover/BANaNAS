@@ -9,13 +9,14 @@ import globalController, {
 import { categoryController } from './controllers/category-controller.js';
 import { descriptionController } from './controllers/description-controller.js';
 
-router.get(
-  '/api/:category/:metricName/:param1/:param2?/:param3?/:param4?/:param5?',
-  globalController
-);
 router.get('/api/:selectedCategory', categoryController);
 
 router.get('/api/:selectedCategory/:selectedMetric', descriptionController);
+
+router.get(
+'/api/:category/:metricName/:param1/:param2?/:param3?/:param4?/:param5?',
+globalController
+);
 
 router.post('/banana/:name', addBanana);
 

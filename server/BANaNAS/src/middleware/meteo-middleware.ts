@@ -6,6 +6,8 @@ export const cityToLatAndLong = async (city: string) => {
       name: city,
     },
   });
-
+  if (!cityData) {
+    throw new Error('City not found!');
+  }
   return { lat: cityData.lat, lng: cityData.lng };
 };

@@ -18,20 +18,29 @@ const globalController = async (req: Request, res: Response) => {
     const { category, metricName } = req.params;
     // if missing category or metricName, return error
     if (!category || !metricName) {
-      return res.status(400).send('Missing category or metric name!');
+      return res.status(404).send('Missing category or metric name!');
     }
     // if category or metricName are not valid, return error
     if (!queries[`${category}`] || !queries[`${category}`][`${metricName}`]) {
-      return res.status(400).send('Invalid category or metric name!');
+      return res.status(404).send('Invalid category or metric name!');
     }
     // if the category is the Weather, we need to convert the city to lat and long
     if (category === 'Weather') {
       const city = req.params.param1;
-      const { lat, lng } = await cityToLatAndLong(city);
-      req.params.param1 = lat;
-      req.params.param4 = req.params.param3;
-      req.params.param3 = req.params.param2;
-      req.params.param2 = lng;
+      try {
+        const { lat, lng } = await cityToLatAndLong(city);
+        req.params.param3 = req.params.param2;
+        req.params.param4 = req.params.param3;
+        req.params.param1 = lat;
+        req.params.param2 = lng;
+        const year: number = +req.params.param3;
+        if ( year < 1959 || year > 2022) {
+          return res.status(404).send('Weather data is only available from 1959 to 2022');
+        }
+
+      } catch (error) {
+        return res.status(404).send('City not found!');
+      }
     }
     // here check what parameters we need for the called category&metricName
     // and assign params values to them
@@ -48,7 +57,7 @@ const globalController = async (req: Request, res: Response) => {
     }
     // if params passed are less than params needed, return error
     if (paramsNeeded.length !== paramsPassed) {
-      return res.status(400).send('Missing some parameters!');
+      return res.status(404).send('Missing some parameters!');
     }
     let params: any = [];
     paramsNeeded.forEach((_: any, index: number) => {
@@ -90,7 +99,7 @@ const globalController = async (req: Request, res: Response) => {
     return res.status(200).send(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).send('Internal server error!');
+    return res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -109,7 +118,7 @@ export const addBanana = async (req: Request, res: Response) => {
     res.status(200).json({ message: 'Banana added' });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -120,7 +129,7 @@ export const deleteBanana = async (req: Request, res: Response) => {
     res.status(200).json({ message: 'Banana deleted' });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -141,7 +150,7 @@ export const getBananas = async (req: Request, res: Response) => {
     res.status(200).json(bananaCountObj);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: 'Server error' });
   }
 };
 

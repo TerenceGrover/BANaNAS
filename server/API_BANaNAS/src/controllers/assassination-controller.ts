@@ -19,7 +19,7 @@ export const assassinationController = async (req: Request, res: Response) => {
           },
         });
     if (!data.length) {
-      res.status(400).json({
+      res.status(404).json({
         message: 'no data found, check your filter and value parameters',
       });
       return;

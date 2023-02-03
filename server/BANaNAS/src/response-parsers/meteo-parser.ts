@@ -10,7 +10,7 @@ export const meteoParser = (json: any, indicatorCode: string) => {
       indicatorCode === 'snowfall_sum' || indicatorCode === 'rain_sum'
         ? sum
         : avg;
-    console.log('responseObj', responseObj);
+    // console.log('responseObj', responseObj);
   }
   return responseObj;
 };
