@@ -104,7 +104,11 @@
         <Carousel bind:currentlySelected={rightCategory} />
       </div>
     {/if}
-    <h1 id="title" class={isMobile && (leftCategory != '' || rightCategory !== '') && 'hidden'}>Choose Your Fighter</h1>
+    {#if !isMobile}
+    <h1 id="title">Choose Your Fighter</h1>
+    {:else if left.where === '' || right.where === ''}
+    <h1 id="title">Choose Subject & Poisition for players</h1>
+    {/if}
     <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
     <div id="player-zone-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -437,9 +441,8 @@
 
     #title {
       position: absolute;
-      font-size: 5vh;
-      margin-top: 0;
-      top: 50%;
+      font-size: 3.5vh;
+      top: 45%;
       left: 50%;
       text-align: center;
       transform: translate(-50%, -50%);
@@ -467,13 +470,14 @@
       top: 2vh;
       left: 2vw;
       font-size: 2vh;
-      width: 5vw;
+      width: auto;
     }
 
     #reset-categories {
       top: 2vh;
       right: 2vw;
       font-size: 2vh;
+      color: #fed703;
     }
   }
 </style>
