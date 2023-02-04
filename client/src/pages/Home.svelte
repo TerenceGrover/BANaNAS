@@ -4,9 +4,19 @@
   import { getBananas } from '../Utils/api-services';
   import DropBanana from '../components/Drop-Banana.svelte';
   import { onMount } from 'svelte';
+  import TapoConnect from '../components/Tapo-Connect.svelte';
+  import Coffee from '../components/Coffee.svelte';
+  import Monkey from '../components/Monkey.svelte';
   export let changePage;
+  export let clickedBulb = false;
+  export let clickedCoffee = false;
+  export let clickedMonkey = false;
+
+  export let credentials
   let shadowStr = '0px 0px 0px 0px #000';
   const isMobile = window.innerWidth < 768;
+
+
 
   function handleMove(e) {
     shadowStr = transformMouseIntoCSSShadow(e.clientX, e.clientY);
@@ -16,7 +26,6 @@
 
   getBananas().then(bananaData => {
     teamBananas = bananaData;
-    console.log(teamBananas);
   })
 
   let paragraph = 'Transparency';
@@ -29,7 +38,6 @@
     onMount( () =>{
     canvas = document.querySelector("#canvas");
     ctx = canvas.getContext("2d");
-    console.log(ctx, w, h);
   
   })
 
@@ -121,6 +129,15 @@
 
 <main on:mousemove={handleMove}>
   <canvas id="canvas"></canvas>
+  <div id="right-icons-container">
+    <TapoConnect 
+      {clickedBulb}
+      bind:credentials/>
+  </div>
+  <div id="left-icons-container">
+    <Coffee {clickedCoffee} />
+    <Monkey {clickedMonkey} />
+  </div>
   <section id="top-section">
     <DropBanana />
     <h1 id="top-header" class="text-shadow-pop-br">BANaNAS</h1>
@@ -284,6 +301,33 @@
 	width: 100%;
 	height: 100%;
 }
+
+  #right-icons-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    top: 5vh;
+    right: 5vw;
+    z-index: 4;
+    cursor: pointer;
+  }
+
+  #left-icons-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 2;
+    top: 5vh;
+    left: 5vw;
+    z-index: 4;
+    cursor: pointer;
+    gap: 10px;
+  }
 
   #top-section {
     position: relative;
