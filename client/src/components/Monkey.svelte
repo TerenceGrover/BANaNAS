@@ -16,7 +16,7 @@ export let clickedBulb;
     }} />
     {#if clickedMonkey}
       <div id="buy" class="fade-in">
-        <p on:click={() => window.open('https://monkeyhaven.org/support-us/#donate#donate')}>
+        <p on:click={() => window.open('https://monkeyhaven.org/support-us/#donate')}>
           Buy the monkeys a banana!
         </p>
       </div>

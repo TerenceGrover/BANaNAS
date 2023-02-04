@@ -4,17 +4,12 @@ export let clickedMonkey;
 export let clickedCoffee;
 export let clickedBulb;
 export let credentials;
-
-// let deviceToken;
-
-// async function handleLogin () {
-//   deviceToken = await tapoConnect('alexryanjones@gmx.com',
-//   'KWRfyoaDx_WsA*P46A', '192.168.1.202')
-//   await tapoTurnOn(deviceToken);
-// }
+export let loggedIn = true;
 
 async function handleLogin (e) {
   e.preventDefault();
+  clickedBulb = false;
+  loggedIn = true;
   const formData = new FormData(e.target);
   credentials = {
     email: formData.get('email'),
@@ -28,11 +23,22 @@ async function handleLogin (e) {
 <main>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div id="content-container">
-  <img id="bulb-icon" src="../../assets/icons/bulb.svg" alt="bulb" on:click={() => {
-    clickedBulb = !clickedBulb;
-    clickedMonkey = false;
-    clickedCoffee = false;
-    }}/>
+    {#if !loggedIn}
+      <img id="bulb-icon" src="../../assets/icons/bulb-off.svg" alt="bulb" on:click={() => {
+        clickedBulb = !clickedBulb;
+        clickedMonkey = false;
+        clickedCoffee = false;
+      }}/>
+    {:else}
+    <div id="glow-container">
+      <div id="glow"></div>
+      <img id="bulb-icon" src="../../assets/icons/bulb-on.svg" alt="bulb" on:click={() => {
+        clickedBulb = !clickedBulb;
+        clickedMonkey = false;
+        clickedCoffee = false;
+      }}/>
+      </div>
+    {/if}
   {#if clickedBulb}
   <div id="form-container" class="fade-in">
     <form id="login-form" on:submit|preventDefault={(e) => {handleLogin(e)}}>
@@ -67,7 +73,7 @@ async function handleLogin (e) {
   }
 
   #bulb-icon {
-    height: 5vh;
+    height: 7.5vh;
     filter: drop-shadow(2px 2px 0px #000000);
     cursor: pointer;
   }
@@ -113,12 +119,25 @@ async function handleLogin (e) {
 
   }
 
+  #glow {
+  box-shadow: 0 0 20px #fed703;
+  border-radius: 50%;
+  height: 3vh;
+  width: 3vh;
+  position: absolute;
+  z-index: -1;
+  margin-top: 2vh;
+
+}
+
+#glow-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
   .fade-in {
     animation: fade-in-fwd 0.5s;
-  }
-
-  .fade-out {
-    animation: fade-out-backward 0.5s;
   }
 
   @keyframes fade-in-fwd {

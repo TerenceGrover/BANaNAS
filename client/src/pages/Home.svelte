@@ -321,8 +321,8 @@
     align-items: center;
     justify-content: center;
     z-index: 2;
-    top: 5vh;
-    right: 5vw;
+    top: 2.5vh;
+    right: 2.5vw;
     z-index: 4;
     cursor: pointer;
   }
@@ -334,8 +334,8 @@
     align-items: flex-start;
     justify-content: center;
     z-index: 2;
-    top: 5vh;
-    left: 5vw;
+    top: 2.5vh;
+    left: 2.5vw;
     z-index: 4;
     cursor: pointer;
     gap: 10px;

@@ -15,7 +15,7 @@ export let clickedBulb;
     }} />
     {#if clickedCoffee}
       <div id="buy" class="fade-in">
-        <p on:click={() => window.open('https://buymeacoffee.com/alexbananas')}>
+        <p on:click={() => window.open('https://buymeacoffee.com/BananaDevs')}>
           Buy the developers a coffee!
         </p>
       </div>
