@@ -12,6 +12,10 @@
   export let clickedCoffee = false;
   export let clickedMonkey = false;
 
+  $: clickedBulb, console.log(clickedBulb, 'clickedBulb');
+  $: clickedCoffee, console.log(clickedCoffee, 'clickedCoffee');
+  $: clickedMonkey, console.log(clickedMonkey, 'clickedMonkey');
+
   export let credentials
   let shadowStr = '0px 0px 0px 0px #000';
   const isMobile = window.innerWidth < 768;
@@ -131,12 +135,20 @@
   <canvas id="canvas"></canvas>
   <div id="right-icons-container">
     <TapoConnect 
-      {clickedBulb}
+      bind:clickedBulb
+      bind:clickedCoffee
+      bind:clickedMonkey
       bind:credentials/>
   </div>
   <div id="left-icons-container">
-    <Coffee {clickedCoffee} />
-    <Monkey {clickedMonkey} />
+    <Coffee
+      bind:clickedBulb
+      bind:clickedCoffee
+      bind:clickedMonkey />
+    <Monkey
+      bind:clickedBulb
+      bind:clickedCoffee
+      bind:clickedMonkey />
   </div>
   <section id="top-section">
     <DropBanana />

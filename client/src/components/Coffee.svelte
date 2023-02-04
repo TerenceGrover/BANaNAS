@@ -1,5 +1,7 @@
 <script>
+export let clickedMonkey;
 export let clickedCoffee;
+export let clickedBulb;
 
 </script>
 
@@ -8,6 +10,8 @@ export let clickedCoffee;
   <div id="content-container">
     <img id="coffee-icon" src="../../assets/icons/coffee.svg" alt="coffee" on:click={() => {
       clickedCoffee = !clickedCoffee
+      clickedMonkey = false
+      clickedBulb = false
     }} />
     {#if clickedCoffee}
       <div id="buy" class="fade-in">

@@ -1,5 +1,7 @@
 <script>
 // import { tapoConnect, tapoTurnOn } from '../Utils/tapoApi.js'
+export let clickedMonkey;
+export let clickedCoffee;
 export let clickedBulb;
 export let credentials;
 
@@ -27,7 +29,9 @@ async function handleLogin (e) {
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div id="content-container">
   <img id="bulb-icon" src="../../assets/icons/bulb.svg" alt="bulb" on:click={() => {
-    clickedBulb = !clickedBulb
+    clickedBulb = !clickedBulb;
+    clickedMonkey = false;
+    clickedCoffee = false;
     }}/>
   {#if clickedBulb}
   <div id="form-container" class="fade-in">
