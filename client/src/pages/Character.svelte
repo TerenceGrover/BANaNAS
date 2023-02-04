@@ -15,6 +15,13 @@
   export let leftCategory = '';
   export let rightCategory = '';
 
+  onMount(() => {
+    if (isMobile) {
+      leftCategory = 'Agriculture';
+      rightCategory = 'Agriculture';
+    }
+  });
+
   let loading = true;
   let currentSide = 'left';
   let hoveredCategory = { name: '' };
@@ -216,6 +223,13 @@
 </main>
 
 <style>
+
+  *{
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
   main {
     display: flex;
     flex-direction: column;
@@ -368,19 +382,19 @@
   #top-carousel {
     z-index: 1000000;
     position: absolute;
-    left: 50%;
-    top: 12.5%;
+    left: 25%;
+    top: 19.5%;
     transform: translate(-50%, -50%);
-    width: 85vw;
+    width: fit-content;
   }
 
   #bot-carousel {
     z-index: 1000000;
     position: absolute;
-    left: 50%;
-    top: 63%;
+    left: 25%;
+    top: 75%;
     transform: translate(-50%, -50%);
-    width: 85vw;
+    width: fit-content;
   }
 
   @keyframes pulse {
@@ -434,7 +448,7 @@
     #player-container-right {
       position: absolute;
       left: 50%;
-      top: 67%;
+      top: 83%;
       transform: translate(-50%, -50%);
       width: 100vw;
       height: 30vh;
@@ -443,7 +457,7 @@
     #player-container-left {
       position: absolute;
       left: 50%;
-      top: 32.5%;
+      top: 44%;
       transform: translate(-50%, -50%);
       width: 100vw;
       height: 30vh;

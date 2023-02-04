@@ -306,4 +306,23 @@
     font-family: 'Farro', sans-serif;
     text-align: justify;
   }
+
+  @media screen and (max-width: 768px) {
+    main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #button-container {
+      gap: 25px;
+      flex-direction: row;
+    }
+
+    .detail-buttons {
+    border-radius: 8px;
+    min-width: 25vw;
+    max-width: 25vw;
+  }
+
+  }
 </style>

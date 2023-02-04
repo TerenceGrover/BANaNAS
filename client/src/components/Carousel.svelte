@@ -36,8 +36,8 @@
     {#each svg as src}
       <div class="carousel-item">
         <object
-        width={100}
-        height={100}
+        width={130}
+        height={130}
         title="monkey-svg"
         data={src}
         alt="Monkey"
@@ -55,12 +55,17 @@
 
 <style>
 
+  main{
+    width: 50vw;
+  }
+
   #carousel-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 10000;
+    width : 45vw;
   }
 
   .carousel-item {

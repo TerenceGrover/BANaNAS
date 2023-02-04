@@ -9,6 +9,8 @@
   export let rightData;
   export let filterYears;
 
+  const isMobile = window.innerWidth < 768;
+
   $: filterYears, console.log(filterYears);
 
   window.addEventListener('resize', function () {
@@ -49,8 +51,6 @@
       year: +year,
       value: value,
     }));
-
-  console.log(dataArray1[0], dataArray2[0]);
 
   const lowestYear = Math.min(dataArray1[0].year, dataArray2[0].year);
   const highestYear = Math.max(

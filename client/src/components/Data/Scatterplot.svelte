@@ -9,6 +9,8 @@
   export let rightData;
   export let filterYears;
 
+  const isMobile = window.innerWidth < 768;
+
   let dataArray1 = Object.entries(data1)
     .filter(([year, value]) => {
       if (filterYears.length>0) {
