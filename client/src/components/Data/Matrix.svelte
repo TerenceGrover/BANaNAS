@@ -4,6 +4,8 @@
 
   export let data1;
   export let data2;
+  
+  const isMobile = window.innerWidth < 768;
 
   // set the dimensions and margins of the graph
   let width = 900;

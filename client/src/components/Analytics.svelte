@@ -59,7 +59,7 @@
   const leftWhat = splitWordsOnCapitalLetters(leftData.what);
   const rightWhat = splitWordsOnCapitalLetters(rightData.what);
 
-  let conclusion = 'concluding...';
+  let conclusion = 'Concluding...';
 
   $: rIndex, conclude();
 
@@ -305,5 +305,38 @@
   #paragraph-container > p {
     font-family: 'Farro', sans-serif;
     text-align: justify;
+  }
+
+  @media screen and (max-width: 768px) {
+
+    main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #r{
+      margin-bottom: 10%;
+    }
+
+    #left-container{
+      gap: 1.5vh;
+      padding: 3vh 4vw;
+    }
+
+    #right-container{
+      gap: 1.5vh;
+    }
+
+    #button-container {
+      gap: 25px;
+      flex-direction: row;
+    }
+
+    .detail-buttons {
+    border-radius: 8px;
+    min-width: 25vw;
+    max-width: 25vw;
+  }
+
   }
 </style>

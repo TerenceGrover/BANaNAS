@@ -42,8 +42,6 @@
   }
 
   $: if ((what.value && !where.value) || (isMobile && what)) {
-    console.log('what', what);
-    console.log('what', APIdata[what]);
     isMobile
       ? (whereItems = APIdata[what].available_countries)
       : (whereItems = APIdata[what.value].available_countries);
@@ -199,25 +197,30 @@
   @media screen and (max-width: 768px) {
     #sub-container {
       position: absolute;
-      height: 15vh;
-      width: 70vw;
+      height: 25vh;
+      width: 45vw;
     }
     :global(.sub-input) {
       font-size: 14px !important;
-      border-radius: 0 6px 6px 0 !important;
+      border-radius: 6px 6px 6px 6px !important;
+      width: 100% !important;
+      font-size: 1.2vh !important;
     }
     .input-container {
+      flex-direction: column;
       border-radius: 6px;
+      padding: 5px;
+      gap: 5px;
     }
     .left {
-      top: 35%;
-      left: 49%;
+      top: 19.5%;
+      left: 70%;
       margin-bottom: 20vh;
     }
 
     .right {
-      top: 85%;
-      left: 51%;
+      top: 75%;
+      left: 70%;
       margin-right: 30px;
     }
   }

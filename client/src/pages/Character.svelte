@@ -15,6 +15,13 @@
   export let leftCategory = '';
   export let rightCategory = '';
 
+  onMount(() => {
+    if (isMobile) {
+      leftCategory = 'Agriculture';
+      rightCategory = 'Agriculture';
+    }
+  });
+
   let loading = true;
   let currentSide = 'left';
   let hoveredCategory = { name: '' };
@@ -97,7 +104,11 @@
         <Carousel bind:currentlySelected={rightCategory} />
       </div>
     {/if}
-    <h1 id="title" class={isMobile && (leftCategory != '' || rightCategory !== '') && 'hidden'}>Choose Your Fighter</h1>
+    {#if !isMobile}
+    <h1 id="title">Choose Your Fighter</h1>
+    {:else if left.where === '' || right.where === ''}
+    <h1 id="title">Choose Subject & Poisition for players</h1>
+    {/if}
     <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
     <div id="player-zone-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -216,6 +227,13 @@
 </main>
 
 <style>
+
+  *{
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
   main {
     display: flex;
     flex-direction: column;
@@ -368,19 +386,19 @@
   #top-carousel {
     z-index: 1000000;
     position: absolute;
-    left: 50%;
-    top: 12.5%;
+    left: 25%;
+    top: 19.5%;
     transform: translate(-50%, -50%);
-    width: 85vw;
+    width: fit-content;
   }
 
   #bot-carousel {
     z-index: 1000000;
     position: absolute;
-    left: 50%;
-    top: 63%;
+    left: 25%;
+    top: 75%;
     transform: translate(-50%, -50%);
-    width: 85vw;
+    width: fit-content;
   }
 
   @keyframes pulse {
@@ -423,9 +441,8 @@
 
     #title {
       position: absolute;
-      font-size: 5vh;
-      margin-top: 0;
-      top: 50%;
+      font-size: 3.5vh;
+      top: 45%;
       left: 50%;
       text-align: center;
       transform: translate(-50%, -50%);
@@ -434,7 +451,7 @@
     #player-container-right {
       position: absolute;
       left: 50%;
-      top: 67%;
+      top: 83%;
       transform: translate(-50%, -50%);
       width: 100vw;
       height: 30vh;
@@ -443,7 +460,7 @@
     #player-container-left {
       position: absolute;
       left: 50%;
-      top: 32.5%;
+      top: 44%;
       transform: translate(-50%, -50%);
       width: 100vw;
       height: 30vh;
@@ -453,13 +470,14 @@
       top: 2vh;
       left: 2vw;
       font-size: 2vh;
-      width: 5vw;
+      width: auto;
     }
 
     #reset-categories {
       top: 2vh;
       right: 2vw;
       font-size: 2vh;
+      color: #fed703;
     }
   }
 </style>
