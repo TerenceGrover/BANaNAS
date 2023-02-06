@@ -44,27 +44,35 @@ export async function getGlobalData(category, subCategory) {
 }
 
 export async function getConclusion(data1what, data1where, data2what, data2where, rIndex){
-  
-  const response = await fetch(`${API}/conclusion`, {
+
+  const prompt = {
+    data1what,
+    data1where,
+    data2what,
+    data2where,
+    rIndex,
+  }
+
+
+console.log(prompt);
+  const response = await fetch(`${API}/gpt`, {
     method: 'POST',
-    body: JSON.stringify({
-      data1what: data1what,
-      data1where: data1where,
-      data2what: data2what,
-      data2where: data2where,
-      rIndex: rIndex,
-    }),
-  })
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(prompt),
+  });
 
-  let conclusion = await response.json();
+  
+  let data = await response.json();
+  console.log(data);
 
-  return conclusion;
+  return data.conclusion;
 }
 
 export async function tapoLogin(credentials) {
-  console.log(credentials);
+
   const response = await fetch(`${API}/tapoLogin`, {
     method: 'POST',
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify(credentials),
   })
   console.log(response);
