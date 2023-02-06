@@ -7,6 +7,7 @@
   } from '../Utils/helpers';
   import categoryList from '../Utils/categoryList';
   import { getConclusion } from '../Utils/api-services';
+  import { BananoGram } from '../Utils/api-services';
 
   export let leftData;
   export let rightData;
@@ -108,6 +109,9 @@
       return +number.toFixed(3);
     }
   }
+
+  BananoGram(leftData.what, rightData.what, leftData.where, rightData.where, rIndex);
+
 </script>
 
 <main>

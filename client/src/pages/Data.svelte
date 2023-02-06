@@ -24,6 +24,8 @@
     getMetrics(rightData.cat, rightData.what, rightData.where).then((data) => {
       rightGraphData = data;
     });
+
+
   }
 
   setTimeout(() => {
