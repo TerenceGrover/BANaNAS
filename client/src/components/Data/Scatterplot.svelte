@@ -23,7 +23,7 @@
   });
 
   const handleResize = () => {
-    d3.select('.line-graph').html('');
+    d3.select('#chart').html('');
     drawGraph();
   };
 
@@ -60,15 +60,10 @@
   );
 
   function drawGraph() {
-    if (isMobile) {
-      var margin = { top: 20, right: 50, bottom: 50, left: 50 },
-        width = window.innerWidth * 0.9 - margin.left - margin.right,
-        height = window.innerHeight * 0.7 - margin.top - margin.bottom;
-    } else {
-      var margin = { top: 60, right: 120, bottom: 100, left: 100 },
+
+      let margin = { top: 60, right: 120, bottom: 100, left: 100 },
         width = window.innerWidth * 0.7 - margin.left - margin.right,
         height = window.innerHeight * 0.6 - margin.top - margin.bottom;
-    }
 
     // Set the ranges
     let x = d3
