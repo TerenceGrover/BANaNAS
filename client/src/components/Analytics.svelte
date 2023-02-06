@@ -51,8 +51,6 @@
   leftData.unit = leftData.unit.replace('current', '');
   rightData.unit = rightData.unit.replace('current', '');
 
-  console.log(leftData, rightData);
-
   function ParagraphSelector(newP) {
     paragraph = newP;
   }
