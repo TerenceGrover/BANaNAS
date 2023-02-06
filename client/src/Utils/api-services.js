@@ -40,7 +40,7 @@ export async function getBananas() {
 }
 
 export async function getGlobalData(category, subCategory) {
-  const response = await fetch(`${API}/global/${category}}/${subCategory}`)
+  const response = await fetch(`${API}/global/${category}/${subCategory}`)
   return response.json()
 }
 
