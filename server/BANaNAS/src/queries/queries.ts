@@ -20177,6 +20177,7 @@ export let queries: any = {
       unit: 'kg',
       provider: 'Bananas API',
       countries_available: [
+        'global',
         'Afghanistan',
         'Albania',
         'Algeria',
@@ -20309,6 +20310,7 @@ export let queries: any = {
       unit: 'kg',
       provider: 'Bananas API',
       countries_available: [
+        'global',
         'Angola',
         'Argentina',
         'Australia',
@@ -20419,6 +20421,7 @@ export let queries: any = {
       unit: 'liters',
       provider: 'Bananas API',
       countries_available: [
+        'global',
         'Albania',
         'Algeria',
         'Andorra',
@@ -20581,6 +20584,7 @@ export let queries: any = {
       unit: 'kg',
       provider: 'Bananas API',
       countries_available: [
+        'global',
         'Albania',
         'Algeria',
         'Andorra',
@@ -20757,6 +20761,7 @@ export let queries: any = {
       unit: 'US$',
       provider: 'Bananas API',
       countries_available: [
+        'global',
         'Albania',
         'Algeria',
         'Andorra',
@@ -20930,6 +20935,7 @@ export let queries: any = {
       unit: 'US$',
       provider: 'Bananas API',
       countries_available: [
+        'global',
         'Albania',
         'Algeria',
         'Andorra',
@@ -21123,6 +21129,8 @@ export let queries: any = {
       unit: 'kg',
       provider: 'Bananas API',
       countries_available: [
+        'global',
+
         'Afghanistan',
         'Albania',
         'Algeria',
@@ -21289,6 +21297,8 @@ export let queries: any = {
       unit: 'kg',
       provider: 'Bananas API',
       countries_available: [
+        'global',
+
         'Albania',
         'Algeria',
         'Andorra',
@@ -21472,6 +21482,8 @@ export let queries: any = {
       unit: 'kg',
       provider: 'Bananas API',
       countries_available: [
+        'global',
+
         'Angola',
         'Argentina',
         'Australia',
@@ -21588,6 +21600,8 @@ export let queries: any = {
       unit: 'kg',
       provider: 'Bananas API',
       countries_available: [
+        'global',
+
         'Albania',
         'Algeria',
         'Andorra',
@@ -21736,6 +21750,8 @@ export let queries: any = {
       unit: 'US$',
       provider: 'Bananas API',
       countries_available: [
+        'global',
+
         'Albania',
         'Algeria',
         'Andorra',
@@ -21923,6 +21939,8 @@ export let queries: any = {
       unit: 'US$',
       provider: 'Bananas API',
       countries_available: [
+        'global',
+
         'Albania',
         'Algeria',
         'Andorra',
@@ -22122,6 +22140,7 @@ export let queries: any = {
       unit: 'kg',
       provider: 'Bananas API',
       countries_available: [
+        'global',
         'Angola',
         'Argentina',
         'Australia',
@@ -37451,6 +37470,7 @@ export let queries: any = {
       unit: 'USD',
       provider: 'Bananas API',
       countries_available: [
+        'global',
         'Jeff Bezos',
         'Elon Musk',
         'Bernard Arnault & family',
@@ -83277,6 +83297,7 @@ export let queries: any = {
       unit: 'kg',
       provider: 'Bananas API',
       countries_available: [
+        'global',
         'Algeria',
         'Angola',
         'Antigua and Barbuda',
