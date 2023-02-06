@@ -1,331 +1,201 @@
 <script>
+  import { max, range } from 'd3-array';
+  import { scaleLinear, scaleBand } from 'd3-scale';
+  import { easeLinear } from 'd3-ease';
+  import { select } from 'd3-selection';
+  import { onMount } from 'svelte';
 
-  import { getGlobalData } from '../../Utils/api-services.js'
+  export let data;
+  const isMobile = window.innerWidth < 768;
+  let width = window.innerWidth * 0.65;
+  let height = window.innerHeight * 0.6;
 
-  async function _data(FileAttachment) {
-    return FileAttachment('category-brands.csv').csv({ typed: true });
-  }
-
-  function _replay(html) {
-    return html`<button>Replay</button>`;
-  }
-
-  async function* _chart(
-    replay,
-    d3,
-    width,
-    height,
-    bars,
-    axis,
-    labels,
-    ticker,
-    keyframes,
-    duration,
-    x,
-    invalidation
-  ) {
-    replay;
-
-    const svg = d3.create('svg').attr('viewBox', [0, 0, width, height]);
-
-    const updateBars = bars(svg);
-    const updateAxis = axis(svg);
-    const updateLabels = labels(svg);
-    const updateTicker = ticker(svg);
-
-    yield svg.node();
-
-    for (const keyframe of keyframes) {
-      const transition = svg
-        .transition()
-        .duration(duration)
-        .ease(d3.easeLinear);
-
-      // Extract the top bar’s value.
-      x.domain([0, keyframe[1][0].value]);
-
-      updateAxis(keyframe, transition);
-      updateBars(keyframe, transition);
-      updateLabels(keyframe, transition);
-      updateTicker(keyframe, transition);
-
-      invalidation.then(() => svg.interrupt());
-      await transition.end();
-    }
-  }
-
-  function _duration() {
-    return 250;
-  }
-
-  function _n() {
-    return 12;
-  }
-
-  function _names(data) {
-    return new Set(data.map((d) => d.name));
-  }
-
-  function _datevalues(d3, data) {
-    return Array.from(
-      d3.rollup(
-        data,
-        ([d]) => d.value,
-        (d) => +d.date,
-        (d) => d.name
-      )
-    )
-      .map(([date, data]) => [new Date(date), data])
-      .sort(([a], [b]) => d3.ascending(a, b));
-  }
-
-  function _rank(names, d3, n) {
-    return function rank(value) {
-      const data = Array.from(names, (name) => ({ name, value: value(name) }));
-      data.sort((a, b) => d3.descending(a.value, b.value));
-      for (let i = 0; i < data.length; ++i) data[i].rank = Math.min(n, i);
-      return data;
-    };
-  }
-
-  function _k() {
-    return 10;
-  }
-
-  function _keyframes(d3, datevalues, k, rank) {
-    const keyframes = [];
-    let ka, a, kb, b;
-    for ([[ka, a], [kb, b]] of d3.pairs(datevalues)) {
-      for (let i = 0; i < k; ++i) {
-        const t = i / k;
-        keyframes.push([
-          new Date(ka * (1 - t) + kb * t),
-          rank((name) => (a.get(name) || 0) * (1 - t) + (b.get(name) || 0) * t),
-        ]);
+  // get the years from the dataset
+  let years = Object.keys(data);
+  // get the countries from the dataset
+  let countries = [];
+  years.forEach((year) => {
+    Object.keys(data[year]).forEach((country) => {
+      if (!countries.includes(country)) {
+        countries.push(country);
       }
+    });
+  });
+
+  // get the maximum value for the bars
+  let maxValue = max(Object.values(data[years[0]]));
+
+  // create the scales for the x and y axis
+  let xScale = scaleLinear().domain([0, maxValue]).range([0, width]);
+
+  let yScale = scaleBand().domain(countries).range([0, height]).padding(1);
+
+  console.log(years, countries, data);
+
+  // create a function to update the bar chart
+  function updateBarChart(year) {
+    // get the values for the selected year
+    let prevValues = [];
+    let prevEntries = [];
+    let values = Object.values(data[year]);
+    let entries = Object.entries(data[year]);
+    if (year !== years[0]) {
+      prevValues = Object.values(data[year - 1]);
+      prevEntries = Object.entries(data[year - 1]);
     }
-    keyframes.push([new Date(kb), rank((name) => b.get(name) || 0)]);
-    return keyframes;
+
+    let mergedValues = values.map((value, index) => {
+      if (!value && prevValues[index]) {
+        return prevValues[index];
+      } else {
+        return value;
+      }
+    });
+
+    let mergedEntries = entries.map((entry, index) => {
+      if (!entry[1] && prevEntries[index]) {
+        return prevEntries[index];
+      } else {
+        return entry;
+      }
+    });
+
+    mergedValues.sort((a, b) => b - a);
+    mergedEntries.sort((a, b) => b[1] - a[1]);
+
+    // join the data to the rectangles
+    let bars = select('.bars')
+      .selectAll('rect')
+      .data(mergedValues, (d, i) => countries[i]);
+
+    // handle the exit selection
+    bars.exit().remove();
+
+    // handle the update selection
+    bars
+      .transition()
+      .duration(2000)
+      .ease(easeLinear)
+      .attr('y', (d, i) => yScale(countries[i]) * 10)
+      .attr('width', (d) => xScale(d))
+      .attr('height', 20);
+
+    // handle the enter selection
+    bars
+      .enter()
+      .append('rect')
+      .attr('y', height)
+      .attr('width', 0)
+      .attr('height', 20)
+      .transition()
+      .duration(2000)
+      .ease(easeLinear)
+      .attr('y', (d, i) => yScale(countries[i]) * 10)
+      .attr('width', (d) => xScale(d));
+
+    // join the data to the text elements
+    let texts = select('.bars')
+      .selectAll('text')
+      .data(mergedValues, (d, i) => countries[i]);
+
+    // handle the exit selection
+    texts.exit().remove();
+
+    // handle the update selection
+    texts
+      .transition()
+      .duration(2000)
+      .ease(easeLinear)
+      .attr('y', (d, i) => yScale(countries[i]) * 10 + 15)
+      .text((d, i) => {return (mergedEntries[i][0])});
+
+    // handle the enter selection
+
+    texts
+      .enter()
+      .append('text')
+      .attr('x', 5)
+      .attr('y', height)
+      .text((d, i) => mergedEntries[i][0])
+      .transition()
+      .duration(2000)
+      .ease(easeLinear)
+      .attr('fill', 'white')
+      .attr('y', (d, i) => yScale(countries[i]) * 10 + 15);
   }
 
-  function _nameframes(d3, keyframes) {
-    return d3.groups(
-      keyframes.flatMap(([, data]) => data),
-      (d) => d.name
-    );
-  }
+  // use the onMount lifecycle method to initialize the bar chart
+  onMount(() => {
+    // add the rectangles to the chart
 
-  function _prev(nameframes, d3) {
-    return new Map(
-      nameframes.flatMap(([, data]) => d3.pairs(data, (a, b) => [b, a]))
-    );
-  }
+    let dataArray = Object.entries(data[years[0]]);
+    dataArray.sort((a, b) => b[1] - a[1]);
+    console.log(dataArray)
+    select('.bars')
+      .selectAll('rect')
+      .data(dataArray)
+      .enter()
+      .append('rect')
+      .attr('y', (d, i) => yScale(d[0]) * 10)
+      .attr('width', (d) => xScale(d[1]))
+      .attr('height', 20)
+      .attr('fill', 'steelblue')
+      .append('title')
+      .text((d) => d[0] + ': ' + d[1]);
+    select('.year-label').text(years[0]);
 
-  function _next(nameframes, d3) {
-    return new Map(nameframes.flatMap(([, data]) => d3.pairs(data)));
-  }
+    // add countries name to the rectangles
 
-  function _bars(n, color, y, x, prev, next) {
-    return function bars(svg) {
-      let bar = svg.append('g').attr('fill-opacity', 0.6).selectAll('rect');
+    select('.bars')
+      .selectAll('text')
+      .data(dataArray)
+      .enter()
+      .append('text')
+      .attr('x', 5)
+      .attr('y', (d, i) => yScale(d[0]) * 10 + 15)
+      .attr('fill', 'white')
+      .text((d) => d[0]);
 
-      return ([date, data], transition) =>
-        (bar = bar
-          .data(data.slice(0, n), (d) => d.name)
-          .join(
-            (enter) =>
-              enter
-                .append('rect')
-                .attr('fill', color)
-                .attr('height', y.bandwidth())
-                .attr('x', x(0))
-                .attr('y', (d) => y((prev.get(d) || d).rank))
-                .attr('width', (d) => x((prev.get(d) || d).value) - x(0)),
-            (update) => update,
-            (exit) =>
-              exit
-                .transition(transition)
-                .remove()
-                .attr('y', (d) => y((next.get(d) || d).rank))
-                .attr('width', (d) => x((next.get(d) || d).value) - x(0))
-          )
-          .call((bar) =>
-            bar
-              .transition(transition)
-              .attr('y', (d) => y(d.rank))
-              .attr('width', (d) => x(d.value) - x(0))
-          ));
-    };
-  }
+    // add the year label to the chart
+    select('.year-label').text(years[0]);
+  });
 
-  function _labels(n, x, prev, y, next, textTween) {
-    return function labels(svg) {
-      let label = svg
-        .append('g')
-        .style('font', 'bold 12px var(--sans-serif)')
-        .style('font-variant-numeric', 'tabular-nums')
-        .attr('text-anchor', 'end')
-        .selectAll('text');
+  let index = 0;
 
-      return ([date, data], transition) =>
-        (label = label
-          .data(data.slice(0, n), (d) => d.name)
-          .join(
-            (enter) =>
-              enter
-                .append('text')
-                .attr(
-                  'transform',
-                  (d) =>
-                    `translate(${x((prev.get(d) || d).value)},${y(
-                      (prev.get(d) || d).rank
-                    )})`
-                )
-                .attr('y', y.bandwidth() / 2)
-                .attr('x', -6)
-                .attr('dy', '-0.25em')
-                .text((d) => d.name)
-                .call((text) =>
-                  text
-                    .append('tspan')
-                    .attr('fill-opacity', 0.7)
-                    .attr('font-weight', 'normal')
-                    .attr('x', -6)
-                    .attr('dy', '1.15em')
-                ),
-            (update) => update,
-            (exit) =>
-              exit
-                .transition(transition)
-                .remove()
-                .attr(
-                  'transform',
-                  (d) =>
-                    `translate(${x((next.get(d) || d).value)},${y(
-                      (next.get(d) || d).rank
-                    )})`
-                )
-                .call((g) =>
-                  g
-                    .select('tspan')
-                    .tween('text', (d) =>
-                      textTween(d.value, (next.get(d) || d).value)
-                    )
-                )
-          )
-          .call((bar) =>
-            bar
-              .transition(transition)
-              .attr('transform', (d) => `translate(${x(d.value)},${y(d.rank)})`)
-              .call((g) =>
-                g
-                  .select('tspan')
-                  .tween('text', (d) =>
-                    textTween((prev.get(d) || d).value, d.value)
-                  )
-              )
-          ));
-    };
-  }
+  setInterval(() => {
+    updateBarChart(years[index]);
 
-  function _textTween(d3, formatNumber) {
-    return function textTween(a, b) {
-      const i = d3.interpolateNumber(a, b);
-      return function (t) {
-        this.textContent = formatNumber(i(t));
-      };
-    };
-  }
+    select('.year-label').text(years[index]);
 
-  function _formatNumber(d3) {
-    return d3.format(',d');
-  }
-
-  function _tickFormat() {
-    return undefined;
-  }
-
-  function _axis(margin, d3, x, width, tickFormat, barSize, n, y) {
-    return function axis(svg) {
-      const g = svg.append('g').attr('transform', `translate(0,${margin.top})`);
-
-      const axis = d3
-        .axisTop(x)
-        .ticks(width / 160, tickFormat)
-        .tickSizeOuter(0)
-        .tickSizeInner(-barSize * (n + y.padding()));
-
-      return (_, transition) => {
-        g.transition(transition).call(axis);
-        g.select('.tick:first-of-type text').remove();
-        g.selectAll('.tick:not(:first-of-type) line').attr('stroke', 'white');
-        g.select('.domain').remove();
-      };
-    };
-  }
-
-  function _ticker(barSize, width, margin, n, formatDate, keyframes) {
-    return function ticker(svg) {
-      const now = svg
-        .append('text')
-        .style('font', `bold ${barSize}px var(--sans-serif)`)
-        .style('font-variant-numeric', 'tabular-nums')
-        .attr('text-anchor', 'end')
-        .attr('x', width - 6)
-        .attr('y', margin.top + barSize * (n - 0.45))
-        .attr('dy', '0.32em')
-        .text(formatDate(keyframes[0][0]));
-
-      return ([date], transition) => {
-        transition.end().then(() => now.text(formatDate(date)));
-      };
-    };
-  }
-
-  function _formatDate(d3) {
-    return d3.utcFormat('%Y');
-  }
-
-  function _color(d3, data) {
-    const scale = d3.scaleOrdinal(d3.schemeTableau10);
-    if (data.some((d) => d.category !== undefined)) {
-      const categoryByName = new Map(data.map((d) => [d.name, d.category]));
-      scale.domain(categoryByName.values());
-      return (d) => scale(categoryByName.get(d.name));
-    }
-    return (d) => scale(d.name);
-  }
-
-  function _x(d3, margin, width) {
-    return d3.scaleLinear([0, 1], [margin.left, width - margin.right]);
-  }
-
-  function _y(d3, n, margin, barSize) {
-    return d3
-      .scaleBand()
-      .domain(d3.range(n + 1))
-      .rangeRound([margin.top, margin.top + barSize * (n + 1 + 0.1)])
-      .padding(0.1);
-  }
-
-  function _height(margin, barSize, n) {
-    return margin.top + barSize * n + margin.bottom;
-  }
-
-  function _barSize() {
-    return 48;
-  }
-
-  function _margin() {
-    return { top: 16, right: 6, bottom: 6, left: 0 };
-  }
-
-  function _d3(require) {
-    return require('d3@6');
-  }
+    index = (index + 1) % years.length;
+  }, 2000);
 </script>
 
-<main />
+<div class="chart">
+  <svg class="bars" />
+  <div class="year-label" />
+</div>
 
 <style>
+  .chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 90%;
+  }
+
+  .year-label {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 </style>
