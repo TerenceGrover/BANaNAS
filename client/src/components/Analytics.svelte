@@ -18,7 +18,8 @@
   leftData.what = splitWordsOnCapitalLetters(leftData.what);
   rightData.what = splitWordsOnCapitalLetters(rightData.what);
 
-  if (leftData.desc && rightData.desc) {
+
+  if (leftData.desc.match(/\(([^)]+)\)/) && rightData.desc.match(/\(([^)]+)\)/)) {
     if (
       leftData.desc.match(/\(([^)]+)\)/) &&
       leftData.desc.match(/\(([^)]+)\)/).length > 2
@@ -30,7 +31,6 @@
     } else {
       leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1];
     }
-
     if (
       rightData.desc.match(/\(([^)]+)\)/) &&
       rightData.desc.match(/\(([^)]+)\)/).length > 2
