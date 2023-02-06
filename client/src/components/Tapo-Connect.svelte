@@ -1,10 +1,10 @@
 <script>
-// import { tapoConnect, tapoTurnOn } from '../Utils/tapoApi.js'
+import { tapoLogin } from '../Utils/api-services.js'
 export let clickedMonkey;
 export let clickedCoffee;
 export let clickedBulb;
 export let credentials;
-export let loggedIn = true;
+export let loggedIn;
 
 async function handleLogin (e) {
   e.preventDefault();
@@ -13,9 +13,16 @@ async function handleLogin (e) {
   const formData = new FormData(e.target);
   credentials = {
     email: formData.get('email'),
-    password: formData.get('password')
+    password: formData.get('password'),
+    ip: formData.get('ip')
   }
   // add login function here
+  try {
+    const res = await tapoLogin(credentials)
+    console.log(res)
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 </script>
@@ -49,6 +56,24 @@ async function handleLogin (e) {
       <div id="password">
         <label for="password">Password</label>
         <input name="password" type="password" placeholder="Password" />
+      </div>
+      <div id="ip">
+        <img id="info" src="../../assets/icons/info.svg" alt="info" />
+        <div id="device-ip">
+          <p id="title">How to find your Device IP</p>
+          <p id="steps">
+            1. Open the Tapo app on your phone and go to the device you want to
+            connect to.
+            <br />
+            2. Click on the device name and then click on the device settings.
+            <br />
+            3. Click on the "Device Info" tab.
+            <br />
+            4. Your device IP will be listed under "Device IP".
+          </p>
+        </div>
+        <label for="ip">Device IP</label>
+        <input name="ip" type="text" placeholder="Device IP" />
       </div>
       <div id="login-container">
         <button id="login-button" type="submit">Login</button>
@@ -106,7 +131,7 @@ async function handleLogin (e) {
 
   }
 
-  #password, #email, #login-container {
+  #password, #email, #ip, #login-container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -116,7 +141,44 @@ async function handleLogin (e) {
     margin-bottom: 5px;
     margin-left: 5px;
     gap: 5px;
+  }
 
+  #info {
+    height: 2.5vh;
+    padding-bottom: 2px;
+    filter: drop-shadow(2px 2px 0px #000000);
+    cursor: pointer;
+  }
+  
+
+  #device-ip {
+    display: none;
+    position: absolute;
+    align-self: flex-start;
+    margin-top: 70px;
+    background: rgba(187, 187, 187, 0.516);
+    padding: 10px;
+    border: 1px solid white;
+    font-size: 2vh;
+    gap: 10px;
+    border-radius: 5px;
+    filter: drop-shadow(2px 2px 0px #000000);
+
+  }
+
+  #info:hover + #device-ip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #title {
+    font-weight: bold;
+  }
+
+  #steps {
+    font-size: 2vh;
+    align-self: flex-start;
   }
 
   #glow {

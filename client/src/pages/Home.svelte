@@ -11,6 +11,7 @@
   export let clickedBulb = false;
   export let clickedCoffee = false;
   export let clickedMonkey = false;
+  export let loggedIn = false
 
   $: clickedBulb, console.log(clickedBulb, 'clickedBulb');
   $: clickedCoffee, console.log(clickedCoffee, 'clickedCoffee');
@@ -138,6 +139,7 @@
       bind:clickedBulb
       bind:clickedCoffee
       bind:clickedMonkey
+      bind:loggedIn
       bind:credentials/>
   </div>
   <div id="left-icons-container">
