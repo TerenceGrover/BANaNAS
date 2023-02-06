@@ -47,10 +47,15 @@
 
   onMount(async () => {
 
-    // Set the dimensions of the canvas / graph
-    var margin = { top: 60, right: 120, bottom: 100, left: 100 },
+    if(isMobile){
+      var margin = { top: 20, right: 50, bottom: 50, left: 50 },
+      width = window.innerWidth * 0.9 - margin.left - margin.right,
+      height = window.innerHeight * 0.7 - margin.top - margin.bottom;
+    } else {
+      var margin = { top: 60, right: 120, bottom: 100, left: 100 },
       width = window.innerWidth * 0.7 - margin.left - margin.right,
       height = window.innerHeight * 0.6 - margin.top - margin.bottom;
+    }
 
     // Set the ranges
     let x = d3
@@ -65,7 +70,7 @@
           .extent(dataArray1, function (d) {
             return d.value;
           })
-          .map((val, i) => val + (i ? 0.01 : -0.02) * val)
+          .map((val, i) => val + (i ? 0.02 : -0.02) * val)
       )
       .interpolate(d3.interpolateRound)
       .nice()
@@ -85,14 +90,29 @@
       .range([height, 0]);
 
     // Define the left and right y-axis
-    var yAxisLeft = d3.axisLeft(yLeft).tickFormat(d3.format('.2s'));
-    var yAxisRight = d3.axisRight(yRight).tickFormat(d3.format('.2s'));
+
+    if(isMobile){
+      var yAxisLeft = d3.axisLeft(yLeft).tickFormat(d3.format('.2s')).tickSize(5);
+      var yAxisRight = d3.axisRight(yRight).tickFormat(d3.format('.2s')).tickSize(5);
+    } else {
+      var yAxisLeft = d3.axisLeft(yLeft).tickFormat(d3.format('.2s'));
+      var yAxisRight = d3.axisRight(yRight).tickFormat(d3.format('.2s'));
+    }
 
     // Define the bottom x-axis
-    var xAxis = d3
+
+    if(isMobile){
+      var xAxis = d3
+      .axisBottom(x)
+      .tickFormat(d3.format("d"))
+      .tickPadding(10)
+      .tickSize(5);
+    } else {
+      var xAxis = d3
       .axisBottom(x)
       .tickFormat(d3.format("d"))
       .tickPadding(10);
+    }
 
     // Adds the svg canvas
 
