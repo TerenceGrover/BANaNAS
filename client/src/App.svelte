@@ -2,6 +2,7 @@
   import Character from "./pages/Character.svelte";
   import Data from "./pages/Data.svelte";
   import Home from "./pages/Home.svelte";
+  import SinglePlayer from "./pages/Single-Player.svelte";
   let currentPage = "home";
 
   let leftData = {};
@@ -26,6 +27,8 @@
     <Home {changePage} />
   {:else if currentPage === "character"}
     <Character {changePage} />
+  {:else if currentPage === "single-player"}
+    <SinglePlayer {changePage} />
   {:else if currentPage === "data"}
     <Data {changePage} {leftData} {rightData} />
   {:else}
