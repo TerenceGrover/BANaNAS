@@ -28,21 +28,45 @@
   // create the scales for the x and y axis
   let xScale = scaleLinear().domain([0, maxValue]).range([0, width]);
 
-  console.log(xScale(10))
-
-  let yScale = scaleBand().domain(countries).range([0, height]).padding(0.1);
+  let yScale = scaleBand().domain(countries).range([0, height]).padding(1);
 
   console.log(years, countries, data);
 
   // create a function to update the bar chart
   function updateBarChart(year) {
     // get the values for the selected year
+    let prevValues = [];
+    let prevEntries = [];
     let values = Object.values(data[year]);
+    let entries = Object.entries(data[year]);
+    if (year !== years[0]) {
+      prevValues = Object.values(data[year - 1]);
+      prevEntries = Object.entries(data[year - 1]);
+    }
+
+    let mergedValues = values.map((value, index) => {
+      if (!value && prevValues[index]) {
+        return prevValues[index];
+      } else {
+        return value;
+      }
+    });
+
+    let mergedEntries = entries.map((entry, index) => {
+      if (!entry[1] && prevEntries[index]) {
+        return prevEntries[index];
+      } else {
+        return entry;
+      }
+    });
+
+    mergedValues.sort((a, b) => b - a);
+    mergedEntries.sort((a, b) => b[1] - a[1]);
 
     // join the data to the rectangles
     let bars = select('.bars')
       .selectAll('rect')
-      .data(values, (d, i) => countries[i]);
+      .data(mergedValues, (d, i) => countries[i]);
 
     // handle the exit selection
     bars.exit().remove();
@@ -50,11 +74,11 @@
     // handle the update selection
     bars
       .transition()
-      .duration(1000)
+      .duration(2000)
       .ease(easeLinear)
-      .attr('y', (d, i) => yScale(countries[i]))
+      .attr('y', (d, i) => yScale(countries[i]) * 10)
       .attr('width', (d) => xScale(d))
-      .attr('height', yScale.bandwidth());
+      .attr('height', 20);
 
     // handle the enter selection
     bars
@@ -62,27 +86,75 @@
       .append('rect')
       .attr('y', height)
       .attr('width', 0)
-      .attr('height', yScale.bandwidth())
+      .attr('height', 20)
       .transition()
-      .duration(1000)
+      .duration(2000)
       .ease(easeLinear)
-      .attr('y', (d, i) => yScale(countries[i]))
+      .attr('y', (d, i) => yScale(countries[i]) * 10)
       .attr('width', (d) => xScale(d));
+
+    // join the data to the text elements
+    let texts = select('.bars')
+      .selectAll('text')
+      .data(mergedValues, (d, i) => countries[i]);
+
+    // handle the exit selection
+    texts.exit().remove();
+
+    // handle the update selection
+    texts
+      .transition()
+      .duration(2000)
+      .ease(easeLinear)
+      .attr('y', (d, i) => yScale(countries[i]) * 10 + 15)
+      .text((d, i) => {return (mergedEntries[i][0])});
+
+    // handle the enter selection
+
+    texts
+      .enter()
+      .append('text')
+      .attr('x', 5)
+      .attr('y', height)
+      .text((d, i) => mergedEntries[i][0])
+      .transition()
+      .duration(2000)
+      .ease(easeLinear)
+      .attr('fill', 'white')
+      .attr('y', (d, i) => yScale(countries[i]) * 10 + 15);
   }
 
   // use the onMount lifecycle method to initialize the bar chart
   onMount(() => {
     // add the rectangles to the chart
 
+    let dataArray = Object.entries(data[years[0]]);
+    dataArray.sort((a, b) => b[1] - a[1]);
+    console.log(dataArray)
     select('.bars')
       .selectAll('rect')
-      .data(Object.values(data[years[0]]))
+      .data(dataArray)
       .enter()
       .append('rect')
-      .attr('y', (d, i) => yScale(countries[i]))
-      .attr('width', (d) => xScale(d))
-      .attr('height', yScale.bandwidth())
-      .attr('fill','steelblue');
+      .attr('y', (d, i) => yScale(d[0]) * 10)
+      .attr('width', (d) => xScale(d[1]))
+      .attr('height', 20)
+      .attr('fill', 'steelblue')
+      .append('title')
+      .text((d) => d[0] + ': ' + d[1]);
+    select('.year-label').text(years[0]);
+
+    // add countries name to the rectangles
+
+    select('.bars')
+      .selectAll('text')
+      .data(dataArray)
+      .enter()
+      .append('text')
+      .attr('x', 5)
+      .attr('y', (d, i) => yScale(d[0]) * 10 + 15)
+      .attr('fill', 'white')
+      .text((d) => d[0]);
 
     // add the year label to the chart
     select('.year-label').text(years[0]);
@@ -96,11 +168,11 @@
     select('.year-label').text(years[index]);
 
     index = (index + 1) % years.length;
-  }, 1000);
+  }, 2000);
 </script>
 
 <div class="chart">
-  <div class="bars" />
+  <svg class="bars" />
   <div class="year-label" />
 </div>
 
@@ -126,5 +198,4 @@
     bottom: 0;
     right: 0;
   }
-
 </style>
