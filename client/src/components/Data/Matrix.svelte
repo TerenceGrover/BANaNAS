@@ -1,15 +1,20 @@
 <script>
   import { scaleLinear, scaleBand } from 'd3-scale';
+  import { onMount, onDestroy } from 'svelte';
   import { max } from 'd3-array';
 
   export let data1;
   export let data2;
-  
+
   const isMobile = window.innerWidth < 768;
 
-  // set the dimensions and margins of the graph
-  let width = 900;
-  let height = 600;
+  let margin = { top: 20, right: 100, bottom: 120, left: 100 };
+  let width = window.innerWidth * 0.65 - margin.left - margin.right;
+  let height = window.innerHeight * 0.6 - margin.top - margin.bottom;
+  
+  $: width = window.innerWidth * 0.65 - margin.left - margin.right;
+  $: height = window.innerHeight * 0.6 - margin.top - margin.bottom;
+
 
   // get the years from the two datasets
   let years1 = Object.keys(data1);
@@ -19,7 +24,9 @@
   let maxValue = max([...Object.values(data1), ...Object.values(data2)]);
 
   // create a scale for the x axis (years of data1)
-  let xScale = scaleBand().domain(years1).range([0, width * 1.1]);
+  let xScale = scaleBand()
+    .domain(years1)
+    .range([0, width * 1.1]);
 
   // create a scale for the y axis (years of data2)
   let yScale = scaleBand().domain(years2).range([height, 100]);
@@ -60,27 +67,15 @@
         y={height}
         text-anchor="middle"
         fill="white"
-        transform={`rotate(60, ${xScale(year) + xScale.bandwidth() / 2}, ${height})`}
+        font-size="0.75rem"
+        transform={`rotate(60, ${
+          xScale(year) + xScale.bandwidth() / 2
+        }, ${height})`}
       >
         {year}
       </text>
     {/each}
   </g>
-
-  <!-- Add the y axis with labels for the years of data2 -->
-  <!-- <g class="y-axis" transform={`translate(100, 0)`}>
-    {#each years2 as year}
-      <text
-        x={0}
-        y={yScale(year) + yScale.bandwidth() / 2}
-        text-anchor="middle"
-        dominant-baseline="central"
-        fill="white"
-      >
-        {year}
-      </text>
-    {/each}
-  </g> -->
 
   <!-- Add the color legend for the proximity values -->
   <g class="legend" transform={`translate(${width * 1.05}, 0)`}>
@@ -93,10 +88,7 @@
         fill={colorScale(value)}
       />
       <text x={30} y={value * 2 + 10} dominant-baseline="middle" fill="white">
-        {
-          typeof value === 'number'
-            ? value.toFixed(2)
-            : value}
+        {typeof value === 'number' ? value.toFixed(2) : value}
       </text>
     {/each}
   </g>
