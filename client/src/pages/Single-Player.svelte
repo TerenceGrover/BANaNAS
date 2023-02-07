@@ -169,8 +169,12 @@
     position: absolute;
     z-index: 1000000000;
     margin-top: 12.5vh;
-    font-size: 5vh;
+    font-size: 3vh;
     color: #fed703;
+    filter: drop-shadow(5px 5px 0px #000000);
+    -webkit-text-stroke: 1px black;
+    
+
   }
 
   #reset-categories {
@@ -183,10 +187,13 @@
     color: #052c46;
     cursor: pointer;
     -webkit-text-stroke: 1px black;
+    filter: drop-shadow(1px 1px 0px #000000);
+
   }
 
   #reset-icon {
     height: 3vh;
+    
   }
 
   #home-icon {
@@ -209,6 +216,8 @@
     align-items: center;
     gap: 5px;
     -webkit-text-stroke: 1px black;
+    filter: drop-shadow(3px 3px 0px #000000);
+
   }
   .hidden {
     display: none;

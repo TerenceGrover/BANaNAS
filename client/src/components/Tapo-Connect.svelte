@@ -127,8 +127,6 @@ async function handleLogin (e) {
     border-radius: 5px;
     filter: drop-shadow(3px 3px 3px #000000);
     cursor: pointer;
-
-
   }
 
   #password, #email, #ip, #login-container {
@@ -163,7 +161,6 @@ async function handleLogin (e) {
     gap: 10px;
     border-radius: 5px;
     filter: drop-shadow(2px 2px 0px #000000);
-
   }
 
   #info:hover + #device-ip {

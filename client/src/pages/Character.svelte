@@ -319,8 +319,10 @@
     position: absolute;
     z-index: 1000000000;
     margin-top: 12.5vh;
-    font-size: 5vh;
+    font-size: 3vh;
     color: #fed703;
+    filter: drop-shadow(5px 5px 0px #000000);
+    -webkit-text-stroke: 1px black;
   }
 
   #left-selected-category-name {
@@ -330,6 +332,8 @@
     color: #fed703;
     z-index: 500;
     padding-top: 5vh;
+    filter: drop-shadow(5px 5px 0px #000000);
+    -webkit-text-stroke: 1px black;
   }
 
   #right-selected-category-name {
@@ -339,6 +343,8 @@
     color: #052c46;
     z-index: 500;
     padding-bottom: 5vh;
+    filter: drop-shadow(5px 5px 0px #000000);
+    -webkit-text-stroke: 1px black;
   }
 
   #reset-categories {
@@ -351,6 +357,7 @@
     color: #052c46;
     cursor: pointer;
     -webkit-text-stroke: 1px black;
+    filter: drop-shadow(1px 1px 0px #000000);
   }
 
   #reset-icon {
@@ -376,6 +383,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 5px;
+    filter: drop-shadow(3px 3px 0px #000000);
     -webkit-text-stroke: 1px black;
   }
   .hidden {

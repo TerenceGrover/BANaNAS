@@ -95,8 +95,6 @@
 <style>
   #capture {
     position: absolute;
-    top: 10000px;
-    left: 10000px;
     z-index: 10;
     background-color: #fff;
   }
@@ -119,7 +117,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
     margin: 1vh 0;
     background-color: #052c46;
   }
@@ -129,8 +126,7 @@
     flex-direction : column;
     justify-content : center;
     align-items : center;
-    width: 100vw;
-    margin: 15px 0;
+    /* margin: 15px 0; */
   }
 
   button {
