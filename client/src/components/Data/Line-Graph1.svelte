@@ -8,8 +8,6 @@
 
   const isMobile = window.innerWidth < 768;
 
-  $: filterYears, console.log(filterYears);
-
   onMount(async () => {
     drawGraph();
     if (!isMobile) {
@@ -27,13 +25,6 @@
   };
 
   let dataArray1 = Object.entries(data)
-    .filter(([year, value]) => {
-      if (filterYears.length > 0) {
-        return filterYears.includes(+year) && value !== null;
-      } else {
-        return value !== null;
-      }
-    })
     .map(([year, value]) => ({
       year: +year,
       value: value,
