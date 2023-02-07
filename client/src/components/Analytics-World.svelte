@@ -7,12 +7,12 @@
   import { getConclusion } from '../Utils/api-services';
   import LineGraph1 from './Data/Line-Graph1.svelte';
 
-  export let data;
   export let metaData;
+  export let worldAvg;
 
   let paragraph = 'Transparency';
 
-  metaData.what = splitWordsOnCapitalLetters(metaData.what.label);
+  // metaData.what = metaData.what.label;
 
   if (metaData.desc.match(/\(([^)]+)\)/)) {
     if (metaData.desc.match(/\(([^)]+)\)/).length > 2) {
@@ -43,7 +43,7 @@
   //   conclusion = response;
   // }
 
-  let arr = Object.values(data);
+  let arr = Object.values(worldAvg);
 
   let emoji = categoryList.find((item) => {
     return item.name === metaData.cat;
@@ -68,14 +68,15 @@
 </script>
 
 <main>
+  <div id="wrapper">
   <div id="left-container" >
-    <LineGraph1 {data} {metaData} />
+    <LineGraph1 data = {worldAvg} {metaData} />
   </div>
   <div id="right-container">
     <div id="top-container">
       <ol>
         <li id="bullet-1">
-          {emoji} The World's {metaData.what} has an average of {meanData}
+          {emoji} The World's {metaData.what.label} has an average of {meanData}
           {emoji}
           {metaData.unit}
         </li>
@@ -84,47 +85,55 @@
         </li>
       </ol>
     </div>
-    <div id="paragraph-container">
-      <p id="paragraph">
-        During the requested time frame, the lowest {metaData.what} in the World
-        was {lowest}
-        {metaData.unit}
-      </p>
-      <p>
-        During the requested time frame, the highest {metaData.what} in the World
-        was {highest}
-        {metaData.unit}
-      </p>
-      <p>{conclusion}</p>
-    </div>
   </div>
+</div>
+<div id="paragraph-container">
+  <p id="paragraph">
+    During the requested time frame, the lowest {metaData.what.label} in the World
+    was {lowest}
+    {metaData.unit}
+  </p>
+  <p>
+    During the requested time frame, the highest {metaData.what.label} in the World
+    was {highest}
+    {metaData.unit}
+  </p>
+  <p>{conclusion}</p>
+</div>
+
 </main>
 
 <style>
   main {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 65vh;
     padding: 3vh, 1vw;
     margin: 0 2vw 2vh 2vw;
+    gap: 2.5vh;
+  }
+
+  #wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   #left-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5vh;
-    font-size: 18px;
     font-family: 'Farro', sans-serif;
     font-weight: 600;
-    color: #052c46;
-    background-color: #fed703;
     border: none;
     padding: 7vh 4vw;
-    line-height: 4vh;
+    width: 100%;
+    gap: 2vw;
+    padding: 2vh 2vw;
+    border: 2px solid #052c46;
+    background-color: #052c46;
+    border-radius: 12px;
+    box-shadow: 8px 8px 0px 2px #000000aa;
   }
 
   #right-container {
@@ -168,11 +177,12 @@
     border: 2px solid #052c46;
     border-radius: 12px;
     box-shadow: 8px 8px 0px 2px #000000aa;
+    width: 100%;
   }
 
   #paragraph-container > p {
     font-family: 'Farro', sans-serif;
-    text-align: justify;
+    text-align: center;
   }
 
   @media screen and (max-width: 768px) {

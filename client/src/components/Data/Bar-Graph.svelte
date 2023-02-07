@@ -4,11 +4,12 @@
   import { scaleLinear, scaleBand } from 'd3-scale';
   import { easeLinear } from 'd3-ease';
   import { select } from 'd3-selection';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
 
   export let data;
   export let metaData;
 
+  let itv;
   const isMobile = window.innerWidth < 768;
   let width = window.innerWidth * 0.65;
   let height = window.innerHeight * 0.6;
@@ -67,7 +68,7 @@
     let bars = select('.bars')
       .selectAll('rect')
       .data(mergedValues, (d, i) => {
-        let entry = 0;
+        let entry = 2;
         try {
           entry = mergedEntries[i][1];
         } catch {
@@ -94,7 +95,6 @@
       .enter()
       .append('rect')
       .attr('y', height)
-      .attr('width', 0)
       .attr('height', 30)
       .transition()
       .duration(1000)
@@ -178,7 +178,8 @@
     select('.bars')
       .append('g')
       .attr('transform', 'translate(0, 0)')
-      .call(axisTop(xScale).ticks(5));
+      .call(axisTop(xScale).ticks(10))
+      .attr('stroke', 'white')
 
     //add title to the chart
     select('.bars')
@@ -194,18 +195,22 @@
 
     // add the year label to the chart
     select('.year-label').text(years[0]).attr('font-size', 40);
+    
+    let index = 0;
+    itv = setInterval(() => {
+      updateBarChart(years[index]);
+
+      select('.year-label').text(years[index]);
+      console.log(years[index]);
+
+      index = (index + 1) % years.length;
+    }, 1000);
   });
 
-  let index = 0;
+  onDestroy(() => {
+    clearInterval(itv);
+  });
 
-  setInterval(() => {
-    updateBarChart(years[index]);
-
-    select('.year-label').text(years[index]);
-    console.log(years[index]);
-
-    index = (index + 1) % years.length;
-  }, 1000);
 </script>
 
 <div class="chart">

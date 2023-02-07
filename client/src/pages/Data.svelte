@@ -7,7 +7,7 @@
   import GraphContainer from '../components/Graph-Container.svelte';
   import Footer from '../components/Footer.svelte';
   import { onMount } from 'svelte';
-  import { getMetrics, getDescription, getGlobalData } from '../Utils/api-services';
+  import { getMetrics, getDescription, getGlobalData, getGlobalAggregatedData } from '../Utils/api-services';
   import Loader_1 from '../components/Loader-1.svelte';
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
   import Analytics from '../components/Analytics.svelte';  
@@ -18,6 +18,7 @@
   let leftGraphData = [];
   let rightGraphData = [];
   let worldData = [];
+  let worldAvg = [];
 
   let loading = true;
 
@@ -36,6 +37,7 @@
         worldData = data;
       });
     };
+    
 
   onMount(() => {
     if (mode === 'multi') {
@@ -52,6 +54,9 @@
   }, 3000);
   } else if (mode === 'single') {
     getGlobal().then(
+      getGlobalAggregatedData(leftData.cat,leftData.what.value).then((data) => {
+        worldAvg = data;
+      }),
       getDescription(leftData.cat, leftData.what.value).then((data) => {
         leftData.desc = data.description;
       }).then(
@@ -110,7 +115,7 @@
     {#if mode === 'multi'}
     <Analytics {leftData} {rightData} {leftGraphData} {rightGraphData} />
     {:else}
-    <AnalyticsWorld data={worldData} metaData = {leftData} />
+    <AnalyticsWorld data={worldData} metaData = {leftData} {worldAvg} />
     {/if}
   {/if}
 
@@ -219,7 +224,7 @@
     justify-content: center;
     height: 75vh;
     width: 100vw;
-    background-color: #fff;
+    background-color: #052c46;
   }
 
   #top-header {

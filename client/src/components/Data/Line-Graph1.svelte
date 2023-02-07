@@ -24,11 +24,10 @@
     drawGraph();
   };
 
-  let dataArray1 = Object.entries(data)
-    .map(([year, value]) => ({
-      year: +year,
-      value: value,
-    }));
+  let dataArray1 = Object.entries(data).map(([year, value]) => ({
+    year: +year,
+    value: value,
+  }));
 
   const lowestYear = dataArray1[0].year;
   const highestYear = dataArray1[dataArray1.length - 1].year;
@@ -135,9 +134,7 @@
       .style('text-decoration', 'underline')
       .style('text-decoration', 'bold')
       .style('fill', '#fff')
-      .text(
-        splitWordsOnCapitalLetters(metaData.what)
-      );
+      .text(metaData.what.label);
     svg
       .append('text')
       .attr('class', 'title')
@@ -160,9 +157,7 @@
       .style('text-decoration', 'underline')
       .style('text-decoration', 'bold')
       .style('fill', '#fff')
-      .text(
-        'The Whole World'
-      );
+      .text('The Whole World');
 
     // Add the x-axis label
 
@@ -199,8 +194,9 @@
   }
 
   .line-graph {
-    width: 73vw;
+    width: 65vw;
     height: 55vh;
+    background-color: #052c46;
+    padding: 2vh 0;
   }
-
 </style>
