@@ -175,17 +175,71 @@ export const getBananaFact = async (req: Request, res: Response) => {
   }
 };
 
-export const allTheCountriesCallController = async (req: Request,res: Response) => {
+const formatByYear = (data: any) => {
+  const countriesToSkip = [
+    'Arab World',
+    'Caribbean small states',
+    'Central Europe and the Baltics',
+    'East Asia & Pacific',
+    'East Asia & Pacific (excluding high income)',
+    'Euro area',
+    'Europe & Central Asia',
+    'Europe & Central Asia (excluding high income)',
+    'European Union',
+    'Fragile and conflict affected situations',
+    'Heavily indebted poor countries (HIPC)',
+    'Latin America & Caribbean',
+    'Latin America & Caribbean (excluding high income)',
+    'Least developed countries: UN classification',
+    'Middle East & North Africa',
+    'Middle East & North Africa (excluding high income)',
+    'North America',
+    'OECD members',
+    'Other small states',
+    'Pacific island small states',
+    'Small states',
+    'South Asia',
+    'Sub-Saharan Africa',
+    'Sub-Saharan Africa (excluding high income)',
+    'High income',
+    'Low & middle income',
+    'Low income',
+    'Lower middle income',
+    'Middle income',
+    'Upper middle income',
+  ];
+  let formattedData: any = {};
+  data.forEach((item: any) => {
+    const yearAvailableForThisCountry = Object.keys(item.data);
+    if (countriesToSkip.includes(item.country)) {
+    } else {
+      yearAvailableForThisCountry.forEach((year: any) => {
+        // if the year is not in the object, add it
+        if (!formattedData[`${year}`]) {
+          formattedData[`${year}`] = {};
+        }
+        // add the country and the value for that year
+        //if data is not null 
+        if(item.data[`${year}`] !== null){
+          formattedData[`${year}`][`${item.country}`] = item.data[`${year}`];
+        }
+      });
+    }
+  });
+  return formattedData;
+};
+
+export const allTheCountriesCallController = async (
+  req: Request,
+  res: Response
+) => {
   try {
     let bigAssArray: any = [];
     const category = req.params.category;
     const metricName = req.params.metricName;
     console.log(category, metricName);
     // check if the category and metricName exist in queries.js
-    if (
-      !queries[`${category}`] ||
-      !queries[`${category}`][`${metricName}`]
-    ) {
+    if (!queries[`${category}`] || !queries[`${category}`][`${metricName}`]) {
       return res.status(404).send('Category or metric not found!');
     }
     // we dont need parameters because we are gonna call every country that is in the countries_available array of this metric, for the years 1960-2022
@@ -195,8 +249,8 @@ export const allTheCountriesCallController = async (req: Request,res: Response) 
     queryString = queryString.replace('startYear', '1960');
     queryString = queryString.replace('endYear', '2022');
     // make a loop for every country in the countries_available array
-    let countriesAvailable: any = queries[`${category}`][`${metricName}`].countries_available;
-    let response: any = [];
+    let countriesAvailable: any =
+      queries[`${category}`][`${metricName}`].countries_available;
     const promises = countriesAvailable.map(async (country: string) => {
       let countryCode = findCountryCode(country);
       let url = queryString.replace('countryCode', countryCode);
@@ -204,14 +258,17 @@ export const allTheCountriesCallController = async (req: Request,res: Response) 
         const response = await axios.get(url);
         const parsed = worldBankParser(response.data);
         bigAssArray.push({
-          contry: country,
-          data: parsed
+          country: country,
+          data: parsed,
         });
       } catch (error) {
         console.error(error);
       }
     });
     await Promise.all(promises);
+
+    bigAssArray = formatByYear(bigAssArray);
+
     return res.status(200).send(bigAssArray);
   } catch (error) {
     console.log(error);

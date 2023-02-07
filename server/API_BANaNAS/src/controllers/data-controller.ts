@@ -10,27 +10,38 @@ export const dataController = async (req: Request, res: Response) => {
     const categoryName = req.params.categoryName;
     const noun1 = req.params.param1; // country
     const noun2 = req.params.param2; // commodity or name
-    const responseObj: DataResponse = {};
+    const responseObj: DataResponse | any = {};
 
     async function queryModel(categoryName: string) {
       let data;
       switch (categoryName) {
         case 'Commodity':
-          data = await Commodity.findAll({
-            where: {
-              country: noun1,
-              commodity: noun2,
-            },
-          });
-          console.log('commodity hit');
+          if (noun1 === 'global') {
+            data = await Commodity.findAll({
+              where: {
+                commodity: noun2,
+              },
+            });
+          } else {
+            data = await Commodity.findAll({
+              where: {
+                country: noun1,
+                commodity: noun2,
+              },
+            });
+          }
           return data;
           break;
         case 'Wealth':
-          data = await WealthAmount.findAll({
-            where: {
-              name: noun2,
-            },
-          });
+          if (noun2 === 'global') {
+            data = await WealthAmount.findAll({});
+          } else {
+            data = await WealthAmount.findAll({
+              where: {
+                name: noun2,
+              },
+            });
+          }
           return data;
           break;
       }
@@ -41,6 +52,32 @@ export const dataController = async (req: Request, res: Response) => {
       res.status(404).json({
         message: 'no data found, check your commodity name and year values',
       });
+      return;
+    }
+    if (categoryName === 'Commodity' && noun1 === 'global') {
+      data.forEach((element: any) => {
+        let year = element.get('year');
+        let value = element.get('value');
+        let country = element.get('country');
+        if (!responseObj[year]) {
+          responseObj[year] = {};
+        }
+        responseObj[year][country] = value;
+      });
+      res.status(200).json(responseObj);
+      return;
+    }
+    if (categoryName === 'Wealth' && noun2 === 'global') {
+      data.forEach((element: any) => {
+        let year = element.get('year');
+        let value = element.get('value');
+        let name = element.get('name');
+        if (!responseObj[year]) {
+          responseObj[year] = {};
+        }
+        responseObj[year][name] = value;
+      });
+      res.status(200).json(responseObj);
       return;
     }
     data.forEach((element: any) => {

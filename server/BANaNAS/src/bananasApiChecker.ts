@@ -19,16 +19,16 @@ async function checkQueriesFromBananasAPI() {
       let queryString = 'http://localhost:3000/api/' + category + '/';
       switch (category) {
         case 'Bananas':
-          queryString += metricName + '/USA/1980/2020';
+          queryString += metricName + '/global/1980/2020';
           break;
         case 'Economy':
-          queryString += metricName + '/USA/1980/2020';
+          queryString += metricName + '/global/1980/2020';
           break;
         case 'Weather':
-          queryString += metricName + '/Seattle/1980/2020';
+          queryString += metricName + '/global/1980/2020';
           break;
         case 'Finance':
-          queryString += metricName + '/Jeff%20Bezos/1980/2020';
+          queryString += metricName + '/global/1980/2020';
           break;
         case 'Filters':
           switch (metricName) {
