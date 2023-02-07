@@ -173,6 +173,11 @@
 
 
 <style>
+
+  main{
+    overflow-x: hidden;
+  }
+  
   #top-section {
     position: relative;
     display: flex;

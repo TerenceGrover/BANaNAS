@@ -179,9 +179,6 @@
       .style('text-anchor', 'end')
       .text('Year');
 
-    const div1 = d3.select('#tooltip1');
-    const div2 = d3.select('#tooltip2');
-
     // Add the first line
 
     svg
@@ -191,18 +188,6 @@
       .style('stroke', '#fe9400')
       .style('stroke-width', '4px')
       .style('fill', 'none');
-    // .on('mouseover', function (event, datum) {
-    //   d3.select(this).transition().duration('100');
-    //   div1.transition().duration(100).style('opacity', 1);
-    //   div1
-    //     .html(datum.value.toFixed(2))
-    //     .style('left', event.offsetX + 25 + 'px')
-    //     .style('top', event.offsetY - 10 + 'px');
-    // })
-    // .on('mouseout', function () {
-    //   d3.select(this).transition().duration('200');
-    //   div1.transition().duration('200').style('opacity', 0);
-    // });
 
     // Add the second line
 
@@ -213,18 +198,6 @@
       .style('stroke', '#f8ff2a')
       .style('stroke-width', '4px')
       .style('fill', 'none');
-    // .on('mouseover', function (event, datum) {
-    //   d3.select(this).transition().duration('100').attr('r', 7);
-    //   div2.transition().duration(100).style('opacity', 1);
-    //   div2
-    //     .html(datum.value.toFixed(2))
-    //     .style('left', event.offsetX + 25 + 'px')
-    //     .style('top', event.offsetY - 10 + 'px');
-    // })
-    // .on('mouseout', function () {
-    //   d3.select(this).transition().duration('200').attr('r', 3);
-    //   div2.transition().duration('200').style('opacity', 0);
-    // });
 
     // Add the first line label
 
