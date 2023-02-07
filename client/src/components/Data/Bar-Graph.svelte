@@ -6,6 +6,7 @@
   import { onMount } from 'svelte';
 
   export let data;
+
   const isMobile = window.innerWidth < 768;
   let width = window.innerWidth * 0.65;
   let height = window.innerHeight * 0.6;
@@ -27,10 +28,7 @@
 
   // create the scales for the x and y axis
   let xScale = scaleLinear().domain([0, maxValue]).range([0, width]);
-
-  let yScale = scaleBand().domain(countries).range([0, height]).padding(1);
-
-  console.log(years, countries, data);
+  let yScale = scaleBand().domain(countries).range([0, height]).padding(0.25);
 
   // create a function to update the bar chart
   function updateBarChart(year) {
@@ -66,7 +64,7 @@
     // join the data to the rectangles
     let bars = select('.bars')
       .selectAll('rect')
-      .data(mergedValues, (d, i) => countries[i]);
+      .data(mergedValues, (d, i) => mergedEntries[i][1]);
 
     // handle the exit selection
     bars.exit().remove();
@@ -74,11 +72,11 @@
     // handle the update selection
     bars
       .transition()
-      .duration(2000)
+      .duration(1000)
       .ease(easeLinear)
-      .attr('y', (d, i) => yScale(countries[i]) * 10)
+      .attr('y', (d, i) => yScale(countries[i]) * 15)
       .attr('width', (d) => xScale(d))
-      .attr('height', 20);
+      .attr('height', 30);
 
     // handle the enter selection
     bars
@@ -86,11 +84,11 @@
       .append('rect')
       .attr('y', height)
       .attr('width', 0)
-      .attr('height', 20)
+      .attr('height', 30)
       .transition()
-      .duration(2000)
+      .duration(1000)
       .ease(easeLinear)
-      .attr('y', (d, i) => yScale(countries[i]) * 10)
+      .attr('y', (d, i) => yScale(countries[i]) * 15)
       .attr('width', (d) => xScale(d));
 
     // join the data to the text elements
@@ -104,10 +102,12 @@
     // handle the update selection
     texts
       .transition()
-      .duration(2000)
+      .duration(1000)
       .ease(easeLinear)
-      .attr('y', (d, i) => yScale(countries[i]) * 10 + 15)
-      .text((d, i) => {return (mergedEntries[i][0])});
+      .attr('y', (d, i) => yScale(countries[i]) * 15 + 15)
+      .text((d, i) => {
+        return mergedEntries[i][0];
+      });
 
     // handle the enter selection
 
@@ -118,10 +118,10 @@
       .attr('y', height)
       .text((d, i) => mergedEntries[i][0])
       .transition()
-      .duration(2000)
+      .duration(1000)
       .ease(easeLinear)
       .attr('fill', 'white')
-      .attr('y', (d, i) => yScale(countries[i]) * 10 + 15);
+      .attr('y', (d, i) => yScale(countries[i]) * 15 + 15);
   }
 
   // use the onMount lifecycle method to initialize the bar chart
@@ -129,16 +129,16 @@
     // add the rectangles to the chart
 
     let dataArray = Object.entries(data[years[0]]);
-    dataArray.sort((a, b) => b[1] - a[1]);
-    console.log(dataArray)
+    dataArray.sort((a, b) => b[1] - a[1])
+
     select('.bars')
       .selectAll('rect')
       .data(dataArray)
       .enter()
       .append('rect')
-      .attr('y', (d, i) => yScale(d[0]) * 10)
+      .attr('y', (d, i) => yScale(d[0]) * 15)
       .attr('width', (d) => xScale(d[1]))
-      .attr('height', 20)
+      .attr('height', 30)
       .attr('fill', 'steelblue')
       .append('title')
       .text((d) => d[0] + ': ' + d[1]);
@@ -152,12 +152,12 @@
       .enter()
       .append('text')
       .attr('x', 5)
-      .attr('y', (d, i) => yScale(d[0]) * 10 + 15)
+      .attr('y', (d, i) => yScale(d[0]) * 15 + 15)
       .attr('fill', 'white')
       .text((d) => d[0]);
 
     // add the year label to the chart
-    select('.year-label').text(years[0]);
+    select('.year-label').text(years[0]).attr('font-size', 30)
   });
 
   let index = 0;
@@ -166,9 +166,10 @@
     updateBarChart(years[index]);
 
     select('.year-label').text(years[index]);
+    console.log(years[index])
 
     index = (index + 1) % years.length;
-  }, 2000);
+  }, 1000);
 </script>
 
 <div class="chart">
