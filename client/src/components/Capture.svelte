@@ -21,6 +21,7 @@
     let originalDisplay = captureEl.style.display;
     captureEl.style.display = 'block';
 
+
     html2canvas(captureEl, {
       allowTaint: true,
       ignoreElements: function (node) {
@@ -93,8 +94,8 @@
 <style>
   #capture {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 10000px;
+    left: 10000px;
     z-index: 10;
     background-color: #fff;
   }
@@ -106,20 +107,19 @@
     color: #000;
   }
 
-  #sub-header{
+  #sub-header {
     text-align: center;
     font-size: 1.5rem;
     color: #fff;
   }
 
-  .wrapper{
-    display : flex;
-    flex-direction : column;
-    justify-content : center;
-    align-items : center;
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     margin: 1vh 0;
     background-color: #052c46;
   }
-
 </style>

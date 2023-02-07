@@ -204,8 +204,8 @@
     svg
       .append('text')
       .attr('class', 'label')
-      .attr('x', width - 100)
-      .attr('y', -40)
+      .attr('x', width - 30)
+      .attr('y', -45)
       .style('fill', '#fe9400')
       .text(leftData.where);
 
@@ -214,8 +214,8 @@
     svg
       .append('text')
       .attr('class', 'label')
-      .attr('x', width - 100)
-      .attr('y', -20)
+      .attr('x', width - 30)
+      .attr('y', -25)
       .style('fill', '#f8ff2a')
       .text(rightData.where);
 
@@ -225,22 +225,39 @@
       .append('text')
       .attr('class', 'title')
       .attr('x', width / 2)
-      .attr('y', -20)
+      .attr('y', -45)
       .style('text-anchor', 'middle')
       .style('font-size', '18px')
       .style('text-decoration', 'underline')
       .style('text-decoration', 'bold')
       .style('fill', '#fff')
       .text(
-        splitWordsOnCapitalLetters(leftData.what) +
-          ' in ' +
-          leftData.where +
-          '\n' +
-          ' VS ' +
-          '\n' +
-          splitWordsOnCapitalLetters(rightData.what) +
-          ' in ' +
-          rightData.where
+        splitWordsOnCapitalLetters(leftData.what) + ' in ' + leftData.where
+      );
+    svg
+      .append('text')
+      .attr('class', 'title')
+      .attr('x', width / 2)
+      .attr('y', -22.5)
+      .style('text-anchor', 'middle')
+      .style('font-size', '18px')
+      .style('text-decoration', 'underline')
+      .style('text-decoration', 'bold')
+      .style('fill', '#fff')
+      .text('VS');
+
+    svg
+      .append('text')
+      .attr('class', 'title')
+      .attr('x', width / 2)
+      .attr('y', 0)
+      .style('text-anchor', 'middle')
+      .style('font-size', '18px')
+      .style('text-decoration', 'underline')
+      .style('text-decoration', 'bold')
+      .style('fill', '#fff')
+      .text(
+        splitWordsOnCapitalLetters(rightData.what) + ' in ' + rightData.where
       );
 
     // Add the x-axis label
