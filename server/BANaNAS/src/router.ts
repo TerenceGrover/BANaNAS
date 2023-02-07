@@ -10,6 +10,7 @@ import globalController, {
 import { categoryController } from './controllers/category-controller.js';
 import { descriptionController } from './controllers/description-controller.js';
 import { gptController } from './controllers/gpt-controller.js';
+import * as lightingController from './controllers/lighting-controller.js';
 
 router.get('/api/:selectedCategory', categoryController);
 
@@ -23,6 +24,9 @@ router.get(
 router.get('/global/:category/:metricName', allTheCountriesCallController);
 
 router.post('/gpt', gptController);
+
+router.post('/lighting/login', lightingController.login);
+router.post('/lighting/color', lightingController.color);
 
 router.post('/banana/:name', addBanana);
 
