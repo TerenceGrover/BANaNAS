@@ -92,11 +92,13 @@
   .gender1 {
     position: absolute;
     z-index: 2;
-    margin-right: 15vw;
+    margin-right: 12vw;
   }
   .gender2 {
     position: absolute;
     z-index: 3;
+    margin-left: 8vw;
+
   }
 
   #weather {

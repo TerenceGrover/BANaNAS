@@ -10,6 +10,7 @@
   import SubSelector from '../components/Sub-Selector.svelte';
   import { onMount } from 'svelte';
   import Carousel from '../components/Carousel.svelte';
+  import { splitWordsOnCapitalLetters } from '../Utils/helpers';
 
   export let changePage;
   export let leftCategory = '';
@@ -107,7 +108,7 @@
     {#if !isMobile}
     <h1 id="title">Choose Your Fighter</h1>
     {:else if left.where === '' || right.where === ''}
-    <h1 id="title">Choose Subject & Poisition for players</h1>
+    <h1 id="title">Choose Subject & Position for players</h1>
     {/if}
     <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
     <div id="player-zone-container">
@@ -137,7 +138,7 @@
             alt="selector"
           />
         {:else}
-          <h2 id="left-selected-category-name">{leftCategory}</h2>
+          <h2 id="left-selected-category-name">{splitWordsOnCapitalLetters(leftCategory)}</h2>
         {/if}
         {#if !isMobile}
           <Player_Zone selectedPlayer={leftCategory} player="P1" />
@@ -168,7 +169,7 @@
             alt="selector"
           />
         {:else}
-          <h2 id="right-selected-category-name">{rightCategory}</h2>
+          <h2 id="right-selected-category-name">{splitWordsOnCapitalLetters(rightCategory)}</h2>
         {/if}
 
         {#if !isMobile}
@@ -250,7 +251,9 @@
     z-index: 10000;
     position: absolute;
     align-self: center;
-    bottom: 5vh;
+    height: 25vh;
+    bottom: 0;
+    padding: 2.5vh 2.5vw;
   }
 
   #title {

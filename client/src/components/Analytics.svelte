@@ -7,6 +7,7 @@
   } from '../Utils/helpers';
   import categoryList from '../Utils/categoryList';
   import { getConclusion } from '../Utils/api-services';
+  import { BananoGram } from '../Utils/api-services';
 
   export let leftData;
   export let rightData;
@@ -18,7 +19,8 @@
   leftData.what = splitWordsOnCapitalLetters(leftData.what);
   rightData.what = splitWordsOnCapitalLetters(rightData.what);
 
-  if (leftData.desc && rightData.desc) {
+
+  if (leftData.desc.match(/\(([^)]+)\)/) && rightData.desc.match(/\(([^)]+)\)/)) {
     if (
       leftData.desc.match(/\(([^)]+)\)/) &&
       leftData.desc.match(/\(([^)]+)\)/).length > 2
@@ -30,7 +32,6 @@
     } else {
       leftData.unit = leftData.desc.match(/\(([^)]+)\)/)[1];
     }
-
     if (
       rightData.desc.match(/\(([^)]+)\)/) &&
       rightData.desc.match(/\(([^)]+)\)/).length > 2
@@ -49,8 +50,6 @@
 
   leftData.unit = leftData.unit.replace('current', '');
   rightData.unit = rightData.unit.replace('current', '');
-
-  console.log(leftData, rightData);
 
   function ParagraphSelector(newP) {
     paragraph = newP;
@@ -108,6 +107,9 @@
       return +number.toFixed(3);
     }
   }
+
+  BananoGram(leftData.what, rightData.what, leftData.where, rightData.where, rIndex);
+
 </script>
 
 <main>
