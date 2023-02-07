@@ -6,10 +6,10 @@
   let currentPage = "home";
 
   let leftData = {};
-
   let rightData = {};
+  let mode = "";
 
-  function changePage(newPage, left = null, right = null) {
+  function changePage(newPage, left = null, right = null, gameMode) {
     currentPage = newPage;
     if (left) {
       leftData = left
@@ -17,6 +17,7 @@
     if (right) {
       rightData = right;
     }
+    mode = gameMode;
   }
 
 </script>
@@ -30,7 +31,7 @@
   {:else if currentPage === "single-player"}
     <SinglePlayer {changePage} />
   {:else if currentPage === "data"}
-    <Data {changePage} {leftData} {rightData} />
+    <Data {changePage} {leftData} {rightData} {mode} />
   {:else}
     <p>Invalid page</p>
   {/if}

@@ -410,14 +410,12 @@
     z-index: 3;
     position: absolute;
     margin-left: 5vw;
-
-
-
   }
 
   #multi-2 {
     z-index: 4;
-    margin-right: 6.5vw;
+    margin-right: 5vw;
+
   }
 
   #hr-divider {

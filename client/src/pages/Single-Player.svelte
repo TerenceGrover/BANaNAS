@@ -103,7 +103,7 @@
   #player-container {
     position: absolute;
     display: flex;
-    width: 50vw;
+    width: 40vw;
     height: 100vh;
     left: 0;
     justify-content: center;
@@ -124,7 +124,7 @@
     #globe-container {
     position: absolute;
     display: flex;
-    width: 50vw;
+    width: 40vw;
     height: 100vh;
     right: 0;
     justify-content: center;
@@ -135,7 +135,7 @@
   #selector-container {
     position: absolute;
     display: flex;
-    width: 25vw;
+    width: 30vw;
     height: 40vh;
     justify-content: center;
     align-items: center;

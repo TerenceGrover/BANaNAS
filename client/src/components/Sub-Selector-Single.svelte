@@ -4,7 +4,7 @@
   import { getSubCategories } from '../Utils/api-services';
   import { splitWordsOnCapitalLetters } from '../Utils/helpers';
   export let changePage;
-
+  export let mode;
 
   $: whatItems = [{ value: 'test', label: 'test' }];
   const isMobile = window.innerWidth < 768;
@@ -37,10 +37,14 @@
       ? changePage(
           'data',
           { cat: category, what: what },
+          null,
+          'single'
         )
       : changePage(
           'data',
           { cat: category, what: what },
+          null,
+          'single'
         );
 
   }
