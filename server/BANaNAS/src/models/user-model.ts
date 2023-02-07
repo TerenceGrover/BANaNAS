@@ -4,6 +4,7 @@ import sequelize from './index.js';
 const User = sequelize.define('users', {
   username: DataTypes.STRING,
   password: DataTypes.STRING,
+  ip: DataTypes.STRING,
   deviceToken: DataTypes.TEXT,
 });
 
