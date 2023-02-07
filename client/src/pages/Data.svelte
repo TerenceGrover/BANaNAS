@@ -13,6 +13,8 @@
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
   import Analytics from '../components/Analytics.svelte';  
   import { tapoLogin } from '../Utils/api-services';
+  import BarGraph from '../components/Data/Bar-Graph.svelte';
+  import AnalyticsWorld from '../components/Analytics-World.svelte';
 
   let leftGraphData = [];
   let rightGraphData = [];
@@ -30,14 +32,10 @@
       });
     }; 
     async function getGlobal() {
-      getGlobalData(leftData.cat, leftData.what ).then((data) => {
+      getGlobalData(leftData.cat, leftData.what).then((data) => {
         data = data;
       });
     };
-
-  setTimeout(() => {
-    loading = false;
-  }, 3000);
 
   onMount(() => {
     if (mode === 'multi') {
@@ -49,12 +47,18 @@
         rightData.desc = data.description;
       })
     );
+    setTimeout(() => {
+    loading = false;
+  }, 3000);
   } else if (mode === 'single') {
     getGlobal().then(
       getDescription(leftData.cat, leftData.what).then((data) => {
         leftData.desc = data.description;
       })
     )
+    setTimeout(() => {
+    loading = false;
+  }, 6000);
   }
 })
 </script>
@@ -83,7 +87,7 @@
     </div>
   {:else}
     {#if mode === 'single'}
-      <GraphContainer {data} />
+      <BarGraph {data} />
     {:else if mode === 'multi'}
       <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
     {/if}
@@ -100,7 +104,11 @@
 
   <section id="sub-section">
   {#if !loading}
+    {#if mode === 'multi'}
     <Analytics {leftData} {rightData} {leftGraphData} {rightGraphData} />
+    {:else}
+    <AnalyticsWorld {data} metaData = {leftData} />
+    {/if}
   {/if}
 
   </section>
