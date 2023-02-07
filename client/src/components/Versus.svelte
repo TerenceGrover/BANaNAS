@@ -1,5 +1,4 @@
 <script>
-  import { getPearsonCorrelation } from "../Utils/helpers";
   export let changePage;
   export let left;
   export let right;
@@ -13,16 +12,14 @@
       ? changePage(
           'data',
           { cat: leftCategory, what: left.what, where: left.where },
-          { cat: rightCategory, what: right.what, where: right.where }
+          { cat: rightCategory, what: right.what, where: right.where },
+          'multi'
         )
       : changePage(
           'data',
           { cat: leftCategory, what: left.what.value, where: left.where.value },
-          {
-            cat: rightCategory,
-            what: right.what.value,
-            where: right.where.value,
-          }
+          { cat: rightCategory, what: right.what.value, where: right.where.value },
+          'multi'
         );
   }
 </script>
@@ -51,10 +48,10 @@
   }
 
   #vs:hover {
-    animation: bouce 1s ease-in-out infinite;
+    animation: bounce 1s ease-in-out infinite;
   }
 
-  @keyframes bouce {
+  @keyframes bounce {
     0% {
       transform: translate(-50%, -50%) scale(1) rotate(0deg);
     }

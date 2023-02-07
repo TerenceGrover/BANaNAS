@@ -2,38 +2,45 @@
   export let changePage;
   export let leftData;
   export let rightData;
+  export let data
+  export let mode;
 
   import GraphContainer from '../components/Graph-Container.svelte';
   import Footer from '../components/Footer.svelte';
   import { onMount } from 'svelte';
-  import { getMetrics, getDescription } from '../Utils/api-services';
+  import { getMetrics, getDescription, getGlobalData } from '../Utils/api-services';
   import Loader_1 from '../components/Loader-1.svelte';
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
   import Analytics from '../components/Analytics.svelte';  
   import { tapoLogin } from '../Utils/api-services';
-
 
   let leftGraphData = [];
   let rightGraphData = [];
 
   let loading = true;
 
-  async function getAllData() {
-    getMetrics(leftData.cat, leftData.what, leftData.where).then((data) => {
-      leftGraphData = data;
-    });
-    getMetrics(rightData.cat, rightData.what, rightData.where).then((data) => {
-      rightGraphData = data;
-    });
-
-
-  }
+  $: mode, console.log(mode);
+  
+    async function getAllData() {
+      getMetrics(leftData.cat, leftData.what, leftData.where).then((data) => {
+        leftGraphData = data;
+      });
+      getMetrics(rightData.cat, rightData.what, rightData.where).then((data) => {
+        rightGraphData = data;
+      });
+    }; 
+    async function getGlobal() {
+      getGlobalData(leftData.cat, leftData.what ).then((data) => {
+        data = data;
+      });
+    };
 
   setTimeout(() => {
     loading = false;
   }, 3000);
 
   onMount(() => {
+    if (mode === 'multi') {
     getAllData().then(
       getDescription(leftData.cat, leftData.what).then((data) => {
         leftData.desc = data.description;
@@ -41,8 +48,15 @@
       getDescription(rightData.cat, rightData.what).then((data) => {
         rightData.desc = data.description;
       })
+    );
+  } else if (mode === 'single') {
+    getGlobal().then(
+      getDescription(leftData.cat, leftData.what).then((data) => {
+        leftData.desc = data.description;
+      })
     )
-  });
+  }
+})
 </script>
 
 <main>
@@ -68,7 +82,11 @@
       <Loader_1 />
     </div>
   {:else}
-    <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
+    {#if mode === 'single'}
+      <GraphContainer {data} />
+    {:else if mode === 'multi'}
+      <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
+    {/if}
   {/if}
 
   <div id="divider">

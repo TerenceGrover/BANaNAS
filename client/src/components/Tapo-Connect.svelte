@@ -12,7 +12,7 @@ async function handleLogin (e) {
   loggedIn = true;
   const formData = new FormData(e.target);
   credentials = {
-    email: formData.get('email'),
+    username: formData.get('email'),
     password: formData.get('password'),
     ip: formData.get('ip')
   }

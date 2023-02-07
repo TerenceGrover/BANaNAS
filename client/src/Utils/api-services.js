@@ -73,12 +73,13 @@ console.log(prompt);
 
 export async function tapoLogin(credentials) {
 
-  const response = await fetch(`${API}/tapoLogin`, {
+  const response = await fetch(`${API}/lighting/login`, {
     method: 'POST',
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(credentials),
   })
-  console.log(response);
+  const data = await response.json();
+  return data;
   
 }
 
