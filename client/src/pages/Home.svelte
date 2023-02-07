@@ -13,10 +13,6 @@
   export let clickedMonkey = false;
   export let loggedIn = false
 
-  $: clickedBulb, console.log(clickedBulb, 'clickedBulb');
-  $: clickedCoffee, console.log(clickedCoffee, 'clickedCoffee');
-  $: clickedMonkey, console.log(clickedMonkey, 'clickedMonkey');
-
   export let credentials
   let shadowStr = '0px 0px 0px 0px #000';
   const isMobile = window.innerWidth < 768;
@@ -163,8 +159,13 @@
     <button
       style={`box-shadow : ${shadowStr}`}
       id="get-started"
-      on:click={() => changePage('character')}>Start</button
-    >
+      on:click={() => changePage('single-player')}>Single Player
+    </button>
+    <button
+      style={`box-shadow : ${shadowStr}`}
+      id="get-started"
+      on:click={() => changePage('character')}>2 Player
+    </button>
   </section>
 
   <div id="divider">
@@ -382,11 +383,12 @@
     font-size: 5.5vh;
     font-family: 'Farro', sans-serif;
     font-weight: 800;
+    width: 25vw;
     color: #052c46;
     background-color: #fed703;
-    border: none;
+    border: 2px solid black;
     border-radius: 10px;
-    padding: 2.5vh 5vw;
+    padding: 2.5vh 0;
     margin-top: 20px;
     z-index: 3;
   }

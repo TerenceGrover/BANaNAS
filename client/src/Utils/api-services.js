@@ -79,5 +79,6 @@ export async function tapoLogin(credentials) {
     body: JSON.stringify(credentials),
   })
   console.log(response);
+  
 }
 
