@@ -104,7 +104,7 @@
       .transition()
       .duration(1000)
       .ease(easeLinear)
-      .attr('y', (d, i) => yScale(countries[i]) * 15 + 15)
+      .attr('y', (d, i) => yScale(countries[i]) * 15 + 20)
       .text((d, i) => {
         return mergedEntries[i][0];
       });
@@ -120,8 +120,11 @@
       .transition()
       .duration(1000)
       .ease(easeLinear)
-      .attr('fill', 'white')
-      .attr('y', (d, i) => yScale(countries[i]) * 15 + 15);
+      .attr('fill', '#052c46')
+      .attr('font-size', 18)
+      .attr('font-weight', 'bold')
+      .attr('font-family', 'farro')
+      .attr('y', (d, i) => yScale(countries[i]) * 15 + 20);
   }
 
   // use the onMount lifecycle method to initialize the bar chart
@@ -129,7 +132,7 @@
     // add the rectangles to the chart
 
     let dataArray = Object.entries(data[years[0]]);
-    dataArray.sort((a, b) => b[1] - a[1])
+    dataArray.sort((a, b) => b[1] - a[1]);
 
     select('.bars')
       .selectAll('rect')
@@ -139,9 +142,10 @@
       .attr('y', (d, i) => yScale(d[0]) * 15)
       .attr('width', (d) => xScale(d[1]))
       .attr('height', 30)
-      .attr('fill', 'steelblue')
+      .attr('fill', '#fed703')
       .append('title')
       .text((d) => d[0] + ': ' + d[1]);
+
     select('.year-label').text(years[0]);
 
     // add countries name to the rectangles
@@ -152,12 +156,14 @@
       .enter()
       .append('text')
       .attr('x', 5)
-      .attr('y', (d, i) => yScale(d[0]) * 15 + 15)
-      .attr('fill', 'white')
+      .attr('y', (d, i) => yScale(d[0]) * 15 + 20)
+      .attr('fill', '#052c46')
+      .attr('font-size', 18)
+      .attr('font-family', 'farro')
       .text((d) => d[0]);
 
     // add the year label to the chart
-    select('.year-label').text(years[0]).attr('font-size', 30)
+    select('.year-label').text(years[0]).attr('font-size', 30);
   });
 
   let index = 0;
@@ -166,7 +172,7 @@
     updateBarChart(years[index]);
 
     select('.year-label').text(years[index]);
-    console.log(years[index])
+    console.log(years[index]);
 
     index = (index + 1) % years.length;
   }, 1000);
