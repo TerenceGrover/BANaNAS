@@ -51,8 +51,8 @@
   }
 
   b{
-   font-size: 3rem;
-   font-weight: bolder;
+  font-size: 3rem;
+  font-weight: bolder;
   }
 
   #loader {

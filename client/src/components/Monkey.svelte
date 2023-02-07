@@ -7,16 +7,29 @@ export let clickedBulb;
 </script>
 
 <main>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div id="content-container">
     <img id="monkey-icon" src="../../assets/icons/monkey.svg" alt="monkey" on:click={() => {
       clickedMonkey = !clickedMonkey
       clickedCoffee = false
       clickedBulb = false
-    }} />
+    }}
+    on:keydown={e => {
+      if (e.key === 'Enter') {
+        clickedMonkey = !clickedMonkey
+        clickedCoffee = false
+        clickedBulb = false
+      }
+    }}
+    />
     {#if clickedMonkey}
       <div id="buy" class="fade-in">
-        <p on:click={() => window.open('https://monkeyhaven.org/support-us/#donate')}>
+        <p on:click={() => window.open('https://monkeyhaven.org/support-us/#donate')}
+          on:keydown={e => {
+            if (e.key === 'Enter') {
+              window.open('https://monkeyhaven.org/support-us/#donate')
+            }
+          }}
+          >
           Buy the monkeys a banana!
         </p>
       </div>

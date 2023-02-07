@@ -93,12 +93,17 @@
     </div>
     {#if filterYears.length > 0}
       <input id="switch" type="checkbox" />
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
       <label
         for="switch"
         on:click={() => {
           filterToggle = !filterToggle;
-        }}>Toggle</label
+        }}
+        on:keydown={(e) => {
+          if (e.key === 'Enter') {
+            filterToggle = !filterToggle;
+          }
+        }}
+        >Toggle</label
       >
     {/if}
     <button
