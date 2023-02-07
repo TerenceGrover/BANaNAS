@@ -21,7 +21,6 @@
     let originalDisplay = captureEl.style.display;
     captureEl.style.display = 'block';
 
-
     html2canvas(captureEl, {
       allowTaint: true,
       ignoreElements: function (node) {
@@ -46,13 +45,15 @@
   }
 </script>
 
-<button
+<div id="b-container">
+  <button
   on:click={() => {
     setTimeout(() => {
       handleDownload();
     }, 1000);
   }}>Download</button
 >
+</div>
 
 <div id="capture" style="display:none">
   <h1 id="capture-header">
@@ -121,5 +122,35 @@
     width: 100vw;
     margin: 1vh 0;
     background-color: #052c46;
+  }
+
+  #b-container{
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    align-items : center;
+    width: 100vw;
+    margin: 15px 0;
+  }
+
+  button {
+    font-size: 15px;
+    font-family: 'Farro', sans-serif;
+    font-weight: 400;
+    color: #052c46;
+    background-color: #fed703;
+    border: none;
+    padding: 1vh 2vw;
+    border: 2px solid #052c46;
+    border-radius: 6px;
+    box-shadow: 6px 6px 0px 2px #000000aa;
+    min-width: 150px;
+    max-width: 150px;
+    z-index: 3;
+  }
+
+  button:hover {
+    cursor: pointer;
+    background-color: #ffe23c;
   }
 </style>
