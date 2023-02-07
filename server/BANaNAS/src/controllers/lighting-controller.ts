@@ -18,6 +18,7 @@ export const login = async (req: Request, res: Response) => {
           res.status(401).json({ message: 'Invalid credentials' });
         } else {
           const deviceToken = format(userExists);
+          await tapo.setColour(deviceToken, 'white');
           await tapo.setBrightness(deviceToken, 50);
           setTimeout(async () => {
             await tapo.setBrightness(deviceToken, 10);
@@ -34,6 +35,7 @@ export const login = async (req: Request, res: Response) => {
         } else {
           saveUser(username, password, ip, deviceToken);
           //@ts-ignore
+          await tapo.setColour(deviceToken, 'white');
           await tapo.setBrightness(deviceToken, 50);
           setTimeout(async () => {
             await tapo.setBrightness(deviceToken, 10);
@@ -60,11 +62,9 @@ export const color = async (req: Request, res: Response) => {
   try {
     const { rIndex, username } = req.body;
     if (!rIndex || !username) {
-      res
-        .status(400)
-        .json({
-          message: 'Invalid request, make sure you send rIndex and username',
-        });
+      res.status(400).json({
+        message: 'Invalid request, make sure you send rIndex and username',
+      });
     } else {
       const user = await User.findOne({ where: { username: username } });
       if (user) {
