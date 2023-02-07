@@ -1,8 +1,6 @@
 <script>
   import {
     mean,
-    standardDeviation,
-    getPearsonCorrelation,
     splitWordsOnCapitalLetters,
   } from '../Utils/helpers';
   import categoryList from '../Utils/categoryList';

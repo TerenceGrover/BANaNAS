@@ -1,13 +1,13 @@
 <script>
   import { max, range } from 'd3-array';
+  import { axisTop } from 'd3-axis';
   import { scaleLinear, scaleBand } from 'd3-scale';
   import { easeLinear } from 'd3-ease';
   import { select } from 'd3-selection';
   import { onMount } from 'svelte';
 
   export let data;
-
-  console.log(data)
+  export let metaData;
 
   const isMobile = window.innerWidth < 768;
   let width = window.innerWidth * 0.65;
@@ -67,15 +67,13 @@
     let bars = select('.bars')
       .selectAll('rect')
       .data(mergedValues, (d, i) => {
-        let entry = 0
-        try{
-          entry = mergedEntries[i][1]
-        } catch{
-          entry = 0
+        let entry = 0;
+        try {
+          entry = mergedEntries[i][1];
+        } catch {
+          entry = 0;
         }
-        return (
-          entry
-        )
+        return entry;
       });
 
     // handle the exit selection
@@ -176,8 +174,26 @@
       .attr('font-family', 'farro')
       .text((d) => d[0]);
 
+    // add the top x axis to the chart
+    select('.bars')
+      .append('g')
+      .attr('transform', 'translate(0, 0)')
+      .call(axisTop(xScale).ticks(5));
+
+    //add title to the chart
+    select('.bars')
+      .append('text')
+      .attr('x', width / 2)
+      .attr('y', 0)
+      .attr('fill', '#052c46')
+      .attr('font-size', 30)
+      .attr('font-family', 'farro')
+      .attr('font-weight', 'bold')
+      .attr('text-anchor', 'middle')
+      .text(metaData.what.label + ' by country in' + ' ' + metaData.unit);
+
     // add the year label to the chart
-    select('.year-label').text(years[0]).attr('font-size', 30);
+    select('.year-label').text(years[0]).attr('font-size', 40);
   });
 
   let index = 0;
@@ -199,14 +215,11 @@
 
 <style>
   .chart {
-    width: 90vw;
-    height: 70vh;
-    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 100%;
+    width: 80%;
+    height: 70vh;
     position: relative;
   }
 
