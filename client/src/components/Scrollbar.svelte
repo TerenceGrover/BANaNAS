@@ -17,10 +17,14 @@
   <div id="scrollbar" style="width: {graphNumber * 2}vw;">
     <div id="thumb-container">
       {#each Array(graphNumber) as _, i}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
         on:click={() => {
           position = i;
+        }}
+        on:keydown={e => {
+          if (e.key === 'Enter') {
+            position = i;
+          }
         }}
           key={i}
           id={i}

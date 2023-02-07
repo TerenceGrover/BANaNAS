@@ -6,16 +6,28 @@ export let clickedBulb;
 </script>
 
 <main>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div id="content-container">
     <img id="coffee-icon" src="../../assets/icons/coffee.svg" alt="coffee" on:click={() => {
       clickedCoffee = !clickedCoffee
       clickedMonkey = false
       clickedBulb = false
-    }} />
+    }} 
+    on:keydown={e => {
+      if (e.key === 'Enter') {
+        clickedCoffee = !clickedCoffee
+        clickedMonkey = false
+        clickedBulb = false
+      }
+    }}
+    />
     {#if clickedCoffee}
       <div id="buy" class="fade-in">
-        <p on:click={() => window.open('https://www.buymeacoffee.com/BananasDevs')}>
+        <p on:click={() => window.open('https://www.buymeacoffee.com/BananasDevs')}
+          on:keydown={e => {
+            if (e.key === 'Enter') {
+                window.open('https://www.buymeacoffee.com/BananasDevs')
+            }
+          }}>
           Buy the developers a coffee!
         </p>
       </div>
