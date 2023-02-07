@@ -25,7 +25,7 @@ async function checkQueriesFromBananasAPI() {
           queryString += metricName + '/global/1980/2020';
           break;
         case 'Weather':
-          queryString += metricName + '/global/1980/2020';
+          queryString += metricName + '/Barcelona/1980/2020';
           break;
         case 'Finance':
           queryString += metricName + '/global/1980/2020';
