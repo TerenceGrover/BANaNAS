@@ -37,10 +37,6 @@
       });
     };
 
-  setTimeout(() => {
-    loading = false;
-  }, 3000);
-
   onMount(() => {
     if (mode === 'multi') {
     getAllData().then(
@@ -51,12 +47,18 @@
         rightData.desc = data.description;
       })
     );
+    setTimeout(() => {
+    loading = false;
+  }, 3000);
   } else if (mode === 'single') {
     getGlobal().then(
       getDescription(leftData.cat, leftData.what).then((data) => {
         leftData.desc = data.description;
       })
     )
+    setTimeout(() => {
+    loading = false;
+  }, 6000);
   }
 })
 </script>
