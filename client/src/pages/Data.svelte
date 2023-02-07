@@ -89,7 +89,7 @@
   {:else}
     {#if mode === 'single'}
     <div id="race-container">  
-      <BarGraph data={worldData} />
+      <BarGraph data={worldData} metaData={leftData} />
     </div>
     {:else if mode === 'multi'}
       <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
@@ -214,11 +214,12 @@
   #race-container{
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 75vh;
     width: 100vw;
+    background-color: #fff;
   }
 
   #top-header {
