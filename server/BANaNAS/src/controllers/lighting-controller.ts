@@ -18,7 +18,7 @@ export const login = async (req: Request, res: Response) => {
           res.status(401).json({ message: 'Invalid credentials' });
         } else {
           const deviceToken = format(userExists);
-          await tapo.setColour(deviceToken, 'white');
+          await tapo.setColour(deviceToken, 'yellow');
           await tapo.setBrightness(deviceToken, 50);
           setTimeout(async () => {
             await tapo.setBrightness(deviceToken, 10);
@@ -35,7 +35,7 @@ export const login = async (req: Request, res: Response) => {
         } else {
           saveUser(username, password, ip, deviceToken);
           //@ts-ignore
-          await tapo.setColour(deviceToken, 'white');
+          await tapo.setColour(deviceToken, 'yellow');
           await tapo.setBrightness(deviceToken, 50);
           setTimeout(async () => {
             await tapo.setBrightness(deviceToken, 10);
@@ -71,14 +71,16 @@ export const color = async (req: Request, res: Response) => {
         //@ts-ignore
         const deviceToken = format(user);
         if (+rIndex >= 0.5 || +rIndex <= -0.5) {
-          await tapo.setColour(deviceToken, 'yellow');
+          await tapo.setColour(deviceToken, 'green');
           await tapo.setBrightness(deviceToken, 50);
+
           setTimeout(async () => {
+            await tapo.setColour(deviceToken, 'yellow');
             await tapo.setBrightness(deviceToken, 10);
           }, 1000);
         } else {
-          await tapo.setColour(deviceToken, 'white');
-          await tapo.setBrightness(deviceToken, 50);
+          await tapo.setColour(deviceToken, 'yellow');
+          await tapo.setBrightness(deviceToken, 30);
           setTimeout(async () => {
             await tapo.setBrightness(deviceToken, 10);
           }, 1000);
