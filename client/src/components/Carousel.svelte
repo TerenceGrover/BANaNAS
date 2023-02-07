@@ -32,7 +32,6 @@
     event => currentlySelected = categoryList[event.detail].name
   }
   >
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
     {#each svg as src}
       <div class="carousel-item">
         <object

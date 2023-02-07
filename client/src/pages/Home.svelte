@@ -153,36 +153,36 @@
         Get the relation between any two kinds of data<br />With a twist
       </h3>
     </div>
-    <button
-      style={`box-shadow : ${shadowStr}`}
-      class="player-select"
-      on:click={() => changePage('single-player')}
-    >
-      <img
-        src="../assets/jobs/male.svg"
-        alt="single-monkey"
-        id="single"
-        class="players"
-      />
-    </button>
-    <button
-      style={`box-shadow : ${shadowStr}`}
-      class="player-select"
-      on:click={() => changePage('character')}
-    >
-      <img
-        src="../../assets/jobs/male.svg"
-        alt="multi-monkey"
-        id="multi-1"
-        class="players"
-      />
-      <img
-        src="../../assets/jobs/female.svg"
-        alt="multi-monkey"
-        id="multi-2"
-        class="players"
-      />
-    </button>
+    <div id="mode-select-container">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <img
+          src="../assets/jobs/male.svg"
+          alt="single-monkey"
+          id="single"
+          class="players"
+          on:click={() => changePage('single-player')}
+        />
+        <p id="single-player-label" class="label">Single Player</p>
+
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div id="multiplayer-container">
+          <img
+            src="../../assets/jobs/male.svg"
+            alt="multi-monkey"
+            id="multi-1"
+            class="players"
+            on:click={() => changePage('character')}
+            style={`drop-shadow : ${shadowStr}`}
+          />
+          <img
+            src="../../assets/jobs/female.svg"
+            alt="multi-monkey"
+            id="multi-2"
+            class="players"
+          />
+        </div>
+        <p id="multiplayer-label" class="label">Multiplayer</p>
+    </div>
   </section>
 
   <div id="divider">
@@ -431,12 +431,14 @@
     background-color: #052c46;
   }
 
+
   #top-header {
     font-size: 11vh;
     font-family: 'Farro', sans-serif;
     color: #fed703;
     -webkit-text-stroke: black 2px;
     z-index: 3;
+    filter: drop-shadow(5px 5px 0 black);
   }
 
   #top-sub-container {
@@ -453,29 +455,67 @@
     font-family: 'Farro', sans-serif;
     color: #fff;
     z-index: 3;
+    filter: drop-shadow(3px 3px 0 black)
   }
 
-  .player-select {
-    font-size: 5.5vh;
-    font-family: 'Farro', sans-serif;
-    font-weight: 800;
-    height: 15vh;
-    width: 25vw;
-    color: #052c46;
-    background-color: #fed703;
-    border: 2px solid black;
-    border-radius: 10px;
-    /* padding: 2.5vh 0; */
-    margin-top: 20px;
+  #mode-select-container {
+    display: flex;
+    justify-content: space-around;
+    width: 30vw;
+  }
+/* 
+  #multiplayer-container, #single {
+    transition: .5s ease;
+  }
+
+    #single:hover, #multiplayer-container:hover {
+    transform: scale(1.1);
+  } */
+
+  #single-player-label {
+    margin-right: 17.5vw;
+    cursor: pointer;
     z-index: 3;
   }
 
-  .player-select:hover {
+  #multiplayer-label {
+    margin-left: 15vw;
     cursor: pointer;
+    z-index: 3;
+  }
+
+  .label {
+    display: none;
+    position: absolute;
+    align-self: flex-start;
+    margin-top: 10vh;
+    font-size: 2vh;
+    gap: 10px;
+    border-radius: 5px;
+    filter: drop-shadow(5px 5px 0px #000000);
+    transform: translateY(15vh);
+    font-size: 5vh;
+    font-family: 'Farro', sans-serif;
+    font-weight: 600;
+    color: #fed703;
+  }
+
+  #single:hover + #single-player-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #multiplayer-container:hover + #multiplayer-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .players {
-    height: 15vh;
+    height: 25vh;
+    cursor: pointer;
+    z-index: 5;
   }
 
   #multi-1 {
@@ -487,7 +527,6 @@
   #multi-2 {
     z-index: 4;
     margin-right: 5vw;
-
   }
 
   #hr-divider {
@@ -571,10 +610,6 @@
     width: 25vw;
     gap: 100px;
     background-color: #fed703;
-  }
-
-  #players {
-    z-index: 10000;
   }
 
   #paragraph-container {

@@ -28,14 +28,21 @@ async function handleLogin (e) {
 </script>
 
 <main>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div id="content-container">
     {#if !loggedIn}
       <img id="bulb-icon" src="../../assets/icons/bulb-off.svg" alt="bulb" on:click={() => {
         clickedBulb = !clickedBulb;
         clickedMonkey = false;
         clickedCoffee = false;
-      }}/>
+      }}
+      on:keydown={e => {
+        if (e.key === 'Enter') {
+          clickedBulb = !clickedBulb;
+          clickedMonkey = false;
+          clickedCoffee = false;
+        }
+      }}
+      />
     {:else}
     <div id="glow-container">
       <div id="glow"></div>
@@ -43,7 +50,15 @@ async function handleLogin (e) {
         clickedBulb = !clickedBulb;
         clickedMonkey = false;
         clickedCoffee = false;
-      }}/>
+      }}
+      on:keydown={e => {
+        if (e.key === 'Enter') {
+          clickedBulb = !clickedBulb;
+          clickedMonkey = false;
+          clickedCoffee = false;
+        }
+      }}
+      />
       </div>
     {/if}
   {#if clickedBulb}
@@ -127,8 +142,6 @@ async function handleLogin (e) {
     border-radius: 5px;
     filter: drop-shadow(3px 3px 3px #000000);
     cursor: pointer;
-
-
   }
 
   #password, #email, #ip, #login-container {
@@ -163,7 +176,6 @@ async function handleLogin (e) {
     gap: 10px;
     border-radius: 5px;
     filter: drop-shadow(2px 2px 0px #000000);
-
   }
 
   #info:hover + #device-ip {

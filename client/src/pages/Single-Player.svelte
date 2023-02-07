@@ -14,6 +14,10 @@
   export let changePage;
 
   onMount(() => {
+    setTimeout(() => {
+        loading = false;
+      }, 3000);
+
     if (isMobile) {
       leftCategory = 'Agriculture';
     }
@@ -25,11 +29,11 @@
 
   let what = '';
 
-  onMount(() => {
-    setTimeout(() => {
-      loading = false;
-    }, 3000);
-  });
+  function cleanUp() {
+    selectedCategory = { name: '' };
+    hoveredCategory = { name: '' };
+    what = '';
+  }
 
 </script>
 
@@ -157,7 +161,7 @@
   }
 
   #title {
-    z-index: 100;
+    z-index: 3;
     margin-top: 5vh;
     font-size: 7vh;
     -webkit-text-stroke: 2px black;
@@ -169,8 +173,10 @@
     position: absolute;
     z-index: 1000000000;
     margin-top: 12.5vh;
-    font-size: 5vh;
+    font-size: 3vh;
     color: #fed703;
+    filter: drop-shadow(5px 5px 0px #000000);
+    -webkit-text-stroke: 1px black;
   }
 
   #reset-categories {
@@ -183,10 +189,13 @@
     color: #052c46;
     cursor: pointer;
     -webkit-text-stroke: 1px black;
+    filter: drop-shadow(1px 1px 0px #000000);
+
   }
 
   #reset-icon {
     height: 3vh;
+    
   }
 
   #home-icon {
@@ -197,7 +206,7 @@
 
   #home-button {
     position: absolute;
-    z-index: 10000;
+    z-index: 5;
     top: 5vh;
     left: 5vw;
     font-size: 3vh;
@@ -209,6 +218,8 @@
     align-items: center;
     gap: 5px;
     -webkit-text-stroke: 1px black;
+    filter: drop-shadow(3px 3px 0px #000000);
+
   }
   .hidden {
     display: none;

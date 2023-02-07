@@ -2,20 +2,23 @@
   export let changePage;
   export let leftData;
   export let rightData;
-  export let data
   export let mode;
 
   import GraphContainer from '../components/Graph-Container.svelte';
   import Footer from '../components/Footer.svelte';
   import { onMount } from 'svelte';
-  import { getMetrics, getDescription, getGlobalData } from '../Utils/api-services';
+  import { getMetrics, getDescription, getGlobalData, getGlobalAggregatedData } from '../Utils/api-services';
   import Loader_1 from '../components/Loader-1.svelte';
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
   import Analytics from '../components/Analytics.svelte';  
   import { tapoLogin } from '../Utils/api-services';
+  import BarGraph from '../components/Data/Bar-Graph.svelte';
+  import AnalyticsWorld from '../components/Analytics-World.svelte';
 
   let leftGraphData = [];
   let rightGraphData = [];
+  let worldData = [];
+  let worldAvg = [];
 
   let loading = true;
 
@@ -30,14 +33,11 @@
       });
     }; 
     async function getGlobal() {
-      getGlobalData(leftData.cat, leftData.what ).then((data) => {
-        data = data;
+      getGlobalData(leftData.cat, leftData.what.value).then((data) => {
+        worldData = data;
       });
     };
-
-  setTimeout(() => {
-    loading = false;
-  }, 3000);
+    
 
   onMount(() => {
     if (mode === 'multi') {
@@ -49,11 +49,21 @@
         rightData.desc = data.description;
       })
     );
+    setTimeout(() => {
+    loading = false;
+  }, 3000);
   } else if (mode === 'single') {
     getGlobal().then(
-      getDescription(leftData.cat, leftData.what).then((data) => {
+      getGlobalAggregatedData(leftData.cat,leftData.what.value).then((data) => {
+        worldAvg = data;
+      }),
+      getDescription(leftData.cat, leftData.what.value).then((data) => {
         leftData.desc = data.description;
-      })
+      }).then(
+        setTimeout(() => {
+        loading = false;
+      }, 4000)
+      )
     )
   }
 })
@@ -83,7 +93,9 @@
     </div>
   {:else}
     {#if mode === 'single'}
-      <GraphContainer {data} />
+    <div id="race-container">  
+      <BarGraph data={worldData} metaData={leftData} />
+    </div>
     {:else if mode === 'multi'}
       <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
     {/if}
@@ -100,7 +112,11 @@
 
   <section id="sub-section">
   {#if !loading}
+    {#if mode === 'multi'}
     <Analytics {leftData} {rightData} {leftGraphData} {rightGraphData} />
+    {:else}
+    <AnalyticsWorld metaData = {leftData} {worldAvg} />
+    {/if}
   {/if}
 
   </section>
@@ -198,6 +214,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  #race-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 75vh;
+    width: 100vw;
+    background-color: #052c46;
   }
 
   #top-header {

@@ -84,14 +84,26 @@
         alt="right-arrow"
       />
     </button>
+    <div id="download-button">
+      <Capture 
+      {leftGraphData}
+      {rightGraphData}
+      {leftData}
+      {rightData}/>
+    </div>
     {#if filterYears.length > 0}
       <input id="switch" type="checkbox" />
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
       <label
         for="switch"
         on:click={() => {
           filterToggle = !filterToggle;
-        }}>Toggle</label
+        }}
+        on:keydown={(e) => {
+          if (e.key === 'Enter') {
+            filterToggle = !filterToggle;
+          }
+        }}
+        >Toggle</label
       >
     {/if}
     <button
@@ -163,11 +175,7 @@
 
   <!-- Avoiding Tree Shaking, do not remove -->
   <div class="slide-right slide-left" />
-  <Capture 
-  {leftGraphData}
-  {rightGraphData}
-  {leftData}
-  {rightData}/>
+  
 </main>
 
 
@@ -195,6 +203,8 @@
     color: #fff;
     margin: 7px 0px;
     align-self: flex-start;
+    filter: drop-shadow(3px 3px 0px #000000);
+    -webkit-text-stroke: 1px black;
   }
 
   #filter-button {
@@ -215,6 +225,13 @@
     -webkit-text-stroke: 1px black;
     gap: 2px;
     cursor: pointer;
+  }
+
+  #download-button {
+    position: absolute;
+    top: 2vh;
+    right: 2vw;
+    /* border: 1pc solid black; */
   }
 
   input[type='checkbox'] {

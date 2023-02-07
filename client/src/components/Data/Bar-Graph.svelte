@@ -1,15 +1,20 @@
 <script>
   import { max, range } from 'd3-array';
+  import { axisTop } from 'd3-axis';
   import { scaleLinear, scaleBand } from 'd3-scale';
   import { easeLinear } from 'd3-ease';
   import { select } from 'd3-selection';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
 
   export let data;
+  export let metaData;
 
+  let itv;
   const isMobile = window.innerWidth < 768;
   let width = window.innerWidth * 0.65;
   let height = window.innerHeight * 0.6;
+
+  $ : metaData = metaData;
 
   // get the years from the dataset
   let years = Object.keys(data);
@@ -24,7 +29,7 @@
   });
 
   // get the maximum value for the bars
-  let maxValue = max(Object.values(data[years[0]]));
+  let maxValue = max(Object.values(data[years[0]])) * 1.05;
 
   // create the scales for the x and y axis
   let xScale = scaleLinear().domain([0, maxValue]).range([0, width]);
@@ -32,6 +37,7 @@
 
   // create a function to update the bar chart
   function updateBarChart(year) {
+
     // get the values for the selected year
     let prevValues = [];
     let prevEntries = [];
@@ -64,7 +70,15 @@
     // join the data to the rectangles
     let bars = select('.bars')
       .selectAll('rect')
-      .data(mergedValues, (d, i) => mergedEntries[i][1]);
+      .data(mergedValues, (d, i) => {
+        let entry = 2;
+        try {
+          entry = mergedEntries[i][1];
+        } catch {
+          entry = 0;
+        }
+        return entry;
+      });
 
     // handle the exit selection
     bars.exit().remove();
@@ -76,20 +90,21 @@
       .ease(easeLinear)
       .attr('y', (d, i) => yScale(countries[i]) * 15)
       .attr('width', (d) => xScale(d))
-      .attr('height', 30);
+      .attr('height', 30)
+      .attr('fill', '#fed703');
 
     // handle the enter selection
     bars
       .enter()
       .append('rect')
       .attr('y', height)
-      .attr('width', 0)
       .attr('height', 30)
       .transition()
       .duration(1000)
       .ease(easeLinear)
       .attr('y', (d, i) => yScale(countries[i]) * 15)
-      .attr('width', (d) => xScale(d));
+      .attr('width', (d) => xScale(d))
+      .attr('fill', '#fed703');
 
     // join the data to the text elements
     let texts = select('.bars')
@@ -162,24 +177,38 @@
       .attr('font-family', 'farro')
       .text((d) => d[0]);
 
+    // add the top x axis to the chart
+    select('.bars')
+      .append('g')
+      .attr('transform', 'translate(0, 0)')
+      .call(axisTop(xScale).ticks(10));
+
     // add the year label to the chart
-    select('.year-label').text(years[0]).attr('font-size', 30);
+    select('.year-label').text(years[0]);
+
+    let index = 0;
+    itv = setInterval(() => {
+      updateBarChart(years[index]);
+
+      select('.year-label').text(years[index]);
+      console.log(years[index]);
+
+      index = (index + 1) % years.length;
+    }, 1000);
   });
 
-  let index = 0;
-
-  setInterval(() => {
-    updateBarChart(years[index]);
-
-    select('.year-label').text(years[index]);
-    console.log(years[index]);
-
-    index = (index + 1) % years.length;
-  }, 1000);
+  onDestroy(() => {
+    clearInterval(itv);
+  });
 </script>
 
 <div class="chart">
   <svg class="bars" />
+  <div class="title">
+    <p>
+      {metaData.what.label + ' by country expressed in' + ' ' + metaData.unit}
+    </p>
+  </div>
   <div class="year-label" />
 </div>
 
@@ -188,8 +217,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 100%;
+    width: 80%;
+    height: 70vh;
     position: relative;
   }
 
@@ -204,5 +233,21 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    font-size: 45px;
+    font-weight: 700;
+    font-family: 'farro';
+    color: #fff;
+  }
+
+  .title {
+    position: absolute;
+    top: 0;
+    left: 1%;
+    font-size: 26px;
+  }
+
+  p {
+    color: #fff;
+    font-weight: 700;
   }
 </style>
