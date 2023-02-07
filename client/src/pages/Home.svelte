@@ -158,13 +158,17 @@
     </div>
     <button
       style={`box-shadow : ${shadowStr}`}
-      id="get-started"
-      on:click={() => changePage('single-player')}>Single Player
+      class="player-select"
+      on:click={() => changePage('single-player')}>
+      <img src='../assets/jobs/male.svg' alt='single-monkey' id='single' class='players' />
     </button>
     <button
       style={`box-shadow : ${shadowStr}`}
-      id="get-started"
-      on:click={() => changePage('character')}>2 Player
+      class="player-select"
+      on:click={() => changePage('character')}>
+      <img src='../../assets/jobs/male.svg' alt='multi-monkey' id='multi-1' class='players'/>
+      <img src='../../assets/jobs/female.svg' alt='multi-monkey' id='multi-2' class='players'/>
+
     </button>
   </section>
 
@@ -379,22 +383,41 @@
     z-index: 3;
   }
 
-  #get-started {
+  .player-select {
     font-size: 5.5vh;
     font-family: 'Farro', sans-serif;
     font-weight: 800;
+    height: 15vh;
     width: 25vw;
     color: #052c46;
     background-color: #fed703;
     border: 2px solid black;
     border-radius: 10px;
-    padding: 2.5vh 0;
+    /* padding: 2.5vh 0; */
     margin-top: 20px;
     z-index: 3;
   }
 
-  #get-started:hover {
+  .player-select:hover {
     cursor: pointer;
+  }
+
+  .players {
+    height: 15vh;
+  }
+
+  #multi-1 {
+    z-index: 3;
+    position: absolute;
+    margin-left: 5vw;
+
+
+
+  }
+
+  #multi-2 {
+    z-index: 4;
+    margin-right: 6.5vw;
   }
 
   #hr-divider {
@@ -478,6 +501,10 @@
     width: 25vw;
     gap: 100px;
     background-color: #fed703;
+  }
+
+  #players {
+    z-index: 10000;
   }
 
   #paragraph-container {

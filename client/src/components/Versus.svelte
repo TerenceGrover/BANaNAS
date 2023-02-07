@@ -1,4 +1,5 @@
 <script>
+  import { getPearsonCorrelation } from "../Utils/helpers";
   export let changePage;
   export let left;
   export let right;
@@ -8,16 +9,6 @@
   const isMobile = window.innerWidth < 768;
 
   function handleclick() {
-    console.log(
-      'left',
-      left,
-      'right',
-      right,
-      'leftCategory',
-      leftCategory,
-      'rightCategory',
-      rightCategory
-    );
     isMobile
       ? changePage(
           'data',

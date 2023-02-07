@@ -3,9 +3,10 @@
   import Select from 'svelte-select';
   import { getSubCategories } from '../Utils/api-services';
   import { splitWordsOnCapitalLetters } from '../Utils/helpers';
+  export let changePage;
+
 
   $: whatItems = [{ value: 'test', label: 'test' }];
-  let APIdata;
   const isMobile = window.innerWidth < 768;
 
   export let what;
@@ -24,21 +25,28 @@
       inputFields[0].value = '';
     }
     getSubCategories(category).then((data) => {
-      APIdata = data;
+      console.log(data);
       whatItems = Object.keys(data).map((item) => {
         return { value: item, label: splitWordsOnCapitalLetters(item) };
       });
     });
   }
 
-  $: if (category) {
-    reset();
+  function handleclick() {
+    isMobile
+      ? changePage(
+          'data',
+          { cat: category, what: what },
+        )
+      : changePage(
+          'data',
+          { cat: category, what: what },
+        );
+
   }
 
-  $: if ((what.value && !where.value) || (isMobile && what)) {
-    isMobile
-      ? (whereItems = APIdata[what].available_countries)
-      : (whereItems = APIdata[what.value].available_countries);
+  $: if (category) {
+    reset();
   }
 
   let topConfig = {
@@ -77,6 +85,13 @@
         />
       {/if}
     </div>
+    {#if what}
+      <div id="button-container">
+        <button id='go' on:click={() => handleclick()} >
+          Go!
+        </button>
+      </div>
+    {/if}
   </div>
 </main>
 
@@ -108,6 +123,25 @@
     padding: 0vh 0vw 0 0.5vw;
   }
 
+  #button-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 1.5vh;
+  }
+  #go {
+    height: 5vh;
+    width: 10vw;
+    border-radius: 5px;
+    background-color: #052c46e9;
+    border: 2px solid white;
+    color: #fed703;
+    font-size: 3vh;
+    font-family: 'Farro', sans-serif;
+    cursor: pointer;
+  }
+
   #sub-container {
     position: absolute;
     height: 15vh;
@@ -123,6 +157,7 @@
     border: 3px solid white;
     border-radius: 16px;
     background-color: #3c5a6d42;
+    filter: drop-shadow(4px 4px 0px #000000);
   }
 
   :global(input) {
