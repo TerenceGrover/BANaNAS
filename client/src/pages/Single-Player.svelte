@@ -44,8 +44,9 @@
       <h2 id="selected-category-name">{splitWordsOnCapitalLetters(selectedCategory.name)}</h2>
       <Player_Zone selectedPlayer={selectedCategory.name} player="P1" />
     </div>
-    <div id="selector-continer">
+    <div id="selector-container">
       <SubSelectorSingle
+        {changePage}
         bind:what={what}
         category={selectedCategory.name} />
     </div>
@@ -131,14 +132,14 @@
     z-index: 2;
   }
 
-  #selector-continer {
+  #selector-container {
     position: absolute;
     display: flex;
     width: 25vw;
     height: 40vh;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 100000;
     top: 30vh;
   }
 

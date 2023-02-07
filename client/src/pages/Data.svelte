@@ -10,6 +10,7 @@
   import Loader_1 from '../components/Loader-1.svelte';
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
   import Analytics from '../components/Analytics.svelte';  
+  import { tapoLogin } from '../Utils/api-services';
 
 
   let leftGraphData = [];
