@@ -5,8 +5,6 @@
   export let data
   export let mode;
 
-
-
   import GraphContainer from '../components/Graph-Container.svelte';
   import Footer from '../components/Footer.svelte';
   import { onMount } from 'svelte';
