@@ -125,8 +125,6 @@
   #left-container {
     font-family: 'Farro', sans-serif;
     font-weight: 600;
-    border: none;
-    padding: 7vh 4vw;
     width: 100%;
     gap: 2vw;
     padding: 2vh 2vw;

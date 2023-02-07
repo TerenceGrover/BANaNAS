@@ -14,6 +14,8 @@
   let width = window.innerWidth * 0.65;
   let height = window.innerHeight * 0.6;
 
+  $ : metaData = metaData;
+
   // get the years from the dataset
   let years = Object.keys(data);
   // get the countries from the dataset
@@ -27,7 +29,7 @@
   });
 
   // get the maximum value for the bars
-  let maxValue = max(Object.values(data[years[0]]));
+  let maxValue = max(Object.values(data[years[0]])) * 1.05;
 
   // create the scales for the x and y axis
   let xScale = scaleLinear().domain([0, maxValue]).range([0, width]);
@@ -35,6 +37,7 @@
 
   // create a function to update the bar chart
   function updateBarChart(year) {
+
     // get the values for the selected year
     let prevValues = [];
     let prevEntries = [];
@@ -178,24 +181,11 @@
     select('.bars')
       .append('g')
       .attr('transform', 'translate(0, 0)')
-      .call(axisTop(xScale).ticks(10))
-      .attr('stroke', 'white')
-
-    //add title to the chart
-    select('.bars')
-      .append('text')
-      .attr('x', width / 2)
-      .attr('y', 0)
-      .attr('fill', '#052c46')
-      .attr('font-size', 30)
-      .attr('font-family', 'farro')
-      .attr('font-weight', 'bold')
-      .attr('text-anchor', 'middle')
-      .text(metaData.what.label + ' by country in' + ' ' + metaData.unit);
+      .call(axisTop(xScale).ticks(10));
 
     // add the year label to the chart
-    select('.year-label').text(years[0]).attr('font-size', 40);
-    
+    select('.year-label').text(years[0]);
+
     let index = 0;
     itv = setInterval(() => {
       updateBarChart(years[index]);
@@ -210,11 +200,15 @@
   onDestroy(() => {
     clearInterval(itv);
   });
-
 </script>
 
 <div class="chart">
   <svg class="bars" />
+  <div class="title">
+    <p>
+      {metaData.what.label + ' by country expressed in' + ' ' + metaData.unit}
+    </p>
+  </div>
   <div class="year-label" />
 </div>
 
@@ -239,5 +233,21 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    font-size: 45px;
+    font-weight: 700;
+    font-family: 'farro';
+    color: #fff;
+  }
+
+  .title {
+    position: absolute;
+    top: 0;
+    left: 1%;
+    font-size: 26px;
+  }
+
+  p {
+    color: #fff;
+    font-weight: 700;
   }
 </style>

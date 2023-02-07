@@ -115,7 +115,7 @@
     {#if mode === 'multi'}
     <Analytics {leftData} {rightData} {leftGraphData} {rightGraphData} />
     {:else}
-    <AnalyticsWorld data={worldData} metaData = {leftData} {worldAvg} />
+    <AnalyticsWorld metaData = {leftData} {worldAvg} />
     {/if}
   {/if}
 
