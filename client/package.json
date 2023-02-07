@@ -20,6 +20,8 @@
     "bluebird": "^3.7.2",
     "d3": "^7.8.2",
     "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "pdfjs": "^2.4.7",
     "svelte-carousel": "^1.0.22",
     "svelte-select": "^5.1.3"
   }
