@@ -11,9 +11,9 @@
   import LineGraph2 from '../components/Data/Line-Graph2.svelte';
   import Scatterplot from './Data/Scatterplot.svelte';
   import FilterSelector from './Filter-Selector.svelte';
-
   import { getFilterCategories } from '../Utils/api-services';
   import Matrix from './Data/Matrix.svelte';
+  import Capture from './Capture.svelte';
 
   let graphs = [
     {
@@ -55,6 +55,8 @@
       }
     });
   }
+
+
 </script>
 
 <main>
@@ -159,8 +161,16 @@
     </div>
   </section>
 
+  <!-- Avoiding Tree Shaking, do not remove -->
   <div class="slide-right slide-left" />
+  <Capture 
+  {leftGraphData}
+  {rightGraphData}
+  {leftData}
+  {rightData}/>
 </main>
+
+
 
 <style>
   #top-section {
