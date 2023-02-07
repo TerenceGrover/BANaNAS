@@ -13,6 +13,8 @@
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
   import Analytics from '../components/Analytics.svelte';  
   import { tapoLogin } from '../Utils/api-services';
+  import BarGraph from '../components/Data/Bar-Graph.svelte';
+  import AnalyticsWorld from '../components/Analytics-World.svelte';
 
   let leftGraphData = [];
   let rightGraphData = [];
@@ -30,7 +32,7 @@
       });
     }; 
     async function getGlobal() {
-      getGlobalData(leftData.cat, leftData.what ).then((data) => {
+      getGlobalData(leftData.cat, leftData.what).then((data) => {
         data = data;
       });
     };
@@ -83,7 +85,7 @@
     </div>
   {:else}
     {#if mode === 'single'}
-      <GraphContainer {data} />
+      <BarGraph {data} />
     {:else if mode === 'multi'}
       <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
     {/if}
@@ -100,7 +102,11 @@
 
   <section id="sub-section">
   {#if !loading}
+    {#if mode === 'multi'}
     <Analytics {leftData} {rightData} {leftGraphData} {rightGraphData} />
+    {:else}
+    <AnalyticsWorld {data} metaData = {leftData} />
+    {/if}
   {/if}
 
   </section>
