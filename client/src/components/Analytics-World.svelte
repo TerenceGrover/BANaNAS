@@ -14,7 +14,7 @@
 
   let paragraph = 'Transparency';
 
-  metaData.what = splitWordsOnCapitalLetters(leftData.what);
+  metaData.what = splitWordsOnCapitalLetters(metaData.what.label);
 
   if (metaData.desc.match(/\(([^)]+)\)/)) {
     if (metaData.desc.match(/\(([^)]+)\)/).length > 2) {
@@ -30,11 +30,9 @@
     metaData.unit = '';
   }
 
-  metaData.unit = metaData.unit.replace('current', '');
-
   let conclusion = 'Concluding...';
 
-  $: rIndex, conclude();
+  // $: rIndex, conclude();
 
   // async function conclude() {
   //   const response = await getConclusion(
@@ -59,8 +57,6 @@
     Math.min(...arr.filter((item) => item > 0))
   );
   let highest = largeNumbercompactor(Math.max(...arr));
-
-  let rIndex = getPearsonCorrelation(arrLeft, arrRight).toFixed(3);
 
   function largeNumbercompactor(number) {
     if (number > 1000000) {

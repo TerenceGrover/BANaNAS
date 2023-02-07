@@ -7,6 +7,8 @@
 
   export let data;
 
+  console.log(data)
+
   const isMobile = window.innerWidth < 768;
   let width = window.innerWidth * 0.65;
   let height = window.innerHeight * 0.6;
@@ -64,7 +66,17 @@
     // join the data to the rectangles
     let bars = select('.bars')
       .selectAll('rect')
-      .data(mergedValues, (d, i) => mergedEntries[i][1]);
+      .data(mergedValues, (d, i) => {
+        let entry = 0
+        try{
+          entry = mergedEntries[i][1]
+        } catch{
+          entry = 0
+        }
+        return (
+          entry
+        )
+      });
 
     // handle the exit selection
     bars.exit().remove();
@@ -76,7 +88,8 @@
       .ease(easeLinear)
       .attr('y', (d, i) => yScale(countries[i]) * 15)
       .attr('width', (d) => xScale(d))
-      .attr('height', 30);
+      .attr('height', 30)
+      .attr('fill', '#fed703');
 
     // handle the enter selection
     bars
@@ -89,7 +102,8 @@
       .duration(1000)
       .ease(easeLinear)
       .attr('y', (d, i) => yScale(countries[i]) * 15)
-      .attr('width', (d) => xScale(d));
+      .attr('width', (d) => xScale(d))
+      .attr('fill', '#fed703');
 
     // join the data to the text elements
     let texts = select('.bars')
@@ -185,6 +199,9 @@
 
 <style>
   .chart {
+    width: 90vw;
+    height: 70vh;
+    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;

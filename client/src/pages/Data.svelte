@@ -2,7 +2,6 @@
   export let changePage;
   export let leftData;
   export let rightData;
-  export let data
   export let mode;
 
   import GraphContainer from '../components/Graph-Container.svelte';
@@ -18,6 +17,7 @@
 
   let leftGraphData = [];
   let rightGraphData = [];
+  let worldData = [];
 
   let loading = true;
 
@@ -32,8 +32,8 @@
       });
     }; 
     async function getGlobal() {
-      getGlobalData(leftData.cat, leftData.what).then((data) => {
-        data = data;
+      getGlobalData(leftData.cat, leftData.what.value).then((data) => {
+        worldData = data;
       });
     };
 
@@ -52,13 +52,14 @@
   }, 3000);
   } else if (mode === 'single') {
     getGlobal().then(
-      getDescription(leftData.cat, leftData.what).then((data) => {
+      getDescription(leftData.cat, leftData.what.value).then((data) => {
         leftData.desc = data.description;
-      })
+      }).then(
+        setTimeout(() => {
+        loading = false;
+      }, 4000)
+      )
     )
-    setTimeout(() => {
-    loading = false;
-  }, 6000);
   }
 })
 </script>
@@ -87,7 +88,9 @@
     </div>
   {:else}
     {#if mode === 'single'}
-      <BarGraph {data} />
+    <div id="race-container">  
+      <BarGraph data={worldData} />
+    </div>
     {:else if mode === 'multi'}
       <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
     {/if}
@@ -107,7 +110,7 @@
     {#if mode === 'multi'}
     <Analytics {leftData} {rightData} {leftGraphData} {rightGraphData} />
     {:else}
-    <AnalyticsWorld {data} metaData = {leftData} />
+    <AnalyticsWorld data={worldData} metaData = {leftData} />
     {/if}
   {/if}
 
@@ -206,6 +209,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  #race-container{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 75vh;
+    width: 100vw;
   }
 
   #top-header {
