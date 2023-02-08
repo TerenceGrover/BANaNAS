@@ -77,7 +77,7 @@
       <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon"/>
       Home
     </button>
-    <button id="back-button" on:click={() => changePage('character')}>
+    <button id="back-button" on:click={() => changePage(mode === 'multi' ? 'character' : 'single-player')}>
       <img id="back-icon" src="../../assets/icons/back.svg" alt="home-icon"/>
       Back
     </button>
