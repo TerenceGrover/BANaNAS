@@ -121,7 +121,15 @@
       .attr('d', line1(dataArray1))
       .style('stroke', '#fe9400')
       .style('stroke-width', '4px')
-      .style('fill', 'none');
+      .style('fill', 'none')
+      .transition()
+      .duration(2000)
+      .attrTween('stroke-dasharray', function () {
+        var len = this.getTotalLength();
+        return function (t) {
+          return (d3.interpolateString('0,' + len, len + ',0')(t));
+        };
+      });
 
     // Add the title
 

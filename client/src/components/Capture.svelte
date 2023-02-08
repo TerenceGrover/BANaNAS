@@ -24,7 +24,6 @@
 
     html2canvas(captureEl)
       .then((canvas) => {
-        // Generate the PDF
         let pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
         pdf.save('DataBanana.pdf');
@@ -33,7 +32,7 @@
       }).then(
         setTimeout(() => {
           captureMode = false;
-        }, 250)
+        }, 150)
       )
       .catch((error) => {
         console.error(error);
@@ -48,8 +47,10 @@
     captureMode = true;
     setTimeout(() => {
       handleDownload();
-    }, 250);
-  }}>Download</button
+    }, 1500);
+  }}>
+  {captureMode ? 'Downloading...'  : 'Download'}
+  </button
 >
 </div>
 
