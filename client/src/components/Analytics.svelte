@@ -108,7 +108,7 @@
     }
   }
 
-  BananoGram(leftData.what, rightData.what, leftData.where, rightData.where, rIndex);
+  // BananoGram(leftData.what, rightData.what, leftData.where, rightData.where, rIndex);
 
 </script>
 
