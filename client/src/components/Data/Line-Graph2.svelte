@@ -62,6 +62,7 @@
   );
 
   function drawGraph() {
+    console.log('drawGraph')
     // Set the dimensions of the canvas / graph
     let margin = { top: 60, right: 120, bottom: 100, left: 100 },
       width = window.innerWidth * 0.72 - margin.left - margin.right,

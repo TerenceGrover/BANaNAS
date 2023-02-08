@@ -154,7 +154,8 @@
       </h3>
     </div>
     <div id="mode-select-container">
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <div id="single-player-container">
         <img
           src="../assets/jobs/male.svg"
           alt="single-monkey"
@@ -163,25 +164,25 @@
           on:click={() => changePage('single-player')}
         />
         <p id="single-player-label" class="label">Single Player</p>
-
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div id="multiplayer-container">
-          <img
-            src="../../assets/jobs/male.svg"
-            alt="multi-monkey"
-            id="multi-1"
-            class="players"
-            on:click={() => changePage('character')}
-            style={`drop-shadow : ${shadowStr}`}
-          />
-          <img
-            src="../../assets/jobs/female.svg"
-            alt="multi-monkey"
-            id="multi-2"
-            class="players"
-          />
-        </div>
+      </div>
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <div id="multiplayer-container">
+        <img
+          src="../../assets/jobs/male.svg"
+          alt="multi-monkey"
+          id="multi-1"
+          class="players"
+          on:click={() => changePage('character')}
+          style={`drop-shadow : ${shadowStr}`}
+        />
+        <img
+          src="../../assets/jobs/female.svg"
+          alt="multi-monkey"
+          id="multi-2"
+          class="players"
+        />
         <p id="multiplayer-label" class="label">Multiplayer</p>
+      </div>
     </div>
   </section>
 
@@ -431,7 +432,6 @@
     background-color: #052c46;
   }
 
-
   #top-header {
     font-size: 11vh;
     font-family: 'Farro', sans-serif;
@@ -455,15 +455,17 @@
     font-family: 'Farro', sans-serif;
     color: #fff;
     z-index: 3;
-    filter: drop-shadow(3px 3px 0 black)
+    filter: drop-shadow(3px 3px 0 black);
   }
 
   #mode-select-container {
     display: flex;
-    justify-content: space-around;
-    width: 30vw;
+    justify-content: space-between;
+    max-width: 50vw;
+    min-width: 200px;
+    z-index: 4;
   }
-/* 
+  /* 
   #multiplayer-container, #single {
     transition: .5s ease;
   }
@@ -473,34 +475,35 @@
   } */
 
   #single-player-label {
-    margin-right: 17.5vw;
     cursor: pointer;
     z-index: 3;
+    text-align: left;
   }
 
   #multiplayer-label {
-    margin-left: 15vw;
     cursor: pointer;
     z-index: 3;
+    text-align: right;
   }
 
   .label {
-    display: none;
-    position: absolute;
-    align-self: flex-start;
-    margin-top: 10vh;
-    font-size: 2vh;
-    gap: 10px;
     border-radius: 5px;
     filter: drop-shadow(5px 5px 0px #000000);
-    transform: translateY(15vh);
     font-size: 5vh;
     font-family: 'Farro', sans-serif;
     font-weight: 600;
     color: #fed703;
   }
 
-  #single:hover + #single-player-label {
+  #single-player-container:hover {
+    transform: scale(1.1);
+  }
+
+  #multiplayer-container:hover {
+    transform: scale(1.1);
+  }
+
+  /* #single:hover + #single-player-label {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -510,7 +513,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+  } */
 
   .players {
     height: 25vh;

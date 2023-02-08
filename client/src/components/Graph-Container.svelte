@@ -40,10 +40,6 @@
   function handlePosition(direction) {
     const container = document.getElementById('D3-container');
     container.classList.add(`slide-${direction}`);
-    // container.classList.remove(`fade-in`);
-    console.log('handlePosition: ', direction);
-    console.log('position: ', position);
-    console.log('maxPosition: ', maxPosition);
 
     container.addEventListener('animationend', () => {
       console.log('animationend: ', direction);
@@ -84,13 +80,13 @@
         alt="right-arrow"
       />
     </button>
-    <div id="download-button">
+    <!-- <div id="download-button">
       <Capture 
       {leftGraphData}
       {rightGraphData}
       {leftData}
       {rightData}/>
-    </div>
+    </div> -->
     {#if filterYears.length > 0}
       <input id="switch" type="checkbox" />
       <label
