@@ -87,7 +87,7 @@ export async function getGlobalAggregatedData(category, subCategory) {
 
 export async function BananoGram(m1, m2, p1, p2, r) {
   const res = await fetch(
-    `http://bananogram.local/on?metricOne=${m1}&metricTwo=${m2}&placeOne=${p1}&placeTwo=${p2}&r${r}`
+    `http://bananogram.local/on?metricOne=${m1}&metricTwo=${m2}&placeOne=${p1}&placeTwo=${p2}&r=${r}`
   );
   console.log(res);
 }

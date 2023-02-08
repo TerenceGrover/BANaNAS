@@ -70,3 +70,21 @@ export function getPearsonCorrelation(dataset1, dataset2) {
 
   return answer
 }
+
+export function unitGenerator(metaData) {
+  if (metaData.desc.match(/\(([^)]+)\)/)) {
+    if (metaData.desc.match(/\(([^)]+)\)/).length > 2) {
+      //Join element 1 and 2
+      metaData.unit =
+        metaData.desc.match(/\(([^)]+)\)/)[1] +
+        metaData.desc.match(/\(([^)]+)\)/)[2];
+    } else {
+      metaData.unit = metaData.desc.match(/\(([^)]+)\)/)[1];
+    }
+
+  } else {
+    metaData.unit = '';
+  }
+
+  return metaData;
+}

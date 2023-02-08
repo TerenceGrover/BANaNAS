@@ -5,6 +5,7 @@
   import { easeLinear } from 'd3-ease';
   import { select } from 'd3-selection';
   import { onMount, onDestroy } from 'svelte';
+  import { unitGenerator } from '../../Utils/helpers';
 
   export let data;
   export let metaData;
@@ -13,6 +14,10 @@
   const isMobile = window.innerWidth < 768;
   let width = window.innerWidth * 0.65;
   let height = window.innerHeight * 0.6;
+
+  if (!metaData.unit) {
+    metaData = unitGenerator(metaData);
+  }
 
   $ : metaData = metaData;
 
