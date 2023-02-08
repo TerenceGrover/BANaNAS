@@ -1,4 +1,6 @@
 <script>
+  const isMobile = window.innerWidth < 768;
+
   export let changePage;
   export let leftData;
   export let rightData;
@@ -14,6 +16,7 @@
   import { tapoLogin } from '../Utils/api-services';
   import BarGraph from '../components/Data/Bar-Graph.svelte';
   import AnalyticsWorld from '../components/Analytics-World.svelte';
+  import Capture from '../components/Capture.svelte';
 
   let leftGraphData = [];
   let rightGraphData = [];
@@ -21,8 +24,6 @@
   let worldAvg = [];
 
   let loading = true;
-
-  $: mode, console.log(mode);
   
     async function getAllData() {
       getMetrics(leftData.cat, leftData.what, leftData.where).then((data) => {
@@ -73,10 +74,14 @@
   <header id="header-section">
     <div id="button-container">
     <button id="home-button" on:click={() => changePage('home')}>
-      <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon"/>
+      {#if !isMobile}
+        <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon"/>
+      {:else}
+        <img id="home-icon-mobile" src="../../assets/icons/home.svg" alt="home-icon"/>
+      {/if}
       Home
     </button>
-    <button id="back-button" on:click={() => changePage('character')}>
+    <button id="back-button" on:click={() => changePage(mode === 'multi' ? 'character' : 'single-player')}>
       <img id="back-icon" src="../../assets/icons/back.svg" alt="home-icon"/>
       Back
     </button>
@@ -92,6 +97,7 @@
       <Loader_1 />
     </div>
   {:else}
+  {#if !isMobile}
     {#if mode === 'single'}
     <div id="race-container">  
       <BarGraph data={worldData} metaData={leftData} />
@@ -99,6 +105,18 @@
     {:else if mode === 'multi'}
       <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
     {/if}
+    {:else if isMobile}
+      <div id="mobile-top-section">
+        <h1 id="mobile-header">Download your correlations here!</h1>
+        <div id="download-button">
+          <Capture 
+          {leftGraphData}
+          {rightGraphData}
+          {leftData}
+          {rightData}/>
+        </div>
+      </div>
+      {/if}
   {/if}
 
   <div id="divider">
@@ -179,6 +197,11 @@
     margin-bottom: 1vh;
   }
 
+  #home-icon-mobile {
+    height: 2vh;
+    margin: 0 1vw;
+  }
+
   #home-button {
     font-size: 3vh;
     cursor: pointer;
@@ -236,6 +259,28 @@
     filter: drop-shadow(3px 3px 0px #000000AA); 
   }
 
+  #mobile-top-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 75vh;
+    width: 100vw;
+    padding: 10vh 0;
+    background-color: #052c46;
+  }
+
+  #mobile-header {
+    font-size: 5vh;
+    font-family: 'Farro', sans-serif;
+    color: #fed703;
+    z-index: 1;
+    -webkit-text-stroke: 2px black;
+    filter: drop-shadow(3px 3px 0px #000000AA); 
+    text-align: center;
+  }
+
   #hr-top-divider {
     height: 2px;
     width: 100vw;
@@ -288,6 +333,7 @@
 
   #footer{
     height: 10vh;
+    padding-left: 5vw;
   }
 
   @keyframes pulse {

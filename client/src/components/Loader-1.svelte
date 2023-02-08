@@ -7,7 +7,6 @@
 
   onMount(() => {
     getBananaFact().then((data) => {
-      console.log(data);
       bananaFact = data;
     });
   });

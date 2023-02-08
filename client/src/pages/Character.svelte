@@ -110,7 +110,7 @@
     {:else if left.where === '' || right.where === ''}
     <h1 id="title">Choose Subject & Position for players</h1>
     {/if}
-    <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
+    <h2 id="hovered-category-name">{splitWordsOnCapitalLetters(hoveredCategory.name)}</h2>
     <div id="player-zone-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
@@ -169,7 +169,7 @@
             alt="selector"
           />
         {:else}
-          <h2 id="right-selected-category-name">{splitWordsOnCapitalLetters(rightCategory)}</h2>
+          <h2 id="right-selected-category-name">{splitWordsOnCapitalLetters(rightCategory)}</h2>       
         {/if}
 
         {#if !isMobile}
@@ -180,11 +180,19 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <h4 id="reset-categories" on:click={() => cleanUp()}>
       Reset
-      <img
-        id="reset-icon"
-        src="../../assets/icons/reset.svg"
+      {#if isMobile}
+        <img
+        id="reset-icon-mobile"
+        src="../../assets/icons/reset-mobile.svg"
         alt="reset-icon"
       />
+      {:else}
+        <img
+          id="reset-icon"
+          src="../../assets/icons/reset.svg"
+          alt="reset-icon"
+        />
+      {/if}
     </h4>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     {#if right.what !== '' && left.what !== '' && right.where !== '' && left.where !== ''}
@@ -219,7 +227,11 @@
     {/if}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <h4 id="home-button" on:click={() => changePage('home')}>
-      <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon" />
+      {#if isMobile}
+        <img id="home-icon-mobile" src="../../assets/icons/home.svg" alt="home-icon" />
+      {:else}
+        <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon" />
+      {/if}
       Home
     </h4>
 
@@ -332,7 +344,7 @@
     color: #fed703;
     z-index: 500;
     padding-top: 5vh;
-    filter: drop-shadow(5px 5px 0px #000000);
+    filter: drop-shadow(1px 1px 0px #000000);
     -webkit-text-stroke: 1px black;
   }
 
@@ -343,7 +355,7 @@
     color: #052c46;
     z-index: 500;
     padding-bottom: 5vh;
-    filter: drop-shadow(5px 5px 0px #000000);
+    filter: drop-shadow(1px 1px 0px #000000);
     -webkit-text-stroke: 1px black;
   }
 
@@ -364,8 +376,20 @@
     height: 3vh;
   }
 
+  #reset-icon-mobile {
+    padding-top: 1vh;
+    height: 2.5vh;
+  }
+
   #home-icon {
     height: 3vh;
+    margin-bottom: 1vh;
+    -webkit-text-stroke: 1px black;
+  }
+
+  #home-icon-mobile {
+    padding-top: 1vh;
+    height: 2.5vh;
     margin-bottom: 1vh;
     -webkit-text-stroke: 1px black;
   }

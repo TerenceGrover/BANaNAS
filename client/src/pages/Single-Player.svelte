@@ -15,8 +15,8 @@
 
   onMount(() => {
     setTimeout(() => {
-        loading = false;
-      }, 3000);
+      loading = false;
+    }, 3000);
 
     if (isMobile) {
       leftCategory = 'Agriculture';
@@ -34,7 +34,6 @@
     hoveredCategory = { name: '' };
     what = '';
   }
-
 </script>
 
 <main>
@@ -43,17 +42,22 @@
     <Loader />
   {:else}
     <h1 id="title">Choose Your Fighter</h1>
-    <h2 id="hovered-category-name">{splitWordsOnCapitalLetters(hoveredCategory.name)}</h2>
+    <h2 id="hovered-category-name">
+      {splitWordsOnCapitalLetters(hoveredCategory.name)}
+    </h2>
     <div id="player-container">
-      <h2 id="selected-category-name">{splitWordsOnCapitalLetters(selectedCategory.name)}</h2>
-      <Player_Zone selectedPlayer={selectedCategory.name} player="P1" />
+      <h2 id="selected-category-name">
+        {splitWordsOnCapitalLetters(selectedCategory.name)}
+      </h2>
+      <div id="bounce">
+        <Player_Zone selectedPlayer={selectedCategory.name} player="?" />
+      </div>
     </div>
-    <div id="selector-container">
-      <SubSelectorSingle
-        {changePage}
-        bind:what={what}
-        category={selectedCategory.name} />
-    </div>
+    <SubSelectorSingle
+      {changePage}
+      bind:what
+      category={selectedCategory.name}
+    />
     <div id="globe-container">
       <img id="globe" src="../../assets/globe2.gif" alt="globe" />
     </div>
@@ -85,8 +89,7 @@
 </main>
 
 <style>
-
-  *{
+  * {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -123,9 +126,11 @@
     color: #fed703;
     z-index: 500;
     padding-top: 5vh;
+    filter: drop-shadow(1px 1px 0px #000000);
+    -webkit-text-stroke: 1px black;
   }
 
-    #globe-container {
+  #globe-container {
     position: absolute;
     display: flex;
     width: 40vw;
@@ -134,17 +139,6 @@
     justify-content: center;
     align-items: center;
     z-index: 2;
-  }
-
-  #selector-container {
-    position: absolute;
-    display: flex;
-    width: 30vw;
-    height: 40vh;
-    justify-content: center;
-    align-items: center;
-    z-index: 100000;
-    top: 30vh;
   }
 
   #globe {
@@ -168,7 +162,6 @@
     filter: drop-shadow(3px 3px 0px #000000aa);
   }
 
-
   #hovered-category-name {
     position: absolute;
     z-index: 1000000000;
@@ -190,12 +183,10 @@
     cursor: pointer;
     -webkit-text-stroke: 1px black;
     filter: drop-shadow(1px 1px 0px #000000);
-
   }
 
   #reset-icon {
     height: 3vh;
-    
   }
 
   #home-icon {
@@ -219,45 +210,23 @@
     gap: 5px;
     -webkit-text-stroke: 1px black;
     filter: drop-shadow(3px 3px 0px #000000);
-
-  }
-  .hidden {
-    display: none;
   }
 
-  .show {
-    display: block;
-  }
-
-  #top-carousel {
-    z-index: 1000000;
-    position: absolute;
-    left: 25%;
-    top: 19.5%;
-    transform: translate(-50%, -50%);
-    width: fit-content;
-  }
-
-  #bot-carousel {
-    z-index: 1000000;
-    position: absolute;
-    left: 25%;
-    top: 75%;
-    transform: translate(-50%, -50%);
-    width: fit-content;
+  #bounce {
+    animation: pulse 3s infinite;
   }
 
   @keyframes pulse {
     0% {
-      transform: scale(0.95);
+      transform: scale(0.9);
     }
 
     50% {
-      transform: scale(1);
+      transform: scale(1.1);
     }
 
     100% {
-      transform: scale(0.95);
+      transform: scale(0.9);
     }
   }
 
@@ -276,8 +245,7 @@
   }
 
   @media screen and (max-width: 768px) {
-
-    *{
+    * {
       overflow: hidden;
     }
 
@@ -292,24 +260,6 @@
       left: 50%;
       text-align: center;
       transform: translate(-50%, -50%);
-    }
-
-    #player-container-right {
-      position: absolute;
-      left: 50%;
-      top: 83%;
-      transform: translate(-50%, -50%);
-      width: 100vw;
-      height: 30vh;
-    }
-
-    #player-container-left {
-      position: absolute;
-      left: 50%;
-      top: 44%;
-      transform: translate(-50%, -50%);
-      width: 100vw;
-      height: 30vh;
     }
 
     #home-button {

@@ -17,12 +17,12 @@
 
   let graphs = [
     {
-      name: 'Line Graph',
-      component: LineGraph2,
-    },
-    {
       name: 'Scatterplot',
       component: Scatterplot,
+    },
+    {
+      name: 'Line Graph',
+      component: LineGraph2,
     },
     {
       name: 'Proximity Spectogram',
@@ -33,6 +33,15 @@
   let filter = false;
   let filterCategories = [];
 
+  leftGraphData = Object.fromEntries(
+    Object.entries(leftGraphData).map(([key, value]) => [key, +value])
+  );
+  rightGraphData = Object.fromEntries(
+    Object.entries(rightGraphData).map(([key, value]) => [key, +value])
+  );
+
+
+
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
   let position = Math.floor((graphs.length - 1) / 2);
   let maxPosition = graphs.length - 1;
@@ -42,7 +51,6 @@
     container.classList.add(`slide-${direction}`);
 
     container.addEventListener('animationend', () => {
-      console.log('animationend: ', direction);
       container.classList.remove(`slide-${direction}`);
       if (direction === 'left') {
         position === 0 ? (position = maxPosition) : position--;
@@ -57,13 +65,12 @@
 
 <main>
   <section id="top-section">
-    <h2 id="top-sub-header">{graphs[position].name}</h2>
+    <h2 id="top-sub-header">{graphs[(position)].name}</h2>
     <button
       id="filter-button"
       on:click={async () => {
         await getFilterCategories().then((res) => (filterCategories = res));
         filter = !filter;
-        console.log(filterCategories);
       }}
     >
       <img
@@ -80,13 +87,13 @@
         alt="right-arrow"
       />
     </button>
-    <!-- <div id="download-button">
+    <div id="download-button">
       <Capture 
       {leftGraphData}
       {rightGraphData}
       {leftData}
       {rightData}/>
-    </div> -->
+    </div>
     {#if filterYears.length > 0}
       <input id="switch" type="checkbox" />
       <label

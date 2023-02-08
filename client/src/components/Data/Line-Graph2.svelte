@@ -11,7 +11,9 @@
 
   const isMobile = window.innerWidth < 768;
 
-  $: filterYears, console.log(filterYears);
+  $: data1, console.log(data1);
+  $: data2, console.log(data2);
+
 
   onMount(async () => {
     drawGraph();
@@ -62,7 +64,6 @@
   );
 
   function drawGraph() {
-    console.log('drawGraph')
     // Set the dimensions of the canvas / graph
     let margin = { top: 60, right: 120, bottom: 100, left: 100 },
       width = window.innerWidth * 0.72 - margin.left - margin.right,
@@ -164,8 +165,7 @@
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
       .attr('dy', '.71em')
-      .style('text-anchor', 'end')
-      .text('Value ($)');
+      .style('text-anchor', 'end');
 
     // Add the bottom x-axis
 
@@ -180,7 +180,7 @@
       .style('text-anchor', 'end')
       .text('Year');
 
-    // Add the first line
+      // Add the first line make it look like it is drawing
 
     svg
       .append('path')
@@ -188,7 +188,16 @@
       .attr('d', line1(dataArray1))
       .style('stroke', '#fe9400')
       .style('stroke-width', '4px')
-      .style('fill', 'none');
+      .style('fill', 'none')
+      .transition()
+      .duration(1500)
+      .attrTween('stroke-dasharray', function () {
+        var len = this.getTotalLength();
+        return function (t) {
+          return (d3.interpolateString('0,' + len, len + ',0')(t));
+        };
+      });
+
 
     // Add the second line
 
@@ -198,7 +207,15 @@
       .attr('d', line2(dataArray2))
       .style('stroke', '#f8ff2a')
       .style('stroke-width', '4px')
-      .style('fill', 'none');
+      .style('fill', 'none')
+      .transition()
+      .duration(1500)
+      .attrTween('stroke-dasharray', function () {
+        var len = this.getTotalLength();
+        return function (t) {
+          return (d3.interpolateString('0,' + len, len + ',0')(t));
+        };
+      });
 
     // Add the first line label
 

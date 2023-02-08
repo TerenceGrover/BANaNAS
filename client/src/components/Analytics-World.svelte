@@ -6,6 +6,7 @@
   import categoryList from '../Utils/categoryList';
   import { getConclusion } from '../Utils/api-services';
   import LineGraph1 from './Data/Line-Graph1.svelte';
+  import { unitGenerator } from '../Utils/helpers';
 
   export let metaData;
   export let worldAvg;
@@ -14,19 +15,7 @@
 
   // metaData.what = metaData.what.label;
 
-  if (metaData.desc.match(/\(([^)]+)\)/)) {
-    if (metaData.desc.match(/\(([^)]+)\)/).length > 2) {
-      //Join element 1 and 2
-      metaData.unit =
-        metaData.desc.match(/\(([^)]+)\)/)[1] +
-        metaData.desc.match(/\(([^)]+)\)/)[2];
-    } else {
-      metaData.unit = metaData.desc.match(/\(([^)]+)\)/)[1];
-    }
-
-  } else {
-    metaData.unit = '';
-  }
+  metaData = unitGenerator(metaData);
 
   let conclusion = 'Concluding...';
 
@@ -76,9 +65,8 @@
     <div id="top-container">
       <ol>
         <li id="bullet-1">
-          {emoji} The World's {metaData.what.label} has an average of {meanData}
-          {emoji}
-          {metaData.unit}
+           The World's {metaData.what.label} {emoji} has an average of <strong>{meanData}
+          {metaData.unit}</strong>
         </li>
         <li id="bullet-3">
           Hot take : The world's only value is its banana production

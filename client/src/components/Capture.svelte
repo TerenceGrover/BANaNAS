@@ -16,28 +16,24 @@
   let filterYears = [];
   let filterYearsOff = [];
 
+  let captureMode = false;
+
   function handleDownload() {
     let captureEl = document.querySelector('#capture');
     let originalDisplay = captureEl.style.display;
-    captureEl.style.display = 'block';
 
-    html2canvas(captureEl, {
-      allowTaint: true,
-      ignoreElements: function (node) {
-        return node.style.display === 'none';
-      },
-    })
+    html2canvas(captureEl)
       .then((canvas) => {
-        // Generate the PDF
         let pdf = new jsPDF('p', 'mm', 'a4');
-        let pageWidth = pdf.internal.pageSize.width;
-        let imageWidth = canvas.width;
-        let x = (pageWidth - imageWidth) / 2;
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
         pdf.save('DataBanana.pdf');
 
         captureEl.style.display = originalDisplay;
-      })
+      }).then(
+        setTimeout(() => {
+          captureMode = false;
+        }, 150)
+      )
       .catch((error) => {
         console.error(error);
         captureEl.style.display = originalDisplay;
@@ -48,14 +44,19 @@
 <div id="b-container">
   <button
   on:click={() => {
+    captureMode = true;
     setTimeout(() => {
       handleDownload();
-    }, 1000);
-  }}>Download</button
+    }, 1500);
+  }}>
+  {captureMode ? 'Downloading...'  : 'Download'}
+  </button
 >
 </div>
 
-<div id="capture" style="display:none">
+{#if captureMode}
+
+<div id="capture">
   <h1 id="capture-header">
     {splitWordsOnCapitalLetters(leftData.what) +
       ' in ' +
@@ -92,11 +93,15 @@
   </div>
 </div>
 
+{/if}
+
 <style>
   #capture {
     position: absolute;
-    z-index: 10;
+    z-index: -1;
     background-color: #fff;
+    top: 1000000px;
+    right: 1000000px;
   }
 
   #capture-header {

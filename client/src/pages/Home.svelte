@@ -153,6 +153,18 @@
         Get the relation between any two kinds of data<br />With a twist
       </h3>
     </div>
+    {#if isMobile}
+      <div id="mobile-button">
+        <button id="get-started"
+          on:click={() => {
+            console.log('clicked');
+            changePage('character')
+            }}
+        >
+          Get Started
+        </button>
+      </div>
+    {:else}
     <div id="mode-select-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div id="single-player-container">
@@ -184,6 +196,7 @@
         <p id="multiplayer-label" class="label">Multiplayer</p>
       </div>
     </div>
+    {/if}
   </section>
 
   <div id="divider">
@@ -223,7 +236,8 @@
           and tries to find any correlation, no matter how wild or far-fetched.
           Created by a team of enthusiasts with a love for data analysis and a
           knack for finding connections where others see none. We use top secret
-          algorithms such as [formula placeholder] to aggregate the data, but
+          algorithms such as the <span><a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">
+          Pearson correlation coefficient</a></span> to aggregate the data, but
           don't let that fool you, we're not professional statisticians. We're
           more like professional data detectives, with a little bit of Sherlock
           Holmes and a little bit of Inspector Gadget. Please keep in mind that
@@ -243,7 +257,7 @@
             ><a href="https://www.shutterstock.com/g/heruka">HerukArt</a> - The
             Father of Monkeys. Our anonymous benefactor.
             <br />
-            <a href="https://openweathermap.org/api">Open Weather Map API</a> - Rain
+            <a href="https://open-meteo.com/">Open Meteo API</a> - Rain
             or sun, this API is always there for you.
           </span>
         </p>
@@ -430,6 +444,7 @@
     height: 85vh;
     width: 100vw;
     background-color: #052c46;
+    gap: 2vh
   }
 
   #top-header {
@@ -450,6 +465,24 @@
     background-color: #052c46;
   }
 
+  #mobile-button {
+    margin-top: 5vh;
+    z-index: 50;
+  }
+
+  #get-started {
+    font-size: 5vh;
+    font-family: 'Farro', sans-serif;
+    color: #052c46;
+    font-weight: 500;
+    border-radius: 15px;
+    filter: drop-shadow(10px 10px 0 black);
+    padding: 2.5vh 7.55vw;
+    background-color: #fed703;
+    border-style: none;
+    border: 2px solid white;
+  }
+
   #top-sub-header {
     font-size: 18px;
     font-family: 'Farro', sans-serif;
@@ -465,14 +498,6 @@
     min-width: 200px;
     z-index: 4;
   }
-  /* 
-  #multiplayer-container, #single {
-    transition: .5s ease;
-  }
-
-    #single:hover, #multiplayer-container:hover {
-    transform: scale(1.1);
-  } */
 
   #single-player-label {
     cursor: pointer;
@@ -519,6 +544,10 @@
     height: 25vh;
     cursor: pointer;
     z-index: 5;
+  }
+
+  #single {
+    margin-left: 15px;
   }
 
   #multi-1 {
