@@ -49,13 +49,15 @@
       <h2 id="selected-category-name">
         {splitWordsOnCapitalLetters(selectedCategory.name)}
       </h2>
-      <Player_Zone selectedPlayer={selectedCategory.name} player="P1" />
+      <div id="bounce">
+        <Player_Zone selectedPlayer={selectedCategory.name} player="?" />
+      </div>
     </div>
-      <SubSelectorSingle
-        {changePage}
-        bind:what
-        category={selectedCategory.name}
-      />
+    <SubSelectorSingle
+      {changePage}
+      bind:what
+      category={selectedCategory.name}
+    />
     <div id="globe-container">
       <img id="globe" src="../../assets/globe2.gif" alt="globe" />
     </div>
@@ -139,17 +141,6 @@
     z-index: 2;
   }
 
-  #selector-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    justify-content: center;
-    align-items: center;
-    z-index: 100000;
-    border: 1px solid red;
-  }
-
   #globe {
     height: 60vh;
   }
@@ -220,43 +211,22 @@
     -webkit-text-stroke: 1px black;
     filter: drop-shadow(3px 3px 0px #000000);
   }
-  .hidden {
-    display: none;
-  }
 
-  .show {
-    display: block;
-  }
-
-  #top-carousel {
-    z-index: 1000000;
-    position: absolute;
-    left: 25%;
-    top: 19.5%;
-    transform: translate(-50%, -50%);
-    width: fit-content;
-  }
-
-  #bot-carousel {
-    z-index: 1000000;
-    position: absolute;
-    left: 25%;
-    top: 75%;
-    transform: translate(-50%, -50%);
-    width: fit-content;
+  #bounce {
+    animation: pulse 3s infinite;
   }
 
   @keyframes pulse {
     0% {
-      transform: scale(0.95);
+      transform: scale(0.9);
     }
 
     50% {
-      transform: scale(1);
+      transform: scale(1.1);
     }
 
     100% {
-      transform: scale(0.95);
+      transform: scale(0.9);
     }
   }
 
@@ -290,24 +260,6 @@
       left: 50%;
       text-align: center;
       transform: translate(-50%, -50%);
-    }
-
-    #player-container-right {
-      position: absolute;
-      left: 50%;
-      top: 83%;
-      transform: translate(-50%, -50%);
-      width: 100vw;
-      height: 30vh;
-    }
-
-    #player-container-left {
-      position: absolute;
-      left: 50%;
-      top: 44%;
-      transform: translate(-50%, -50%);
-      width: 100vw;
-      height: 30vh;
     }
 
     #home-button {
