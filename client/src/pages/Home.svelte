@@ -153,6 +153,18 @@
         Get the relation between any two kinds of data<br />With a twist
       </h3>
     </div>
+    {#if isMobile}
+      <div id="mobile-button">
+        <button id="get-started"
+          on:click={() => {
+            console.log('clicked');
+            changePage('character')
+            }}
+        >
+          Get Started
+        </button>
+      </div>
+    {:else}
     <div id="mode-select-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div id="single-player-container">
@@ -184,6 +196,7 @@
         <p id="multiplayer-label" class="label">Multiplayer</p>
       </div>
     </div>
+    {/if}
   </section>
 
   <div id="divider">
@@ -431,6 +444,7 @@
     height: 85vh;
     width: 100vw;
     background-color: #052c46;
+    gap: 2vh
   }
 
   #top-header {
@@ -449,6 +463,24 @@
     text-align: center;
     margin-bottom: 10px;
     background-color: #052c46;
+  }
+
+  #mobile-button {
+    margin-top: 5vh;
+    z-index: 50;
+  }
+
+  #get-started {
+    font-size: 5vh;
+    font-family: 'Farro', sans-serif;
+    color: #052c46;
+    font-weight: 500;
+    border-radius: 15px;
+    filter: drop-shadow(10px 10px 0 black);
+    padding: 2.5vh 7.55vw;
+    background-color: #fed703;
+    border-style: none;
+    border: 2px solid white;
   }
 
   #top-sub-header {
