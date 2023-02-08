@@ -74,7 +74,11 @@
   <header id="header-section">
     <div id="button-container">
     <button id="home-button" on:click={() => changePage('home')}>
-      <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon"/>
+      {#if !isMobile}
+        <img id="home-icon" src="../../assets/icons/home.svg" alt="home-icon"/>
+      {:else}
+        <img id="home-icon-mobile" src="../../assets/icons/home.svg" alt="home-icon"/>
+      {/if}
       Home
     </button>
     <button id="back-button" on:click={() => changePage('character')}>
@@ -193,6 +197,11 @@
     margin-bottom: 1vh;
   }
 
+  #home-icon-mobile {
+    height: 2vh;
+    margin: 0 1vw;
+  }
+
   #home-button {
     font-size: 3vh;
     cursor: pointer;
@@ -256,8 +265,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 30vh;
+    height: 75vh;
     width: 100vw;
+    padding: 10vh 0;
     background-color: #052c46;
   }
 
@@ -323,6 +333,7 @@
 
   #footer{
     height: 10vh;
+    padding-left: 5vw;
   }
 
   @keyframes pulse {
