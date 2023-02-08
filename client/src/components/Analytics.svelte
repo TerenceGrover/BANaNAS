@@ -154,11 +154,11 @@
       <ol>
         <li id="bullet-1">
           {leftData.where}'s {leftWhat} has an average of {meanLeft}
-          {leftData.unit}
+          {leftData.unit}.
         </li>
         <li id="bullet-2">
           {rightData.where}'s {rightWhat} has an average of {meanRight}
-          {rightData.unit}
+          {rightData.unit}.
         </li>
         <li id="bullet-3">
           Everything is pointless and meaningless. Only bananas matter.
@@ -169,11 +169,11 @@
       <p id="paragraph">
         When
         {leftWhat} in {leftData.where}
-        goes up by one {leftData.unit},
+        goes up by 1 {leftData.unit},
         {rightWhat} in {rightData.where}
         {rIndex > 0
           ? 'goes up by ' + rIndex + ' ' + rightData.unit
-          : 'goes down by ' + Math.abs(rIndex) + ' ' + rightData.unit}
+          : 'goes down by ' + Math.abs(rIndex) + ' ' + rightData.unit}.
       </p>
       <p>
         During the requested time frame, the lowest {leftWhat} in {leftData.where}
@@ -265,6 +265,7 @@
     border-radius: 12px;
     box-shadow: 8px 8px 0px 2px #000000aa;
     text-align: center;
+    line-height: 2.5vh;
   }
 
   ol {
@@ -277,12 +278,13 @@
     font-family: 'Farro', sans-serif;
     font-weight: 600;
     font-size: 18px;
+    margin: 0 2vw;
   }
 
   #paragraph-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: 2vh;
     font-size: 16px;
