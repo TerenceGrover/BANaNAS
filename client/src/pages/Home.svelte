@@ -223,7 +223,8 @@
           and tries to find any correlation, no matter how wild or far-fetched.
           Created by a team of enthusiasts with a love for data analysis and a
           knack for finding connections where others see none. We use top secret
-          algorithms such as [formula placeholder] to aggregate the data, but
+          algorithms such as the <span><a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">
+          Pearson correlation coefficient</a></span> to aggregate the data, but
           don't let that fool you, we're not professional statisticians. We're
           more like professional data detectives, with a little bit of Sherlock
           Holmes and a little bit of Inspector Gadget. Please keep in mind that
