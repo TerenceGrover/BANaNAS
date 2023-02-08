@@ -1,4 +1,5 @@
-<h1>BANANAS Backend</h1>
+# <div align="center">🍌 <strong style="color: yellow"> BANaNAS Backend </strong> 🍌
+
 
 <p>Welcome to the backend repository for the BANANAS application, developed by the dynamic duo of Alessio and Seth! 🍌</p>
 
