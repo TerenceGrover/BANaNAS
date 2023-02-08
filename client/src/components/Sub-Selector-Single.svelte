@@ -5,7 +5,13 @@
   import { splitWordsOnCapitalLetters } from '../Utils/helpers';
   export let changePage;
 
-  $: whatItems = [{ value: 'First select a category below', label: 'First select a category below' }];
+  $: whatItems = [
+    {
+      value: 'First select a category below',
+      label: 'First select a category below',
+    },
+  ];
+
   const isMobile = window.innerWidth < 768;
 
   export let what;
@@ -33,19 +39,8 @@
 
   function handleclick() {
     isMobile
-      ? changePage(
-          'data',
-          { cat: category, what: what },
-          null,
-          'single'
-        )
-      : changePage(
-          'data',
-          { cat: category, what: what },
-          null,
-          'single'
-        );
-
+      ? changePage('data', { cat: category, what: what }, null, 'single')
+      : changePage('data', { cat: category, what: what }, null, 'single');
   }
 
   $: if (category) {
@@ -53,9 +48,8 @@
   }
 
   let topConfig = {
-    autoUpdate: true
+    autoUpdate: true,
   };
-
 </script>
 
 <main>
@@ -76,23 +70,21 @@
         </select>
       {:else}
         <Select
-        items={whatItems}
-        placeholder="Select a data point"
-        class="sub-input"
-        listAutoWidth={false}
-        id="What"
-        bind:value={what}
-        floatingConfig={topConfig}
-        clearable={false}
-        containerStyles="--list-max-height:200px;--height: 38px"
+          items={whatItems}
+          placeholder="Select a data point"
+          class="sub-input"
+          listAutoWidth={false}
+          id="What"
+          bind:value={what}
+          floatingConfig={topConfig}
+          clearable={false}
+          containerStyles="--list-max-height:200px;--height: 38px"
         />
       {/if}
     </div>
-    {#if what}
+    {#if what && what.label !== 'First select a category below'}
       <div id="button-container">
-        <button id='go' on:click={() => handleclick()} >
-          Go!
-        </button>
+        <button id="go" on:click={() => handleclick()}> Go! </button>
       </div>
     {/if}
   </div>
@@ -107,11 +99,6 @@
     border: none;
     outline: none;
     cursor: auto;
-  }
-
-  #disabled {
-    pointer-events: none;
-    opacity: 0.5;
   }
 
   .input-container {
@@ -130,16 +117,16 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 100%;
     gap: 1.5vh;
   }
   #go {
+    all: unset;
+    text-align: center;
     height: 5vh;
     width: 10vw;
-    border-radius: 5px;
-    background-color: #052c46e9;
-    border: 2px solid white;
-    color: #fed703;
+    border-radius: 8px;
+    color: #052c46e9;
+    background-color: #fed703;
     font-size: 3vh;
     font-family: 'Farro', sans-serif;
     cursor: pointer;
@@ -147,16 +134,18 @@
 
   #sub-container {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 15vh;
     width: 25vw;
-    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2.5vh;
     z-index: 100000;
-    padding: 2vh 2vw;
+    padding: 3vh 3vw;
     border: 3px solid white;
     border-radius: 16px;
     background-color: #3c5a6d42;
@@ -201,17 +190,6 @@
       border-radius: 6px;
       padding: 5px;
       gap: 5px;
-    }
-    .left {
-      top: 19.5%;
-      left: 70%;
-      margin-bottom: 20vh;
-    }
-
-    .right {
-      top: 75%;
-      left: 70%;
-      margin-right: 30px;
     }
   }
 </style>

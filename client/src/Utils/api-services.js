@@ -39,7 +39,12 @@ export async function getBananas() {
 }
 
 export async function getGlobalData(category, subCategory) {
-  const response = await fetch(`${API}/global/${category}/${subCategory}`)
+  let response
+  if (subCategory === 'Billionaires' || subCategory === 'banana Export'){
+    response = await fetch(`${API}/api/${category}/${subCategory}/global/1970/2022`)
+  }else {
+    response = await fetch(`${API}/global/${category}/${subCategory}`)
+  }
   return response.json()
 }
 

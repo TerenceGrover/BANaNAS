@@ -15,8 +15,8 @@
 
   onMount(() => {
     setTimeout(() => {
-        loading = false;
-      }, 3000);
+      loading = false;
+    }, 3000);
 
     if (isMobile) {
       leftCategory = 'Agriculture';
@@ -34,7 +34,6 @@
     hoveredCategory = { name: '' };
     what = '';
   }
-
 </script>
 
 <main>
@@ -43,17 +42,20 @@
     <Loader />
   {:else}
     <h1 id="title">Choose Your Fighter</h1>
-    <h2 id="hovered-category-name">{splitWordsOnCapitalLetters(hoveredCategory.name)}</h2>
+    <h2 id="hovered-category-name">
+      {splitWordsOnCapitalLetters(hoveredCategory.name)}
+    </h2>
     <div id="player-container">
-      <h2 id="selected-category-name">{splitWordsOnCapitalLetters(selectedCategory.name)}</h2>
+      <h2 id="selected-category-name">
+        {splitWordsOnCapitalLetters(selectedCategory.name)}
+      </h2>
       <Player_Zone selectedPlayer={selectedCategory.name} player="P1" />
     </div>
-    <div id="selector-container">
       <SubSelectorSingle
         {changePage}
-        bind:what={what}
-        category={selectedCategory.name} />
-    </div>
+        bind:what
+        category={selectedCategory.name}
+      />
     <div id="globe-container">
       <img id="globe" src="../../assets/globe2.gif" alt="globe" />
     </div>
@@ -85,8 +87,7 @@
 </main>
 
 <style>
-
-  *{
+  * {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -127,7 +128,7 @@
     -webkit-text-stroke: 1px black;
   }
 
-    #globe-container {
+  #globe-container {
     position: absolute;
     display: flex;
     width: 40vw;
@@ -140,14 +141,12 @@
 
   #selector-container {
     position: absolute;
-    display: flex;
-    width: 30vw;
-    height: 40vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     justify-content: center;
     align-items: center;
     z-index: 100000;
-    top: 30vh;
-    overflow: hidden;
     border: 1px solid red;
   }
 
@@ -172,7 +171,6 @@
     filter: drop-shadow(3px 3px 0px #000000aa);
   }
 
-
   #hovered-category-name {
     position: absolute;
     z-index: 1000000000;
@@ -194,12 +192,10 @@
     cursor: pointer;
     -webkit-text-stroke: 1px black;
     filter: drop-shadow(1px 1px 0px #000000);
-
   }
 
   #reset-icon {
     height: 3vh;
-    
   }
 
   #home-icon {
@@ -223,7 +219,6 @@
     gap: 5px;
     -webkit-text-stroke: 1px black;
     filter: drop-shadow(3px 3px 0px #000000);
-
   }
   .hidden {
     display: none;
@@ -280,8 +275,7 @@
   }
 
   @media screen and (max-width: 768px) {
-
-    *{
+    * {
       overflow: hidden;
     }
 
