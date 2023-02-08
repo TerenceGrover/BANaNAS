@@ -10,6 +10,7 @@
 
   onMount(async () => {
     drawGraph();
+    console.log('aaaaaaaaa')
     if (!isMobile) {
       window.addEventListener('resize', handleResize);
     }
@@ -20,7 +21,7 @@
   });
 
   const handleResize = () => {
-    d3.select('.line-graph').html('');
+    d3.select('.line-graph-one').html('');
     drawGraph();
   };
 
@@ -77,7 +78,7 @@
     // Adds the svg canvas
 
     let svg = d3
-      .select('.line-graph')
+      .select('.line-graph-one')
       .append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
@@ -185,7 +186,7 @@
 </script>
 
 <main>
-  <svg class="line-graph" />
+  <svg class="line-graph-one" />
 </main>
 
 <style>
@@ -193,7 +194,7 @@
     color: white;
   }
 
-  .line-graph {
+  .line-graph-one {
     width: 65vw;
     height: 55vh;
     background-color: #052c46;

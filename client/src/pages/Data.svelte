@@ -51,7 +51,7 @@
     );
     setTimeout(() => {
     loading = false;
-  }, 3000);
+  }, 4000);
   } else if (mode === 'single') {
     getGlobal().then(
       getGlobalAggregatedData(leftData.cat,leftData.what.value).then((data) => {
