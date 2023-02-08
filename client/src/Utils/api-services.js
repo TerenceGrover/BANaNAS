@@ -16,7 +16,8 @@ const filters = [
   'WoodExport',
   'KnobsAndHandlesExport',
   'Billionaires',
-  'Weather'
+  'Weather',
+  'bananaExport'
 ];
 
 export async function getSubCategories(selected) {
