@@ -11,7 +11,9 @@
 
   const isMobile = window.innerWidth < 768;
 
-  $: filterYears, console.log(filterYears);
+  $: data1, console.log(data1);
+  $: data2, console.log(data2);
+
 
   onMount(async () => {
     drawGraph();
@@ -62,7 +64,6 @@
   );
 
   function drawGraph() {
-    console.log('drawGraph');
     // Set the dimensions of the canvas / graph
     let margin = { top: 60, right: 120, bottom: 100, left: 100 },
       width = window.innerWidth * 0.72 - margin.left - margin.right,

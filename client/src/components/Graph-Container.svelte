@@ -33,6 +33,15 @@
   let filter = false;
   let filterCategories = [];
 
+  leftGraphData = Object.fromEntries(
+    Object.entries(leftGraphData).map(([key, value]) => [key, +value])
+  );
+  rightGraphData = Object.fromEntries(
+    Object.entries(rightGraphData).map(([key, value]) => [key, +value])
+  );
+
+
+
   // TEMPORARY POSITION TO BE CHANGED BASED ON DATA POSSIBILITIES
   let position = Math.floor((graphs.length - 1) / 2);
   let maxPosition = graphs.length - 1;
