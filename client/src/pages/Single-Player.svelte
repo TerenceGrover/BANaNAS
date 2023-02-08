@@ -145,6 +145,8 @@
     align-items: center;
     z-index: 100000;
     top: 30vh;
+    overflow: hidden;
+    border: 1px solid red;
   }
 
   #globe {

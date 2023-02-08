@@ -5,7 +5,7 @@
   import { splitWordsOnCapitalLetters } from '../Utils/helpers';
   export let changePage;
 
-  $: whatItems = [{ value: 'test', label: 'test' }];
+  $: whatItems = [{ value: 'First select a category below', label: 'First select a category below' }];
   const isMobile = window.innerWidth < 768;
 
   export let what;
