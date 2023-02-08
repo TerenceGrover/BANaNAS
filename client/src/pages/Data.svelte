@@ -1,4 +1,6 @@
 <script>
+  const isMobile = window.innerWidth < 768;
+
   export let changePage;
   export let leftData;
   export let rightData;
@@ -14,6 +16,7 @@
   import { tapoLogin } from '../Utils/api-services';
   import BarGraph from '../components/Data/Bar-Graph.svelte';
   import AnalyticsWorld from '../components/Analytics-World.svelte';
+  import Capture from '../components/Capture.svelte';
 
   let leftGraphData = [];
   let rightGraphData = [];
@@ -21,8 +24,6 @@
   let worldAvg = [];
 
   let loading = true;
-
-  $: mode, console.log(mode);
   
     async function getAllData() {
       getMetrics(leftData.cat, leftData.what, leftData.where).then((data) => {
@@ -92,6 +93,7 @@
       <Loader_1 />
     </div>
   {:else}
+  {#if !isMobile}
     {#if mode === 'single'}
     <div id="race-container">  
       <BarGraph data={worldData} metaData={leftData} />
@@ -99,6 +101,18 @@
     {:else if mode === 'multi'}
       <GraphContainer {leftData} {rightData} {leftGraphData} {rightGraphData} />
     {/if}
+    {:else if isMobile}
+      <div id="mobile-top-section">
+        <h1 id="mobile-header">Download your correlations here!</h1>
+        <div id="download-button">
+          <Capture 
+          {leftGraphData}
+          {rightGraphData}
+          {leftData}
+          {rightData}/>
+        </div>
+      </div>
+      {/if}
   {/if}
 
   <div id="divider">
@@ -234,6 +248,27 @@
     z-index: 1;
     -webkit-text-stroke: 2px black;
     filter: drop-shadow(3px 3px 0px #000000AA); 
+  }
+
+  #mobile-top-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 30vh;
+    width: 100vw;
+    background-color: #052c46;
+  }
+
+  #mobile-header {
+    font-size: 5vh;
+    font-family: 'Farro', sans-serif;
+    color: #fed703;
+    z-index: 1;
+    -webkit-text-stroke: 2px black;
+    filter: drop-shadow(3px 3px 0px #000000AA); 
+    text-align: center;
   }
 
   #hr-top-divider {

@@ -127,12 +127,13 @@
     <div id="button-container">
       <button
         class="detail-buttons"
-        on:click={() => ParagraphSelector('Transparency')}
-        ><i>🔎</i><br /></button
+        on:click={() => ParagraphSelector('Global')}
+        ><i>🌎</i><br /></button
       >
       <button
         class="detail-buttons"
-        on:click={() => ParagraphSelector('Concept')}><i>💡</i><br /></button
+        on:click={() => ParagraphSelector('Concept')}
+        ><i>💡</i><br /></button
       >
       <button
         class="detail-buttons"
