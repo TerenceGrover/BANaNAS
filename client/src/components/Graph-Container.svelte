@@ -17,12 +17,12 @@
 
   let graphs = [
     {
-      name: 'Line Graph',
-      component: LineGraph2,
-    },
-    {
       name: 'Scatterplot',
       component: Scatterplot,
+    },
+    {
+      name: 'Line Graph',
+      component: LineGraph2,
     },
     {
       name: 'Proximity Spectogram',
@@ -51,7 +51,6 @@
     container.classList.add(`slide-${direction}`);
 
     container.addEventListener('animationend', () => {
-      console.log('animationend: ', direction);
       container.classList.remove(`slide-${direction}`);
       if (direction === 'left') {
         position === 0 ? (position = maxPosition) : position--;
@@ -66,13 +65,12 @@
 
 <main>
   <section id="top-section">
-    <h2 id="top-sub-header">{graphs[position].name}</h2>
+    <h2 id="top-sub-header">{graphs[(position)].name}</h2>
     <button
       id="filter-button"
       on:click={async () => {
         await getFilterCategories().then((res) => (filterCategories = res));
         filter = !filter;
-        console.log(filterCategories);
       }}
     >
       <img
