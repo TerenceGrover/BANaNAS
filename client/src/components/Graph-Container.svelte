@@ -80,13 +80,13 @@
         alt="right-arrow"
       />
     </button>
-    <!-- <div id="download-button">
+    <div id="download-button">
       <Capture 
       {leftGraphData}
       {rightGraphData}
       {leftData}
       {rightData}/>
-    </div> -->
+    </div>
     {#if filterYears.length > 0}
       <input id="switch" type="checkbox" />
       <label
