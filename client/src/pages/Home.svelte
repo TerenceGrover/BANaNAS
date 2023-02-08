@@ -712,7 +712,6 @@
 
   #footer {
     height: 9.5vh;
-    /* padding-left: 5vw; */
   }
 
   i {
