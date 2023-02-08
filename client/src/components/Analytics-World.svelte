@@ -65,9 +65,8 @@
     <div id="top-container">
       <ol>
         <li id="bullet-1">
-          {emoji} The World's {metaData.what.label} has an average of {meanData}
-          {emoji}
-          {metaData.unit}
+           The World's {metaData.what.label} {emoji} has an average of <strong>{meanData}
+          {metaData.unit}</strong>
         </li>
         <li id="bullet-3">
           Hot take : The world's only value is its banana production
