@@ -110,7 +110,7 @@
     {:else if left.where === '' || right.where === ''}
     <h1 id="title">Choose Subject & Position for players</h1>
     {/if}
-    <h2 id="hovered-category-name">{hoveredCategory.name}</h2>
+    <h2 id="hovered-category-name">{splitWordsOnCapitalLetters(hoveredCategory.name)}</h2>
     <div id="player-zone-container">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div

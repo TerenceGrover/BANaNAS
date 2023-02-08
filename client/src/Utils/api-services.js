@@ -79,6 +79,7 @@ export async function getGlobalData(category, subCategory) {
 }
 
 export async function getGlobalAggregatedData(category, subCategory) {
+  console.log(category, subCategory);
   const response = await fetch(
     `${API}/api/${category}/${subCategory}/World/1970/2022`
   );
@@ -107,7 +108,6 @@ export async function getConclusion(
     rIndex,
   };
 
-  console.log(prompt);
   const response = await fetch(`${API}/gpt`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -115,7 +115,6 @@ export async function getConclusion(
   });
 
   let data = await response.json();
-  console.log(data);
 
   return data.conclusion;
 }

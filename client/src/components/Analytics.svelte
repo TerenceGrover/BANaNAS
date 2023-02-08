@@ -1,23 +1,19 @@
 <script>
   import {
     mean,
-    standardDeviation,
     getPearsonCorrelation,
     splitWordsOnCapitalLetters,
   } from '../Utils/helpers';
   import categoryList from '../Utils/categoryList';
-  import { getConclusion } from '../Utils/api-services';
-  import { BananoGram } from '../Utils/api-services';
+  import { getConclusion, BananoGram, getMetrics } from '../Utils/api-services';
 
   export let leftData;
   export let rightData;
   export let leftGraphData;
   export let rightGraphData;
 
-  let paragraph = 'Transparency';
-
-  leftData.what = splitWordsOnCapitalLetters(leftData.what);
-  rightData.what = splitWordsOnCapitalLetters(rightData.what);
+  let globalAverageLeft;
+  let globalAverageRight;
 
 
   if (leftData.desc.match(/\(([^)]+)\)/) && rightData.desc.match(/\(([^)]+)\)/)) {
@@ -51,16 +47,27 @@
   leftData.unit = leftData.unit.replace('current', '');
   rightData.unit = rightData.unit.replace('current', '');
 
-  function ParagraphSelector(newP) {
-    paragraph = newP;
-  }
-
   const leftWhat = splitWordsOnCapitalLetters(leftData.what);
   const rightWhat = splitWordsOnCapitalLetters(rightData.what);
 
   let conclusion = 'Concluding...';
 
   $: rIndex, conclude();
+
+  async function getGlobalAverage() {
+    const responseLeft = await getMetrics(leftData.cat, leftData.what, "World");
+    const responseRight = await getMetrics(rightData.cat, rightData.what, "World");
+    let leftValues;
+    let rightValues;
+    if (responseLeft) {
+      leftValues = Object.values(responseLeft).filter(data => data !== null)
+    }
+    if (responseRight) {
+      rightValues = Object.values(responseRight).filter(data => data !== null)
+    }
+    globalAverageLeft = mean(leftValues);
+    globalAverageRight = mean(rightValues);
+  }
 
   async function conclude() {
     const response = await getConclusion(
@@ -108,6 +115,7 @@
     }
   }
 
+  getGlobalAverage();
   BananoGram(leftData.what, rightData.what, leftData.where, rightData.where, String(rIndex));
 
 </script>
@@ -124,32 +132,32 @@
           : 'color: #fed703'}>{rIndex > 0 ? '+' + rIndex : rIndex}</i
       >
     </h2>
-    <div id="button-container">
-      <button
-        class="detail-buttons"
-        on:click={() => ParagraphSelector('Global')}
-        ><i>🌎</i><br /></button
-      >
-      <button
-        class="detail-buttons"
-        on:click={() => ParagraphSelector('Concept')}
-        ><i>💡</i><br /></button
-      >
-      <button
-        class="detail-buttons"
-        on:click={() => ParagraphSelector('Creators')}><i>☭</i><br /></button
-      >
+    <div id="global-info-container">
+      <div id="global-left" class="global-average">
+        {emojiLeft} 
+        Since records began, {leftData.where}'s {leftWhat} has been 
+        {meanLeft - globalAverageLeft > 0 ? 'above' : 'below'} the 
+        global average by {Math.abs(meanLeft - globalAverageLeft).toFixed(2)} 
+        {leftData.unit}.
+      </div>
+      <div id="global-right" class="global-average">
+        {emojiRight} 
+        {rightWhat} in {rightData.where} has been 
+        {meanRight - globalAverageRight > 0 ? 'above' : 'below'} the 
+        global average by {Math.abs(meanRight - globalAverageRight).toFixed(2)} 
+        {rightData.unit} since this data has been kept.
+      </div>
     </div>
   </div>
   <div id="right-container">
     <div id="top-container">
       <ol>
         <li id="bullet-1">
-          {leftData.where}'s {leftData.what} has an average of {meanLeft}
+          {leftData.where}'s {leftWhat} has an average of {meanLeft}
           {leftData.unit}
         </li>
         <li id="bullet-2">
-          {rightData.where}'s {rightData.what} has an average of {meanRight}
+          {rightData.where}'s {rightWhat} has an average of {meanRight}
           {rightData.unit}
         </li>
         <li id="bullet-3">
@@ -160,22 +168,22 @@
     <div id="paragraph-container">
       <p id="paragraph">
         When
-        {splitWordsOnCapitalLetters(leftData.what)} in {leftData.where}
+        {leftWhat} in {leftData.where}
         goes up by one {leftData.unit},
-        {splitWordsOnCapitalLetters(rightData.what)} in {rightData.where}
+        {rightWhat} in {rightData.where}
         {rIndex > 0
           ? 'goes up by ' + rIndex + ' ' + rightData.unit
           : 'goes down by ' + Math.abs(rIndex) + ' ' + rightData.unit}
       </p>
       <p>
-        During the requested time frame, the lowest {leftData.what} in {leftData.where}
+        During the requested time frame, the lowest {leftWhat} in {leftData.where}
         was {lowestLeft}
-        {leftData.unit} and the highest {leftData.what} was {highestLeft}
+        {leftData.unit} and the highest {leftWhat} was {highestLeft}
         {leftData.unit}.
       </p>
       <p>
-        On the other hand, the lowest {rightData.what} in {rightData.where} was {lowestRight}
-        {rightData.unit} and the highest {rightData.what} was {highestRight}
+        On the other hand, the lowest {rightWhat} in {rightData.where} was {lowestRight}
+        {rightData.unit} and the highest {rightWhat} was {highestRight}
         {rightData.unit}.
       </p>
       <p>The R-index is a measure of the correlation between two variables.</p>
@@ -200,16 +208,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 5vh;
+    justify-content: space-evenly;
     font-size: 18px;
     font-family: 'Farro', sans-serif;
     font-weight: 600;
     color: #052c46;
     background-color: #fed703;
     border: none;
-    padding: 7vh 4vw;
-    line-height: 4vh;
+    padding: 2vh 4vw;
   }
 
   #right-container {
@@ -236,42 +242,29 @@
     color: #fed703;
     background-color: #052c46;
     padding: 4vh 2vw;
-    margin-bottom: 20%;
+    margin-bottom: 10%;
     border-radius: 12px;
     box-shadow: 8px 8px 0px 2px #000000aa;
     text-decoration: underline;
     text-align: center;
   }
 
-  #button-container {
+  #global-info-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 25vw;
-    gap: 50px;
-    background-color: #fed703;
+    width: 100%;
+    gap: 5vh;
   }
 
-  .detail-buttons {
-    font-size: 20px;
-    font-family: 'Farro', sans-serif;
-    font-weight: 600;
-    color: #052c46;
-    background-color: #fed703;
-    border: none;
-    padding: 2vh 4vw;
-    border: 2px solid #052c46;
+  .global-average {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fed703;
+    background-color: #052c46;
+    padding: 4vh 2vw;
     border-radius: 12px;
-    box-shadow: 6px 6px 0px 2px #000000aa;
-    min-width: 180px;
-    max-width: 200px;
+    box-shadow: 8px 8px 0px 2px #000000aa;
     text-align: center;
-  }
-
-  .detail-buttons:hover {
-    cursor: pointer;
-    background-color: #ffe23c;
   }
 
   ol {
@@ -329,17 +322,6 @@
     #right-container{
       gap: 1.5vh;
     }
-
-    #button-container {
-      gap: 25px;
-      flex-direction: row;
-    }
-
-    .detail-buttons {
-    border-radius: 8px;
-    min-width: 25vw;
-    max-width: 25vw;
-  }
 
   }
 </style>
