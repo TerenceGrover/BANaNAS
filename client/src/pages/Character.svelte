@@ -332,7 +332,7 @@
     color: #fed703;
     z-index: 500;
     padding-top: 5vh;
-    filter: drop-shadow(5px 5px 0px #000000);
+    filter: drop-shadow(1px 1px 0px #000000);
     -webkit-text-stroke: 1px black;
   }
 
@@ -343,7 +343,7 @@
     color: #052c46;
     z-index: 500;
     padding-bottom: 5vh;
-    filter: drop-shadow(5px 5px 0px #000000);
+    filter: drop-shadow(1px 1px 0px #000000);
     -webkit-text-stroke: 1px black;
   }
 
