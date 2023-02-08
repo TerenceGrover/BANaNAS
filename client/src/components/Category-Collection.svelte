@@ -53,7 +53,6 @@
   display: flex;
   flex-direction: column;
   width: 40vw;
-  /* gap: 10px; */
 }
 
 .row {

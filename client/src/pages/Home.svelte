@@ -257,7 +257,7 @@
             ><a href="https://www.shutterstock.com/g/heruka">HerukArt</a> - The
             Father of Monkeys. Our anonymous benefactor.
             <br />
-            <a href="https://openweathermap.org/api">Open Weather Map API</a> - Rain
+            <a href="https://open-meteo.com/">Open Meteo API</a> - Rain
             or sun, this API is always there for you.
           </span>
         </p>
@@ -552,6 +552,10 @@
     height: 25vh;
     cursor: pointer;
     z-index: 5;
+  }
+
+  #single {
+    margin-left: 15px;
   }
 
   #multi-1 {
