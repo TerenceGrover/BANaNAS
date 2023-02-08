@@ -68,6 +68,10 @@ export function getPearsonCorrelation(dataset1, dataset2) {
   let step4 = Math.sqrt(step2 * step3)
   let answer = step1 / step4
 
+  if (answer === NaN || answer === Infinity || answer === -Infinity) {
+    return 0
+  }
+
   return answer
 }
 

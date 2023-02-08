@@ -1,19 +1,16 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import * as d3 from 'd3';
-  import { splitWordsOnCapitalLetters } from '../../Utils/helpers';
 
   export let data;
   export let metaData;
 
-  const isMobile = window.innerWidth < 768;
+  console.log('data', data);
+  console.log('metaData', metaData);
 
   onMount(async () => {
     drawGraph();
-    console.log('aaaaaaaaa')
-    if (!isMobile) {
-      window.addEventListener('resize', handleResize);
-    }
+    window.addEventListener('resize', handleResize);
   });
 
   onDestroy(() => {
@@ -29,6 +26,10 @@
     year: +year,
     value: value,
   }));
+
+  let aggregation = Object.values(data).reduce((acc, val) => acc + val, 0);
+
+  console.log(aggregation)
 
   const lowestYear = dataArray1[0].year;
   const highestYear = dataArray1[dataArray1.length - 1].year;
@@ -113,23 +114,38 @@
       .style('text-anchor', 'end')
       .text('Year');
 
+      if(aggregation) {
+        svg
+          .append('path')
+          .attr('class', 'line')
+          .attr('d', line1(dataArray1))
+          .style('stroke', '#fe9400')
+          .style('stroke-width', '4px')
+          .style('fill', 'none')
+          .transition()
+          .duration(2000)
+          .attrTween('stroke-dasharray', function () {
+            var len = this.getTotalLength();
+            return function (t) {
+              return d3.interpolateString('0,' + len, len + ',0')(t);
+            };
+          });
+      } else {
+        svg
+          .append('text')
+          .attr('class', 'title')
+          .attr('x', width / 2)
+          .attr('y', height / 2)
+          .style('text-anchor', 'middle')
+          .style('font-size', '18px')
+          .style('text-decoration', 'underline')
+          .style('text-decoration', 'bold')
+          .style('fill', '#fff')
+          .text('No Data Available');
+      }
+
     // Add the line
 
-    svg
-      .append('path')
-      .attr('class', 'line')
-      .attr('d', line1(dataArray1))
-      .style('stroke', '#fe9400')
-      .style('stroke-width', '4px')
-      .style('fill', 'none')
-      .transition()
-      .duration(2000)
-      .attrTween('stroke-dasharray', function () {
-        var len = this.getTotalLength();
-        return function (t) {
-          return (d3.interpolateString('0,' + len, len + ',0')(t));
-        };
-      });
 
     // Add the title
 
