@@ -497,14 +497,6 @@
     min-width: 200px;
     z-index: 4;
   }
-  /* 
-  #multiplayer-container, #single {
-    transition: .5s ease;
-  }
-
-    #single:hover, #multiplayer-container:hover {
-    transform: scale(1.1);
-  } */
 
   #single-player-label {
     cursor: pointer;

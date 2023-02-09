@@ -116,7 +116,7 @@
   }
 
   getGlobalAverage();
-  // BananoGram(leftData.what, rightData.what, leftData.where, rightData.where, String(rIndex));
+  BananoGram(leftData.what, rightData.what, leftData.where, rightData.where, String(rIndex));
 
 </script>
 
