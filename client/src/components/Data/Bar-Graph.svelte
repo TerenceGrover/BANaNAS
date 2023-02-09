@@ -5,7 +5,7 @@
   import { easeLinear } from 'd3-ease';
   import { select } from 'd3-selection';
   import { onMount, onDestroy } from 'svelte';
-  import { unitGenerator } from '../../Utils/helpers';
+  import { unitGenerator, PastelColor } from '../../Utils/helpers';
 
   export let data;
   export let metaData;
@@ -19,10 +19,17 @@
     metaData = unitGenerator(metaData);
   }
 
-  $ : metaData = metaData;
+  $: metaData = metaData;
 
   // get the years from the dataset
   let years = Object.keys(data);
+
+  // Trim out world for every year
+  if (data[years[0]].World) {
+    years.forEach((year) => {
+      delete data[year].World;
+    });
+  }
   // get the countries from the dataset
   let countries = [];
   years.forEach((year) => {
@@ -33,6 +40,16 @@
     });
   });
 
+  // create an array of objects with the country and a random color with the color persisting for the same country
+  const countryColors = {};
+
+  const getCountryColor = (country) => {
+    if (!countryColors[country]) {
+      countryColors[country] = PastelColor();
+    }
+    return countryColors[country];
+  };
+
   // get the maximum value for the bars
   let maxValue = max(Object.values(data[years[0]])) * 1.05;
 
@@ -42,6 +59,10 @@
 
   // create a function to update the bar chart
   function updateBarChart(year) {
+    maxValue = max(Object.values(data[year])) * 1.05;
+
+    // update the xScale with the new maxValue
+    xScale.domain([0, maxValue]);
 
     // get the values for the selected year
     let prevValues = [];
@@ -88,28 +109,27 @@
     // handle the exit selection
     bars.exit().remove();
 
-    // handle the update selection
+    // handle the update selection by allowing countries to overtake each other
     bars
-      .transition()
-      .duration(1000)
-      .ease(easeLinear)
-      .attr('y', (d, i) => yScale(countries[i]) * 15)
-      .attr('width', (d) => xScale(d))
-      .attr('height', 30)
-      .attr('fill', '#fed703');
+    .attr('fill', (d, i) => getCountryColor(mergedEntries[i][0]))
+    .transition()
+    .duration(1000)
+    .ease(easeLinear)
+    .attr('y', (d, i) => yScale(countries[i]) * 20)
+    .attr('width', (d) => xScale(d));
+
 
     // handle the enter selection
     bars
       .enter()
       .append('rect')
       .attr('y', height)
-      .attr('height', 30)
+      .attr('fill', (d, i) => getCountryColor(mergedEntries[i][0]))
       .transition()
       .duration(1000)
       .ease(easeLinear)
-      .attr('y', (d, i) => yScale(countries[i]) * 15)
-      .attr('width', (d) => xScale(d))
-      .attr('fill', '#fed703');
+      .attr('y', (d, i) => yScale(countries[i]) * 20)
+      .attr('width', (d) => xScale(d));
 
     // join the data to the text elements
     let texts = select('.bars')
@@ -124,7 +144,7 @@
       .transition()
       .duration(1000)
       .ease(easeLinear)
-      .attr('y', (d, i) => yScale(countries[i]) * 15 + 20)
+      .attr('y', (d, i) => yScale(countries[i]) * 20 + 25)
       .text((d, i) => {
         return mergedEntries[i][0];
       });
@@ -144,7 +164,7 @@
       .attr('font-size', 18)
       .attr('font-weight', 'bold')
       .attr('font-family', 'farro')
-      .attr('y', (d, i) => yScale(countries[i]) * 15 + 20);
+      .attr('y', (d, i) => yScale(countries[i]) * 20 + 25);
   }
 
   // use the onMount lifecycle method to initialize the bar chart
@@ -159,12 +179,9 @@
       .data(dataArray)
       .enter()
       .append('rect')
-      .attr('y', (d, i) => yScale(d[0]) * 15)
+      .attr('y', (d, i) => yScale(d[0]) * 20)
       .attr('width', (d) => xScale(d[1]))
-      .attr('height', 30)
-      .attr('fill', '#fed703')
-      .append('title')
-      .text((d) => d[0] + ': ' + d[1]);
+      .attr('height', 40)
 
     select('.year-label').text(years[0]);
 
@@ -196,7 +213,6 @@
       updateBarChart(years[index]);
 
       select('.year-label').text(years[index]);
-      console.log(years[index]);
 
       index = (index + 1) % years.length;
     }, 1000);

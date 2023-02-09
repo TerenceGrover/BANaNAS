@@ -11,7 +11,6 @@
           document.getElementById('right').style.right = '0';
         }, 1000)
       : setTimeout(() => {
-          console.log('mobile');
           document.getElementById('top-mobile').style.left = '0';
           document.getElementById('bot-mobile').style.right = '0';
           document.getElementById('bot-mobile').style.bottom = '0';

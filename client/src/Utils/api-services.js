@@ -79,7 +79,6 @@ export async function getGlobalData(category, subCategory) {
 }
 
 export async function getGlobalAggregatedData(category, subCategory) {
-  console.log(category, subCategory);
   const response = await fetch(
     `${API}/api/${category}/${subCategory}/World/1970/2022`
   );
@@ -90,7 +89,6 @@ export async function BananoGram(m1, m2, p1, p2, r) {
   const res = await fetch(
     `http://bananogram.local/on?metricOne=${m1}&metricTwo=${m2}&placeOne=${p1}&placeTwo=${p2}&r=${r}`
   );
-  console.log(res);
 }
 
 export async function getConclusion(

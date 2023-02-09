@@ -5,9 +5,6 @@
   export let data;
   export let metaData;
 
-  console.log('data', data);
-  console.log('metaData', metaData);
-
   onMount(async () => {
     drawGraph();
     window.addEventListener('resize', handleResize);
@@ -28,8 +25,6 @@
   }));
 
   let aggregation = Object.values(data).reduce((acc, val) => acc + val, 0);
-
-  console.log(aggregation)
 
   const lowestYear = dataArray1[0].year;
   const highestYear = dataArray1[dataArray1.length - 1].year;
