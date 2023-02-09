@@ -124,8 +124,6 @@
             document.getElementById('selector-right').classList.remove('show');
             document.getElementById('selector-right').classList.add('hidden');
           }
-          console.log(document.getElementById('selector-left'));
-          console.log(document.getElementById('selector-right'));
           selectedCategory = { name: '' };
           currentSide = 'left';
         }}
