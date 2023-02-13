@@ -19,9 +19,7 @@ async function handleLogin (e) {
   // add login function here
   try {
     const res = await tapoLogin(credentials)
-    console.log(res)
   } catch (err) {
-    console.log(err)
   }
 }
 

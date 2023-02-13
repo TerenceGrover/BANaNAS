@@ -147,7 +147,6 @@
       <div id="mobile-button">
         <button id="get-started"
           on:click={() => {
-            console.log('clicked');
             changePage('character')
             }}
         >

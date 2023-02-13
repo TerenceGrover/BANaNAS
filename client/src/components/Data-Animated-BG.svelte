@@ -7,7 +7,6 @@
       document.getElementById('left').style.left = '-100vw';
       document.getElementById('left-under').style.left = '-99.5vw';
       document.getElementById('right').style.right = '-100vw';
-      console.log('added')
     }, 250)
   })
 
