@@ -1,7 +1,11 @@
 # <img alt="GitHub Language Count" src="https://img.shields.io/github/languages/count/TerenceGrover/BANaNAS" /> <img alt="GitHub Closed Pull Requests" src="https://img.shields.io/github/issues-pr-closed/TerenceGrover/BANaNAS" /> <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/TerenceGrover/BANaNAS" />
 
 # <div align="center">🍌 <strong style="color: yellow"> BANaNAS </strong> - The Data Correlation App 🍌
+
+<img width="617" alt="Screenshot 2023-02-13 at 17 54 10" src="https://user-images.githubusercontent.com/109336882/218521207-685753fb-1ada-4875-b9ae-6b8a9d9dbb6d.png">
+
 Welcome to the world of BANaNAS, a web app developed by a team of four software engineering students with a passion for data analysis and a curious streak. The idea behind BANaNAS is to take two random pieces of data from around the web and see if they're related in any way. It's like a game of "Six Degrees of Kevin Bacon" but with data, and you never know what kind of interesting pattern you might uncover.
+
 
 
 
