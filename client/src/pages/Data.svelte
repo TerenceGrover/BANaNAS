@@ -13,7 +13,6 @@
   import Loader_1 from '../components/Loader-1.svelte';
   import DataAnimatedBg from '../components/Data-Animated-BG.svelte';
   import Analytics from '../components/Analytics.svelte';  
-  import { tapoLogin } from '../Utils/api-services';
   import BarGraph from '../components/Data/Bar-Graph.svelte';
   import AnalyticsWorld from '../components/Analytics-World.svelte';
   import Capture from '../components/Capture.svelte';

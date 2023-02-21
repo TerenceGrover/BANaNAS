@@ -1,5 +1,5 @@
 <script>
-  import { max, range } from 'd3-array';
+  import { max } from 'd3-array';
   import { axisTop } from 'd3-axis';
   import { scaleLinear, scaleBand } from 'd3-scale';
   import { easeLinear } from 'd3-ease';
@@ -24,71 +24,85 @@
   // get the years from the dataset
   let years = Object.keys(data);
 
-  // Trim out world for every year
-  if (data[years[0]].World) {
+    // Trim out world for every year
+    if (data[years[0]] && data[years[0]].World) {
+      years.forEach((year) => {
+        delete data[year].World;
+      });
+    }
+    // get the countries from the dataset
+    let countries = [];
     years.forEach((year) => {
-      delete data[year].World;
+      Object.keys(data[year]).forEach((country) => {
+        if (!countries.includes(country)) {
+          countries.push(country);
+        }
+      });
     });
-  }
-  // get the countries from the dataset
-  let countries = [];
-  years.forEach((year) => {
-    Object.keys(data[year]).forEach((country) => {
-      if (!countries.includes(country)) {
-        countries.push(country);
-      }
-    });
-  });
 
-  // create an array of objects with the country and a random color with the color persisting for the same country
-  const countryColors = {};
+    // create an array of objects with the country and a random color with the color persisting for the same country
+    const countryColors = {};
+
+    // get the maximum value for the bars
+    let maxValue = 0;
+    try {
+      maxValue = max(Object.values(data[years[0]])) * 1.05;
+    }
+    catch (e) {
+      maxValue = 0;
+    }
+
+    console.log(data[years[0]])
+
+    // create the scales for the x and y axis
+    let xScale = scaleLinear().domain([0, maxValue]).range([0, width]);
+    let yScale = scaleBand().domain(countries).range([0, height]).padding(0.25);
 
   const getCountryColor = (country) => {
-    if (!countryColors[country]) {
-      countryColors[country] = PastelColor();
-    }
-    return countryColors[country];
-  };
-
-  // get the maximum value for the bars
-  let maxValue = max(Object.values(data[years[0]])) * 1.05;
-
-  // create the scales for the x and y axis
-  let xScale = scaleLinear().domain([0, maxValue]).range([0, width]);
-  let yScale = scaleBand().domain(countries).range([0, height]).padding(0.25);
+      if (!countryColors[country]) {
+        countryColors[country] = PastelColor();
+      }
+      return countryColors[country];
+    };
 
   // create a function to update the bar chart
   function updateBarChart(year) {
-    maxValue = max(Object.values(data[year])) * 1.05;
 
-    // update the xScale with the new maxValue
-    xScale.domain([0, maxValue]);
-
-    // get the values for the selected year
-    let prevValues = [];
-    let prevEntries = [];
-    let values = Object.values(data[year]);
-    let entries = Object.entries(data[year]);
-    if (year !== years[0]) {
-      prevValues = Object.values(data[year - 1]);
-      prevEntries = Object.entries(data[year - 1]);
+    try {
+      maxValue = max(Object.values(data[year])) * 1.05;
     }
-
-    let mergedValues = values.map((value, index) => {
-      if (!value && prevValues[index]) {
-        return prevValues[index];
-      } else {
-        return value;
+    catch (e) {
+      maxValue = maxValue;
+    }
+      
+      // update the xScale with the new maxValue
+      xScale.domain([0, maxValue]);
+      
+      // get the values for the selected year
+      let prevValues = [];
+      let prevEntries = [];
+      let values = Object.values(data[year]) | [];
+      let entries = Object.entries(data[year]) | [];
+      if (year !== years[0]) {
+        prevValues = Object.values(data[year - 1]) | Object.values(data[year - 2]) | [] ;
+        prevEntries = Object.entries(data[year - 1]) | Object.entries(data[year - 2]) | [];
       }
-    });
-
-    let mergedEntries = entries.map((entry, index) => {
-      if (!entry[1] && prevEntries[index]) {
-        return prevEntries[index];
-      } else {
-        return entry;
-      }
-    });
+      
+      let mergedValues = values.map((value, index) => {
+        if (!value && prevValues[index]) {
+          return prevValues[index];
+        } else {
+          return value;
+        }
+      });
+      
+      let mergedEntries = entries.map((entry, index) => {
+        if (!entry[1] && prevEntries[index]) {
+          return prevEntries[index];
+        } else {
+          return entry;
+        }
+      });
 
     mergedValues.sort((a, b) => b - a);
     mergedEntries.sort((a, b) => b[1] - a[1]);
@@ -111,13 +125,12 @@
 
     // handle the update selection by allowing countries to overtake each other
     bars
-    .attr('fill', (d, i) => getCountryColor(mergedEntries[i][0]))
-    .transition()
-    .duration(1000)
-    .ease(easeLinear)
-    .attr('y', (d, i) => yScale(countries[i]) * 20)
-    .attr('width', (d) => xScale(d));
-
+      .attr('fill', (d, i) => getCountryColor(mergedEntries[i][0]))
+      .transition()
+      .duration(1000)
+      .ease(easeLinear)
+      .attr('y', (d, i) => yScale(countries[i]) * 20)
+      .attr('width', (d) => xScale(d));
 
     // handle the enter selection
     bars
@@ -165,6 +178,7 @@
       .attr('font-weight', 'bold')
       .attr('font-family', 'farro')
       .attr('y', (d, i) => yScale(countries[i]) * 20 + 25);
+
   }
 
   // use the onMount lifecycle method to initialize the bar chart
@@ -181,7 +195,7 @@
       .append('rect')
       .attr('y', (d, i) => yScale(d[0]) * 20)
       .attr('width', (d) => xScale(d[1]))
-      .attr('height', 40)
+      .attr('height', 40);
 
     select('.year-label').text(years[0]);
 
