@@ -131,16 +131,6 @@
 </script>
 
 <main on:mousemove={handleMove}>
-  <canvas id="canvas" />
-  <div id="right-icons-container">
-    <TapoConnect
-      bind:clickedBulb
-      bind:clickedCoffee
-      bind:clickedMonkey
-      bind:loggedIn
-      bind:credentials
-    />
-  </div>
   <div id="left-icons-container">
     <Coffee bind:clickedBulb bind:clickedCoffee bind:clickedMonkey />
     <Monkey bind:clickedBulb bind:clickedCoffee bind:clickedMonkey />
