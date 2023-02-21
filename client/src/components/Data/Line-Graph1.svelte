@@ -61,13 +61,31 @@
     let xAxis = d3.axisBottom(x).tickFormat(d3.format('d')).tickPadding(10);
 
     // Define the two line generators
+    // let line1 = d3
+    //   .line()
+    //   .x(function (d) {
+    //     return x(d.year);
+    //   })
+    //   .y(function (d) {
+    //     return yLeft(d.value | 0);
+    //   })
+    //   .curve(d3.curveMonotoneX);
+
     let line1 = d3
       .line()
       .x(function (d) {
-        return x(d.year);
+        if (isNaN(d.value)) {
+          return null; // Return null to skip the year
+        } else  {
+          return x(d.year);
+        }
       })
       .y(function (d) {
         return yLeft(d.value);
+      })
+      .defined(function (d) {
+        // Use defined() to skip the points with NaN value
+        return !isNaN(d.value);
       })
       .curve(d3.curveMonotoneX);
 
@@ -109,38 +127,37 @@
       .style('text-anchor', 'end')
       .text('Year');
 
-      if(aggregation) {
-        svg
-          .append('path')
-          .attr('class', 'line')
-          .attr('d', line1(dataArray1))
-          .style('stroke', '#fe9400')
-          .style('stroke-width', '4px')
-          .style('fill', 'none')
-          .transition()
-          .duration(2000)
-          .attrTween('stroke-dasharray', function () {
-            var len = this.getTotalLength();
-            return function (t) {
-              return d3.interpolateString('0,' + len, len + ',0')(t);
-            };
-          });
-      } else {
-        svg
-          .append('text')
-          .attr('class', 'title')
-          .attr('x', width / 2)
-          .attr('y', height / 2)
-          .style('text-anchor', 'middle')
-          .style('font-size', '18px')
-          .style('text-decoration', 'underline')
-          .style('text-decoration', 'bold')
-          .style('fill', '#fff')
-          .text('No Data Available');
-      }
+    if (aggregation) {
+      svg
+        .append('path')
+        .attr('class', 'line')
+        .attr('d', line1(dataArray1))
+        .style('stroke', '#fe9400')
+        .style('stroke-width', '4px')
+        .style('fill', 'none')
+        .transition()
+        .duration(2000)
+        .attrTween('stroke-dasharray', function () {
+          var len = this.getTotalLength();
+          return function (t) {
+            return d3.interpolateString('0,' + len, len + ',0')(t);
+          };
+        });
+    } else {
+      svg
+        .append('text')
+        .attr('class', 'title')
+        .attr('x', width / 2)
+        .attr('y', height / 2)
+        .style('text-anchor', 'middle')
+        .style('font-size', '18px')
+        .style('text-decoration', 'underline')
+        .style('text-decoration', 'bold')
+        .style('fill', '#fff')
+        .text('No Data Available');
+    }
 
     // Add the line
-
 
     // Add the title
 
