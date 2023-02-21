@@ -351,13 +351,10 @@ async function availableCountries() {
           availability[commodityName].push(country);
         }
       }
-      console.log(availability, ' done with ', commodityName);
     }
-    console.log(availability, 'done');
     let json = JSON.stringify(availability);
     fs.writeFileSync('availability.json', json, { encoding: 'utf8' });
   } catch (err) {
-    console.log(err);
   }
 }
 

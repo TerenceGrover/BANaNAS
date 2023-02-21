@@ -20,7 +20,6 @@ const sequelize = new Sequelize('your db connection string', {
 await (async function start() {
   try {
     await sequelize.authenticate();
-    console.log('Connection to db ok');
   } catch (error) {
     console.log('err' + error);
   }
