@@ -88,7 +88,7 @@
       />
     </button>
     <div id="download-button">
-      <Capture 
+      <Capture
       {leftGraphData}
       {rightGraphData}
       {leftData}
@@ -178,7 +178,7 @@
 
   <!-- Avoiding Tree Shaking, do not remove -->
   <div class="slide-right slide-left" />
-  
+
 </main>
 
 
@@ -188,7 +188,7 @@
   main{
     overflow-x: hidden;
   }
-  
+
   #top-section {
     position: relative;
     display: flex;

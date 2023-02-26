@@ -131,22 +131,20 @@
     flex-direction : column;
     justify-content : center;
     align-items : center;
-    /* margin: 15px 0; */
   }
 
   button {
     font-size: 15px;
     font-family: 'Farro', sans-serif;
-    font-weight: 400;
+    font-weight: 500;
     color: #052c46;
     background-color: #fed703;
     border: none;
     padding: 1vh 2vw;
-    border: 2px solid #052c46;
     border-radius: 6px;
     box-shadow: 6px 6px 0px 2px #000000aa;
     min-width: 150px;
-    max-width: 150px;
+    max-width: 200px;
     z-index: 3;
   }
 
