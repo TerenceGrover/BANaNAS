@@ -103,6 +103,9 @@
   let highestLeft = largeNumbercompactor(Math.max(...arrLeft));
   let highestRight = largeNumbercompactor(Math.max(...arrRight));
 
+  let lowestYear = Object.keys(rightGraphData)[0]
+  let highestYear = Object.keys(rightGraphData)[(arrRight.length)-1]
+
   let rIndex = getPearsonCorrelation(arrLeft, arrRight).toFixed(3);
 
   function largeNumbercompactor(number) {
@@ -134,18 +137,18 @@
     </h2>
     <div id="global-info-container">
       <div id="global-left" class="global-average">
-        {emojiLeft} 
-        Since records began, {leftData.where}'s {leftWhat} has been 
-        {meanLeft - globalAverageLeft > 0 ? 'above' : 'below'} the 
-        global average by {Math.abs(meanLeft - globalAverageLeft).toFixed(2)} 
+        {emojiLeft}
+        Since records began, {leftData.where}'s {leftWhat} has been
+        {meanLeft - globalAverageLeft > 0 ? 'above' : 'below'} the
+        global average by {Math.abs(meanLeft - globalAverageLeft).toFixed(2)}
         {leftData.unit}.
       </div>
       <div id="global-right" class="global-average">
-        {emojiRight} 
-        {rightWhat} in {rightData.where} has been 
-        {meanRight - globalAverageRight > 0 ? 'above' : 'below'} the 
-        global average by {Math.abs(meanRight - globalAverageRight).toFixed(2)} 
-        {rightData.unit} since this data has been kept.
+        {emojiRight}
+        {rightWhat} in {rightData.where} has been
+        {meanRight - globalAverageRight > 0 ? 'above' : 'below'} the
+        global average by {Math.abs(meanRight - globalAverageRight).toFixed(2)}
+        {rightData.unit} in between {lowestYear} and {highestYear}.
       </div>
     </div>
   </div>
