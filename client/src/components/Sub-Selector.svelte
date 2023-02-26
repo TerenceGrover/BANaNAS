@@ -149,7 +149,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100%;
+    width: 15vw;
     gap: 1.5vh;
     background-color: #fed703;
     border-radius: 10px;
