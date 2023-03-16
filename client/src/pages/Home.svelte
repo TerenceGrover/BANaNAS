@@ -164,7 +164,7 @@
           class="players"
           on:click={() => changePage('single-player')}
         />
-        <p id="single-player-label" class="label">Single Player</p>
+        <p id="single-player-label" class="label">Single Player<br/>(Experimental)</p>
       </div>
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div id="multiplayer-container">
